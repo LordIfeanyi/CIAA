@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Dietwise Tracker</title>
+    <title>CIAA Meals</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Dietwise Tracker</h1>
-    <p>Sign up for Dietwise Tracker</p>
-    <form method="post" action="https://dietwisetracker.com">
+    <h1>CIAA Meals</h1>
+    <p>Sign up for CIAA Meals</p>
+    <form method="post" action="https://CIAAmeals.com">
       <fieldset>
         <label for="first-name"
           >Enter Your First Name:
@@ -21,6 +21,15 @@
         <label for="email"
           >Enter Your Email:
           <input id="email" name="email" type="email" required
+        /></label>
+        <label for="username"
+          >Create a Username:
+          <input
+            id="username"
+            name="username"
+            type="username"
+            pattern="[a-z0-5]{8,}"
+            required
         /></label>
         <label for="new-password"
           >Create a New Password:
