@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Dietwise Tracker</title>
+    <title>Dietwise Tracke</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -21,6 +21,15 @@
         <label for="email"
           >Enter Your Email:
           <input id="email" name="email" type="email" required
+        /></label>
+        <label for="username"
+          >Create a Username:
+          <input
+            id="username"
+            name="username"
+            type="username"
+            pattern="[a-z0-5]{8,}"
+            required
         /></label>
         <label for="new-password"
           >Create a New Password:
