@@ -15,21 +15,21 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/loggedin")
+    @PostMapping("/login")
     public String register(@ModelAttribute UserSignIn userSignIn) {
         
         // validation
-        System.out.println("passed UserSignIn: " + userSignIn.toString());
+        System.out.println("passed: " + userSignIn.toString());
         
         boolean result = Control.checkIfExists(userSignIn);
 
         // validation
-        System.out.println("Control.checkIfExists() returned " + result);
+        System.out.println("Control.checkIfExists() returned result = " + result);
         
-        if(result) { // user credentials exist in "users"
-            return "home"; // go to home page
+        if(result) { // if the entered user credentials exist in "users"
+            return "redirect:/home"; // go to home page
         } else {
-            return "login";
+            return "redirect:/login";
         }
     }
 }

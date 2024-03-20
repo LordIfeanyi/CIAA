@@ -15,17 +15,23 @@ public class RegisterController {
         return "register";
     }
 
-    @PostMapping("/registered")
+    @PostMapping("/register")
     public String register(@ModelAttribute User user) {
 
-        // validation
-        System.out.println(user.toString());
+        if(user != null) {
 
-        Control.addUser(user);
+            // validation
+            System.out.println(user.toString());
 
-        // validation
-        Control.printUsers();
-        
-        return "login";
+            Control.addUser(user);
+
+            // validation
+            Control.printUsers();
+            
+            return "redirect:/login";
+            
+        } else {
+            return "redirect:/register";
+        }
     }
 }

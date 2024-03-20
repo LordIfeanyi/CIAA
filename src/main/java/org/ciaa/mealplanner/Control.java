@@ -26,8 +26,10 @@ public class Control {
     }
 
     public static void printUsers() {
+        System.out.println("USERS:\n==========");
         for(User user : users) {
             System.out.println(user.toString() + ", \n");
         }
+        System.out.println("\n==========");
     }
 }
