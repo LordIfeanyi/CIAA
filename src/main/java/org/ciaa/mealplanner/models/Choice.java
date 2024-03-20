@@ -1,4 +1,4 @@
-package org.ciaa.mealplanner;
+package org.ciaa.mealplanner.models;
 
 public class Choice {
     
