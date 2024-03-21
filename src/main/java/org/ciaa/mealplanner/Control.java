@@ -7,27 +7,34 @@ import org.ciaa.mealplanner.models.User;
 import org.ciaa.mealplanner.models.UserSignIn;
 
 public class Control {
-    
+
     private static List<User> users = new ArrayList<User>();
 
     public static void addUser(User user) {
         users.add(user);
     }
 
-    // returns true if the passed UserSignIn corresponds to a user in users
-    public static boolean checkIfExists(UserSignIn userSignIn) {
+    /**
+     * If the passed UserSignIn corresponds to a User in users, return that user's
+     * id, otherwise return an empty string.
+     * 
+     * @param userSignIn
+     * @return
+     */
+    public static User checkIfExists(UserSignIn userSignIn) {
 
-        for(User user : users) {
-            if(user.getUsername().equals(userSignIn.getUsername()) && user.getPassword().equals(userSignIn.getPassword())) {
-                return true;
+        for (User user : users) {
+            if (user.getUsername().equals(userSignIn.getUsername())
+                    && user.getPassword().equals(userSignIn.getPassword())) {
+                return user;
             }
         }
-        return false;
+        return null;
     }
 
     public static void printUsers() {
         System.out.println("USERS:\n==========");
-        for(User user : users) {
+        for (User user : users) {
             System.out.println(user.toString() + ", \n");
         }
         System.out.println("\n==========");

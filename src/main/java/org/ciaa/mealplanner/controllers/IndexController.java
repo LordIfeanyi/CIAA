@@ -1,20 +1,24 @@
 package org.ciaa.mealplanner.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class IndexController {
     
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+
     @PostMapping("/start")
-    public String start(@RequestParam String choice) {
+    public String start(@RequestParam("submitFormButton") String submitFormbutton) {
 
-        System.out.println("Choice = " + choice);
-
-        if(choice.equals("register")) {
+        if(submitFormbutton.equals("register")) {
             return "redirect:/register";
-        } else if (choice.equals("login")) {
+        } else if(submitFormbutton.equals("login")) {
             return "redirect:/login";
         } else {
             return "redirect:/index";

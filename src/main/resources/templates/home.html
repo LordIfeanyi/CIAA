@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <h1>CIAA Meals Home Page</h1>
+    <h1>CIAA Meals Home Page</h1> <br />
+    <h1> Welcome <span th:text="${session.firstName}"></span>!</h1>
 </body>
 
 </html>
