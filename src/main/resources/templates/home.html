@@ -10,6 +10,19 @@
 <body>
     <h1>CIAA Meals Home Page</h1> <br />
     <h1> Welcome <span th:text="${session.firstName}"></span>!</h1>
+
+    <form action="/home" method="post">
+
+        <button type="submit" name="submitFormButton" value="userInfo">User Info</button>
+        <br />
+        <button type="submit" name="submitFormButton" value="savedMeals">Saved Meals</button>
+        <br />
+        <button type="submit" name="submitFormButton" value="mealSearch">Meal Search</button>
+        <br />
+        <button type="submit" name="submitFormButton" value="mealSuggest">Meal Suggestions</button>
+    
+      </form>
+
 </body>
 
 </html>
