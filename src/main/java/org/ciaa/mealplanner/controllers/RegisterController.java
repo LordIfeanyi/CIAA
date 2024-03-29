@@ -8,14 +8,37 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * The controller class responsible for handling requests from the register page
+ * of the application, "register.html".
+ */
 @Controller
 public class RegisterController {
 
+    /**
+     * Handles GET requests from "register.html". Responsible for displaying
+     * "register.html".
+     * 
+     * @return the name of the html file to be displayed.
+     */
     @GetMapping("/register")
     public String register() {
         return "register";
     }
 
+    /**
+     * Handles POST requests from "register.html". Redirects the user to
+     * "index.html" if the "Return to Start page" button is pressed, or
+     * "register.html" (this same page) if unable to create a new User. Creates a
+     * new User object with the data entered by the user into the register page and
+     * adds it to the list of User objects, "users", in "Control.java".
+     * 
+     * @param user             the User object automatically created by the
+     *                         "@ModelAttribute" SpringBoot annotation from the data
+     *                         from the html form.
+     * @param submitFormButton the result of the button press from "register.html".
+     * @return the name of the html file to be displayed.
+     */
     @PostMapping("/register")
     public String register(@ModelAttribute User user, @RequestParam("submitFormButton") String submitFormButton) {
 
@@ -29,17 +52,10 @@ public class RegisterController {
             return "redirect:/register";
         }
 
-        /* debug */
-        // System.out.println(user.toString());
-
+        // add the new user to the list of users in Control
         Control.addUser(user);
-
-        /* debug */
-        // Control.printUsers();
 
         // go to login page after registering
         return "redirect:/login";
-
     }
-
 }
