@@ -118,7 +118,14 @@
 <body>
 
   <h1>CIAA Meals Register</h1>
+
+  <!-- Note: this html file contains 2 forms. -->
+
   <form action="/register" method="post">
+
+    <!-- This first form sends a http POST request to the endpoint "/register" only 
+      once all the fields have been filled out. This request is then handled in 
+      "RegisterController.java" by the PostMapping method. -->
 
     <label for="firstName">First name :</label>
     <input type="text" name="firstName" required /> <br />
@@ -140,6 +147,12 @@
   </form>
 
   <form action="/register" method="post" novalidate>
+
+    <!-- This second form sends a http POST request to the endpoint "/register"
+      regardless of whether the fields have been filled out (that's what the 
+      "novalidate attribute does"). This request is then handled in "RegisterController.java" 
+      by the PostMapping method. -->
+
     <button type="submit" name="submitFormButton" value="start">Return to Start page</button>
   </form>
 

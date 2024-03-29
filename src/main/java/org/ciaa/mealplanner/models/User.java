@@ -1,5 +1,11 @@
 package org.ciaa.mealplanner.models;
 
+/**
+ * A class representing a registered user of the system. When a new user
+ * registers, a new instance of this class is created in
+ * "RegisterController.java", and is added to the list of User objects, "users",
+ * in "Control.java".
+ */
 public class User {
 
     private String firstName;
