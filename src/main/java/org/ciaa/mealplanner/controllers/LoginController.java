@@ -1,8 +1,7 @@
 package org.ciaa.mealplanner.controllers;
 
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.models.User;
-import org.ciaa.mealplanner.models.UserSignIn;
+import org.ciaa.mealplanner.UserSignIn;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,12 +49,10 @@ public class LoginController {
         if (submitFormButton.equals("start")) {
             return "redirect:/index";
         }
-
-        User user = Control.checkIfExists(userSignIn);
-
-        // if the UserSignIn is authenticated
-        if (user != null) {
-            session.setAttribute("firstName", user.getFirstName());
+        
+        boolean result = Control.authenticateUser(userSignIn);
+        if (result) {
+            session.setAttribute("firstName", Control.getCurrentUser().getFirstName());
             return "redirect:/home"; // enter the home page
         } else {
             return "redirect:/login"; // reload the login page

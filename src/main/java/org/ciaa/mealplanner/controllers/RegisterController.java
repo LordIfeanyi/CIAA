@@ -1,7 +1,7 @@
 package org.ciaa.mealplanner.controllers;
 
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.models.User;
+import org.ciaa.mealplanner.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,7 +53,7 @@ public class RegisterController {
         }
 
         // add the new user to the list of users in Control
-        Control.addUser(user);
+        Control.addNewUser(user);
 
         // go to login page after registering
         return "redirect:/login";

@@ -1,10 +1,10 @@
 package org.ciaa.mealplanner;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.ciaa.mealplanner.utilities.ApiHandler;
+import org.ciaa.mealplanner.utilities.TextFileHandler;
 
-import org.ciaa.mealplanner.models.User;
-import org.ciaa.mealplanner.models.UserSignIn;
+// import java.util.ArrayList;
+// import java.util.List;
 
 /**
  * Currently a set of static methods and an attribute responsible for saving
@@ -13,51 +13,86 @@ import org.ciaa.mealplanner.models.UserSignIn;
 public class Control {
 
     /**
-     * An ArrayList of User objects representing the users currently registered in
-     * the system. This is a temporary implementation! We need to implement user
-     * data management externally (via a text file) so that it is saved indepdent
-     * of deployments.
+     * The User object representing the user currently using the application.
      */
-    private static List<User> users = new ArrayList<User>();
+    private static User currentUser;
 
     /**
-     * Adds a User to the ArrayList of Users, "users".
+     * Uses TextFileHandler to add a new User to the text file.
      * 
      * @param user the new User to be added.
      */
-    public static void addUser(User user) {
-        users.add(user);
+    public static void addNewUser(User user) {
+        TextFileHandler.addUser(user);
     }
 
     /**
-     * Verifies that the credentials of the passed UserSignIn object are consistent
-     * with a User in the "users" ArrayList. If there exists a corresponding User in
-     * users, this method returns that User, otherwise returns null.
+     * Sets the passed User as the currentUser field.
      * 
-     * @param userSignIn the UserSignIn object whose credentials will be compared
-     *                   against all User objects in "users" for a match.
-     * @return the User in "users" whose credentials correspond to the passsed
-     *         UserSignIn object, or null
+     * @param user the User to be set as the currentUser.
      */
-    public static User checkIfExists(UserSignIn userSignIn) {
-
-        for (User user : users) {
-            if (user.getUsername().equals(userSignIn.getUsername())
-                    && user.getPassword().equals(userSignIn.getPassword())) {
-                return user;
-            }
-        }
-        return null;
+    public static void setCurrentUser(User user) {
+        currentUser = user;
     }
 
     /**
-     * Prints the user array; used for troubleshooting.
+     * Returns the static current user field.
+     * 
+     * @return the current User.
      */
-    public static void printUsers() {
-        System.out.println("USERS:\n==========");
-        for (User user : users) {
-            System.out.println(user.toString() + ", \n");
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * Creates a new User object with attributes from the passed line of the text
+     * file.
+     * 
+     * @param textFileLine a line from the text file.
+     */
+    public static void setCurrentUser(String textFileLine) {
+
+        currentUser = new User();
+        currentUser.setId(TextFileHandler.getId(textFileLine));
+        currentUser.setFirstName(TextFileHandler.getFirstName(textFileLine));
+        currentUser.setLastName(TextFileHandler.getLastName(textFileLine));
+        currentUser.setEmail(TextFileHandler.getEmail(textFileLine));
+        currentUser.setUsername(TextFileHandler.getUsername(textFileLine));
+        currentUser.setPassword(TextFileHandler.getPassword(textFileLine));
+    }
+
+    /**
+     * Checks if the userSignIn corresponds to a User in the text file. If it does,
+     * makes a new User with that line's attributes via Control.setCurrentUser(),
+     * sets that as the currentUser, and returns true.
+     * 
+     * @param userSignIn the UserSignIn to be checked against the user data in the
+     *                   text file.
+     * @return method returns true if the userSignIn corresponds to a User in the
+     *         text file, false otherwise.
+     */
+    public static boolean authenticateUser(UserSignIn userSignIn) {
+
+        String textFileLine = TextFileHandler.checkForMatch(userSignIn.getUsername(), userSignIn.getPassword());
+
+        if (textFileLine != null) {
+            setCurrentUser(textFileLine);
+            return true;
+        } else {
+            return false;
         }
-        System.out.println("\n==========");
+    }
+
+    /**
+     * Uses ApiHandler to make a request using the intolerances of the current User.
+     */
+    public static void getSuggestions() {
+
+        ApiHandler.setUri(currentUser);
+        try {
+            ApiHandler.makeGetRequest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
