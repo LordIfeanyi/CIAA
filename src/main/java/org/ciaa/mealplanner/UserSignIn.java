@@ -1,9 +1,9 @@
-package org.ciaa.mealplanner.models;
+package org.ciaa.mealplanner;
 
 /**
  * A class representing a user log-in attempt. When a user attempts to log in, a
- * new instance of this class is created in "LoginController.java", and is then
- * used in the checkIfExists() method of "Control.java" for user verification.
+ * new instance of this class is created automatically in the login controller
+ * class.
  */
 public class UserSignIn {
 

@@ -1,24 +1,27 @@
-package org.ciaa.mealplanner.models;
+package org.ciaa.mealplanner;
 
 /**
- * A class representing a registered user of the system. When a new user
- * registers, a new instance of this class is created in
- * "RegisterController.java", and is added to the list of User objects, "users",
- * in "Control.java".
+ * A class representing a registered user of the system.
  */
 public class User {
 
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
     private String password;
-
-    private String id;
+    private String[] intolerances;
 
     // Constructor
     public User() {
-        id = username + System.currentTimeMillis();
+        id = "" + System.currentTimeMillis();
+
+        // testing
+        intolerances = new String[3];
+        intolerances[0] = "dairy";
+        intolerances[1] = "egg";
+        intolerances[2] = "peanut";
     }
 
     public String getId() {
@@ -75,4 +78,11 @@ public class User {
                 + ", password=" + password + "]";
     }
 
+    public String[] getIntolerances() {
+        return intolerances;
+    }
+
+    public void setIntolerances(String[] intolerances) {
+        this.intolerances = intolerances;
+    }
 }
