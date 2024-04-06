@@ -1,24 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>CIAA Meals Meal Suggest Page</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Suggester</title>
+    <!-- Link to Bootstrap CSS hosted on unpkg CDN -->
+    <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add any additional CSS files or stylesheets here -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add inline CSS to set the background image of the header -->
+    <style>
+        /* Add custom styles here */
+        header {
+            background-color: #007bff; /* Bootstrap primary color */
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Meal Suggest</h1> <br />
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="homePage.html">Home</a>
+            </div>
+        </nav>
+    </header>
 
-    <form action="/mealSuggest" method="post" novalidate>
+    <main class="container">
+        <!-- Meal suggestion form -->
+        <section>
+            <h2 class="my-4">Get Meal Suggestions</h2>
+            <form id="mealSuggestForm">
+                <div class="mb-3">
+                    <label for="preferences" class="form-label">Preferences:</label>
+                    <input type="text" class="form-control" id="preferences" placeholder="Enter dietary preferences">
+                </div>
+                <button type="submit" class="btn btn-primary">Get Suggestions</button>
+            </form>
+        </section>
 
-        <!-- Note: this html file is a form that when submitted, sends a http POST request
-       to the endpoint "/mealSuggest". This request is then handled in "MealSuggest.java" 
-       by the PostMapping method. -->
+        <!-- Display meal suggestions here -->
+        <section id="mealSuggestions" class="mt-4">
+            <!-- Meal suggestions will be dynamically populated -->
+        </section>
+    </main>
 
-        <button type="submit" name="submitFormButton" value="home">Return to Home page</button>
-    </form>
-
+    <!-- Add any JavaScript files or scripts here -->
+    <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Commented out for testing without AJAX request -->
+    <!-- <script src="mealSuggest.js"></script> -->
 </body>
-
 </html>
