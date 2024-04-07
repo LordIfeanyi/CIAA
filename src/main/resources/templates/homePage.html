@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Meal Planner</title>
+    <!-- Link to Bootstrap CSS hosted on unpkg CDN -->
+    <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add any additional CSS files or stylesheets here -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add inline CSS to customize styles -->
+    <style>
+        /* Add custom styles here */
+        header {
+            background-image: url('food1.jpg'); /* Update the image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 200px; /* Adjust the height as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white; /* Change text color to white */
+            font-family: 'Times New Roman', Times, serif; /* Change font to a curly font */
+            font-size: 24px; /* Adjust font size */
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn-container .btn {
+            margin-bottom: 10px; /* Add space between buttons */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Change font of buttons */
+            font-size: 20px; /* Adjust font size of buttons */
+        }
+
+        h2 {
+            font-family: 'Times New Roman', Times, serif; /* Change font to a curly font */
+            font-style: italic; /* Make text italic */
+            font-size: 28px; /* Adjust font size */
+            margin-bottom: 20px; /* Add space below the heading */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <!-- Remove "Meal Planner" from the navbar -->
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2>Get started with your personalized meal plan:</h2>
+        <div class="btn-container">
+            <a href="mealSuggest.html" class="btn btn-primary btn-lg d-block">Get Meal Suggestions</a>
+            <a href="mealSearch.html" class="btn btn-secondary btn-lg d-block">Search for Meals</a>
+        </div>
+    </main>
+
+    <!-- Add any JavaScript files or scripts here -->
+    <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

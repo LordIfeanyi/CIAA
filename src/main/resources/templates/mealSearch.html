@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>CIAA Meals Meal Search Page</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Search</title>
+    <!-- Link to Bootstrap CSS hosted on unpkg CDN -->
+    <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Add any additional CSS files or stylesheets here -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <h1>Meal Search</h1> <br />
+    <header class="bg-primary">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#"></a>
+                <!-- Add any navigation links or buttons here -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="homePage.html">Home</a>
+                        </li>
+                        <!-- Add more navigation links as needed -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-    <form action="/mealSearch" method="post" novalidate>
+    <main class="container">
+        <!-- Meal search form -->
+        <section>
+            <h2 class="my-4">Search for Meals</h2>
+            <form id="mealSearchForm">
+                <div class="mb-3">
+                    <label for="searchInput" class="form-label">Search:</label>
+                    <input type="text" class="form-control" id="searchInput" placeholder="Enter meal keywords">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </section>
 
-        <!-- Note: this html file is a form that when submitted, sends a http POST request
-       to the endpoint "/mealSearch". This request is then handled in "MealSearchController.java" 
-       by the PostMapping method. -->
+        <!-- Display search results here -->
+        <section id="searchResults" class="mt-4">
+            <!-- Search results will be dynamically populated -->
+        </section>
+    </main>
 
-        <button type="submit" name="submitFormButton" value="home">Return to Home page</button>
-    </form>
-
+    <!-- Add any JavaScript files or scripts here -->
+    <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="mealSearch.js"></script>
 </body>
-
 </html>
