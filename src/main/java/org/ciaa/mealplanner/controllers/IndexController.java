@@ -1,14 +1,15 @@
 package org.ciaa.mealplanner.controllers;
 
+import org.ciaa.mealplanner.Control;
+import org.ciaa.mealplanner.UserSignIn;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * The controller class responsible for handling requests from the start page of
- * the application, "index.html".
- */
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class IndexController {
 
@@ -31,15 +32,26 @@ public class IndexController {
      * @param submitFormButton the result of the button press from "index.html".
      * @return the name of the html file to be displayed.
      */
-    @PostMapping("/start")
-    public String start(@RequestParam("submitFormButton") String submitFormButton) {
+    @PostMapping("/index")
+    public String index(@ModelAttribute UserSignIn userSignIn,
+            @RequestParam("submitFormButton") String submitFormButton, HttpSession session) {
 
-        if (submitFormButton.equals("register")) {
-            return "redirect:/register";
-        } else if (submitFormButton.equals("login")) {
-            return "redirect:/login";
-        } else {
-            return "redirect:/index";
+        if (submitFormButton.equals("login")) {
+
+            boolean authenticated = Control.authenticateUser(userSignIn);
+
+            if (authenticated) {
+
+                session.setAttribute("firstName", Control.getCurrentUser().getFirstName());
+                session.setAttribute("lastName", Control.getCurrentUser().getLastName());
+                session.setAttribute("email", Control.getCurrentUser().getEmail());
+                session.setAttribute("username", Control.getCurrentUser().getUsername());
+                session.setAttribute("password", Control.getCurrentUser().getPassword());
+                session.setAttribute("intolerances", Control.getCurrentUser().getIntolerances().toString());
+
+                return "redirect:/homePage"; // enter the home page
+            }
         }
+        return "redirect:/index";
     }
 }

@@ -1,5 +1,7 @@
 package org.ciaa.mealplanner;
 
+import java.util.*;
+
 /**
  * A class representing a registered user of the system.
  */
@@ -11,17 +13,15 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String[] intolerances;
+    // private String[] intolerances;
+    private ArrayList<String> intolerances;
 
     // Constructor
     public User() {
         id = "" + System.currentTimeMillis();
+        intolerances = new ArrayList<String>();
 
-        // testing
-        intolerances = new String[3];
-        intolerances[0] = "dairy";
-        intolerances[1] = "egg";
-        intolerances[2] = "peanut";
+        
     }
 
     public String getId() {
@@ -78,11 +78,23 @@ public class User {
                 + ", password=" + password + "]";
     }
 
-    public String[] getIntolerances() {
+    public ArrayList<String> getIntolerances() {
         return intolerances;
     }
 
-    public void setIntolerances(String[] intolerances) {
+    public void setIntolerances(ArrayList<String> intolerances) {
         this.intolerances = intolerances;
+    }
+
+    public void addIntolerance(String intolerance) {
+        intolerances.add(intolerance);
+    }
+
+    public void removeIntolerance(String intolerance) {
+        intolerances.remove(intolerance);
+    }
+
+    public void clearIntolerances() {
+        intolerances.clear();
     }
 }

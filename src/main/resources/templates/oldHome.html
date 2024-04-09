@@ -11,7 +11,7 @@
     <h1>CIAA Meals Home Page</h1> <br />
     <h1> Welcome <span th:text="${session.firstName}"></span>!</h1>
 
-    <form action="/home" method="post">
+    <form action="/oldHome" method="post">
 
         <!-- Note: this html file is a form that when submitted, sends a http POST request
        to the endpoint "/home". This request is then handled in "HomeController.java" 
@@ -24,6 +24,8 @@
         <button type="submit" name="submitFormButton" value="mealSearch">Meal Search</button>
         <br />
         <button type="submit" name="submitFormButton" value="mealSuggest">Meal Suggestions</button>
+        <br />
+        <button type="submit" name="submitFormButton" value="changeFirstName">change first name</button>
     
       </form>
 

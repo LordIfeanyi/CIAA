@@ -2,8 +2,8 @@ package org.ciaa.mealplanner.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * The controller class responsible for handling requests from the meal search
@@ -23,22 +23,22 @@ public class MealSearchController {
         return "mealSearch";
     }
 
-    /**
-     * Handles POST requests from "mealSearch.html". If the "Return to Home page"
-     * button is pressed, redirects the user to "home.html".
-     * 
-     * @param submitFormButton the result of the button press from
-     *                         "mealSearch.html".
-     * @return the name of the html file to be displayed.
-     */
-    @PostMapping("/mealSearch")
-    public String mealSearch(@RequestParam("submitFormButton") String submitFormButton) {
+    // /**
+    //  * Handles POST requests from "mealSearch.html". If the "Return to Home page"
+    //  * button is pressed, redirects the user to "home.html".
+    //  * 
+    //  * @param submitFormButton the result of the button press from
+    //  *                         "mealSearch.html".
+    //  * @return the name of the html file to be displayed.
+    //  */
+    // @PostMapping("/mealSearch")
+    // public String mealSearch(@RequestParam("submitFormButton") String submitFormButton) {
 
-        // if the 'Return to Home page' button was selected
-        if (submitFormButton.equals("home")) {
-            return "redirect:/home";
-        }
+    //     // if the 'Return to Home page' button was selected
+    //     if (submitFormButton.equals("home")) {
+    //         return "redirect:/home";
+    //     }
 
-        return "redirect:/mealSearch";
-    }
+    //     return "redirect:/mealSearch";
+    // }
 }

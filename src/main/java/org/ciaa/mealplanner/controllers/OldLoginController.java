@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
  * of the application, "login.html".
  */
 @Controller
-public class LoginController {
+public class OldLoginController {
 
     /**
      * Handles GET requests from "login.html". Responsible for displaying

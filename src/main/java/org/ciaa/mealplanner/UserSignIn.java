@@ -1,9 +1,9 @@
 package org.ciaa.mealplanner;
 
 /**
- * A class representing a user log-in attempt. When a user attempts to log in, a
- * new instance of this class is created automatically in the login controller
- * class.
+ * A class representing a user log-in attempt consisting of a username and
+ * password. When a user attempts to log in, a new instance of this class is
+ * created automatically in the IndexController class.
  */
 public class UserSignIn {
 
