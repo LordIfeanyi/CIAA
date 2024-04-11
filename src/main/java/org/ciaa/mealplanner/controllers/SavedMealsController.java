@@ -36,7 +36,7 @@ public class SavedMealsController {
 
         // if the 'Return to Home page' button was selected
         if (submitFormButton.equals("home")) {
-            return "redirect:/home";
+            return "redirect:/homePage";
         }
 
         return "redirect:/savedMeals";
