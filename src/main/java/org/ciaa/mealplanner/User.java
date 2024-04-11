@@ -13,15 +13,12 @@ public class User {
     private String email;
     private String username;
     private String password;
-    // private String[] intolerances;
     private ArrayList<String> intolerances;
 
     // Constructor
     public User() {
         id = "" + System.currentTimeMillis();
         intolerances = new ArrayList<String>();
-
-        
     }
 
     public String getId() {

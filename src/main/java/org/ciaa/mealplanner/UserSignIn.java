@@ -30,5 +30,4 @@ public class UserSignIn {
     public String toString() {
         return "UserSignIn [username=" + username + ", password=" + password + "]";
     }
-
 }

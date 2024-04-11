@@ -22,23 +22,4 @@ public class MealSuggestController {
     public String mealSuggest() {
         return "mealSuggest";
     }
-
-    // /**
-    //  * Handles POST requests from "mealSuggest.html". If the "Return to Home page"
-    //  * button is pressed, redirects the user to "home.html".
-    //  * 
-    //  * @param submitFormButton the result of the button press from
-    //  *                         "mealSuggest.html".
-    //  * @return the name of the html file to be displayed.
-    //  */
-    // @PostMapping("/mealSuggest")
-    // public String mealSuggest(@RequestParam("submitFormButton") String submitFormButton) {
-
-    //     // if the 'Return to Home page' button was selected
-    //     if (submitFormButton.equals("home")) {
-    //         return "redirect:/home";
-    //     }
-
-    //     return "redirect:/mealSuggest";
-    // }
 }
