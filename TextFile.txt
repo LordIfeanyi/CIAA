@@ -1,1 +1,2 @@
-id=1712619221409/firstName=Andy/lastName=Mazlumyan/email=am@gmail.com/username=amaz/password=pass/intolerances=peanut,dairy,seafood,/
+id=1712619221409/firstName=Aren/lastName=Mazlumyan/email=am@gmail.com/username=amaz/password=pass/intolerances=Hiccup,/
+id=1712702454886/firstName=Aren/lastName=Elma/email=aelmayan@csun.com/username=Appleside/password=Pass/intolerances=/
