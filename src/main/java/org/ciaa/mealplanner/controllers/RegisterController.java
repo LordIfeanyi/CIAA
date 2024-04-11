@@ -56,6 +56,6 @@ public class RegisterController {
         Control.addNewUser(user);
 
         // go to login page after registering
-        return "redirect:/login";
+        return "redirect:/index";
     }
 }
