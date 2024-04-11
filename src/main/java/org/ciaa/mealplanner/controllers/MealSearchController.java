@@ -22,23 +22,4 @@ public class MealSearchController {
     public String mealSearch() {
         return "mealSearch";
     }
-
-    // /**
-    //  * Handles POST requests from "mealSearch.html". If the "Return to Home page"
-    //  * button is pressed, redirects the user to "home.html".
-    //  * 
-    //  * @param submitFormButton the result of the button press from
-    //  *                         "mealSearch.html".
-    //  * @return the name of the html file to be displayed.
-    //  */
-    // @PostMapping("/mealSearch")
-    // public String mealSearch(@RequestParam("submitFormButton") String submitFormButton) {
-
-    //     // if the 'Return to Home page' button was selected
-    //     if (submitFormButton.equals("home")) {
-    //         return "redirect:/home";
-    //     }
-
-    //     return "redirect:/mealSearch";
-    // }
 }

@@ -3,11 +3,6 @@ package org.ciaa.mealplanner;
 import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.ciaa.mealplanner.utilities.TextFileHandler;
 
-// import jakarta.servlet.http.HttpSession;
-
-// import java.util.ArrayList;
-// import java.util.List;
-
 /**
  * Currently a set of static methods and an attribute responsible for saving
  * user information.
@@ -18,16 +13,6 @@ public class Control {
      * The User object representing the user currently using the application.
      */
     private static User currentUser;
-
-    // private static HttpSession currentSession;
-
-    // public static void setCurrentSession(HttpSession session) {
-    //     currentSession = session;
-    // }
-
-    // public static HttpSession getCurrentSession() {
-    //     return currentSession;
-    // }
 
     /**
      * Uses TextFileHandler to add a new User to the text file.
@@ -124,17 +109,11 @@ public class Control {
             currentUser.addIntolerance(updatedInfo.getNewIntolerance());
         }
         if (updatedInfo.getRemoveIntolerance() != "") {
-
-            /*debug*/ System.out.println("Removing " + updatedInfo.getRemoveIntolerance());
-
             currentUser.removeIntolerance(updatedInfo.getRemoveIntolerance());
-
-            /*debug*/ System.out.println("Current user's intolerances after removal of updatedInfo.getRemoveIntolerance(): " + currentUser.getIntolerances().toString());
         }
         if (updatedInfo.getClearIntolerances() == true) {
             currentUser.clearIntolerances();
         }
-
         TextFileHandler.editLine(currentUser, updatedInfo);
     }
 
