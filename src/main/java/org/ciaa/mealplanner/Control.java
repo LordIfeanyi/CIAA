@@ -1,6 +1,5 @@
 package org.ciaa.mealplanner;
 
-import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.ciaa.mealplanner.utilities.TextFileHandler;
 
 /**
@@ -16,7 +15,7 @@ public class Control {
 
     /**
      * Uses TextFileHandler to add a new User to the text file.
-     * 
+     *
      * @param user the new User to be added.
      */
     public static void addNewUser(User user) {
@@ -25,7 +24,7 @@ public class Control {
 
     /**
      * Sets the passed User as the currentUser field.
-     * 
+     *
      * @param user the User to be set as the currentUser.
      */
     public static void setCurrentUser(User user) {
@@ -34,7 +33,7 @@ public class Control {
 
     /**
      * Returns the static current user field.
-     * 
+     *
      * @return the current User.
      */
     public static User getCurrentUser() {
@@ -44,7 +43,7 @@ public class Control {
     /**
      * Creates a new User object with attributes from the passed line of the text
      * file.
-     * 
+     *
      * @param textFileLine a line from the text file.
      */
     public static void setCurrentUser(String textFileLine) {
@@ -63,7 +62,7 @@ public class Control {
      * Checks if the userSignIn corresponds to a User in the text file. If it does,
      * makes a new User with that line's attributes via Control.setCurrentUser(),
      * sets that as the currentUser, and returns true.
-     * 
+     *
      * @param userSignIn the UserSignIn to be checked against the user data in the
      *                   text file.
      * @return method returns true if the userSignIn corresponds to a User in the
@@ -115,18 +114,5 @@ public class Control {
             currentUser.clearIntolerances();
         }
         TextFileHandler.editLine(currentUser, updatedInfo);
-    }
-
-    /**
-     * Uses ApiHandler to make a request using the intolerances of the current User.
-     */
-    public static void getSuggestions() {
-
-        ApiHandler.setUri(currentUser);
-        try {
-            ApiHandler.makeGetRequest();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
