@@ -3,9 +3,6 @@ package org.ciaa.mealplanner;
 import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.ciaa.mealplanner.utilities.TextFileHandler;
 
-// import java.util.ArrayList;
-// import java.util.List;
-
 /**
  * Currently a set of static methods and an attribute responsible for saving
  * user information.
@@ -59,6 +56,7 @@ public class Control {
         currentUser.setEmail(TextFileHandler.getEmail(textFileLine));
         currentUser.setUsername(TextFileHandler.getUsername(textFileLine));
         currentUser.setPassword(TextFileHandler.getPassword(textFileLine));
+        currentUser.setIntolerances(TextFileHandler.getIntolerances(textFileLine));
     }
 
     /**
@@ -81,6 +79,42 @@ public class Control {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Updates the fields of the current User with the information of the passed
+     * UpdateUserIinfo object. Also updates the text file by editing the text file
+     * line which corresponds to the current user.
+     * 
+     * @param updatedInfo the object containing the updated user information.
+     */
+    public static void updateUserInfo(UpdateUserInfo updatedInfo) {
+
+        if (updatedInfo.getFirstName() != "") {
+            currentUser.setFirstName(updatedInfo.getFirstName());
+        }
+        if (updatedInfo.getLastName() != "") {
+            currentUser.setLastName(updatedInfo.getLastName());
+        }
+        if (updatedInfo.getEmail() != "") {
+            currentUser.setEmail(updatedInfo.getEmail());
+        }
+        if (updatedInfo.getUsername() != "") {
+            currentUser.setUsername(updatedInfo.getUsername());
+        }
+        if (updatedInfo.getPassword() != "") {
+            currentUser.setPassword(updatedInfo.getPassword());
+        }
+        if (updatedInfo.getNewIntolerance() != "") {
+            currentUser.addIntolerance(updatedInfo.getNewIntolerance());
+        }
+        if (updatedInfo.getRemoveIntolerance() != "") {
+            currentUser.removeIntolerance(updatedInfo.getRemoveIntolerance());
+        }
+        if (updatedInfo.getClearIntolerances() == true) {
+            currentUser.clearIntolerances();
+        }
+        TextFileHandler.editLine(currentUser, updatedInfo);
     }
 
     /**

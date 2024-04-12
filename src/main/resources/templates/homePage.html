@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,17 +14,22 @@
     <style>
         /* Add custom styles here */
         header {
-            background-image: url('food1.jpg'); /* Update the image path */
+            background-image: url('food1.jpg');
+            /* Update the image path */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 200px; /* Adjust the height as needed */
+            height: 200px;
+            /* Adjust the height as needed */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white; /* Change text color to white */
-            font-family: 'Times New Roman', Times, serif; /* Change font to a curly font */
-            font-size: 24px; /* Adjust font size */
+            color: white;
+            /* Change text color to white */
+            font-family: 'Times New Roman', Times, serif;
+            /* Change font to a curly font */
+            font-size: 24px;
+            /* Adjust font size */
         }
 
         .btn-container {
@@ -30,24 +37,34 @@
         }
 
         .btn-container .btn {
-            margin-bottom: 10px; /* Add space between buttons */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Change font of buttons */
-            font-size: 20px; /* Adjust font size of buttons */
+            margin-bottom: 10px;
+            /* Add space between buttons */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Change font of buttons */
+            font-size: 20px;
+            /* Adjust font size of buttons */
         }
 
         h2 {
-            font-family: 'Times New Roman', Times, serif; /* Change font to a curly font */
-            font-style: italic; /* Make text italic */
-            font-size: 28px; /* Adjust font size */
-            margin-bottom: 20px; /* Add space below the heading */
+            font-family: 'Times New Roman', Times, serif;
+            /* Change font to a curly font */
+            font-style: italic;
+            /* Make text italic */
+            font-size: 28px;
+            /* Adjust font size */
+            margin-bottom: 20px;
+            /* Add space below the heading */
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light">
         </nav>
     </header>
+
+    <h1> Welcome <span th:text="${session.firstName}"></span>!</h1>
 
     <main class="container">
         <h2>Get started with your personalized meal plan:</h2>
@@ -56,10 +73,12 @@
             <a href="mealSearch.html" class="btn btn-info btn-lg d-block">Search for Meals</a>
             <a href="userInfo.html" class="btn btn-warning btn-lg d-block">Profile</a>
             <a href="savedMeals.html" class="btn btn-secondary btn-lg d-block">Saved Meals</a>
+
         </div>
     </main>
 
     <!-- Add any JavaScript files or scripts here -->
     <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
