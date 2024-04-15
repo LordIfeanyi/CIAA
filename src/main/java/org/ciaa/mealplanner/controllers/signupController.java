@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * of the application, "register.html".
  */
 @Controller
-public class RegisterController {
+public class signupController {
 
     /**
      * Handles GET requests from "register.html". Responsible for displaying
@@ -21,9 +21,9 @@ public class RegisterController {
      * 
      * @return the name of the html file to be displayed.
      */
-    @GetMapping("/register")
-    public String register() {
-        return "register";
+    @GetMapping("/signup")
+    public String signup() {
+        return "signup";
     }
 
     /**
@@ -39,17 +39,17 @@ public class RegisterController {
      * @param submitFormButton the result of the button press from "register.html".
      * @return the name of the html file to be displayed.
      */
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user, @RequestParam("submitFormButton") String submitFormButton) {
+    @PostMapping("/signup")
+    public String signup(@ModelAttribute User user, @RequestParam("submitFormButton") String submitFormButton) {
 
         // if the 'Return to Start page' button was selected
-        if (submitFormButton.equals("start")) {
-            return "redirect:/index";
-        }
+        // if (submitFormButton.equals("start")) {
+        //     return "redirect:/index";
+        // }
 
         // if the User object was not created, don't go anywhere
         if (user == null) {
-            return "redirect:/register";
+            return "redirect:/signup";
         }
 
         // add the new user to the list of users in Control
