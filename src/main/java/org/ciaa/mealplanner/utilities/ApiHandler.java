@@ -18,6 +18,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
 import java.lang.instrument.ClassFileTransformer;
+import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.security.ProtectionDomain;
@@ -72,6 +73,30 @@ public class ApiHandler
         instrumentation.addTransformer(classNodeReader, true);
         instrumentation.retransformClasses(RecipesApiMod.class);
         instrumentation.removeTransformer(classNodeReader);
+
+        ClassFileTransformer recipesResposeController = new ClassFileTransformer()
+        {
+            private int passes = 0;
+            @Override
+            public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
+                                    ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+                if (!className.equals("com/spoonacular/client/model/GetRandomRecipes200ResponseRecipesInner")) return classfileBuffer;
+                if (passes == 1) CiaaApplication.getApplicationLog().debug("Transforming GetRandomRecipes200ResponseRecipesInner");
+
+                ClassNode classNode = new ClassNode();
+                ClassReader reader = new ClassReader(classfileBuffer);
+                reader.accept(classNode, 0);
+
+                InsnList instructions = classNode.methods.stream()
+                        .filter(methodNode -> methodNode.name.equals("validateJsonElement"))
+                        .findFirst()
+                        .orElseThrow()
+                        .instructions;
+
+                passes++;
+                return classfileBuffer;
+            }
+        };
 
         ClassFileTransformer responseTransformer = new ClassFileTransformer()
         {
@@ -183,6 +208,8 @@ public class ApiHandler
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("originalId");
         GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("whole30");
         GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("ketogenic");
+        GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("license");
+        GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("author");
 
         GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.add("nameClean");
 //        GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.add("consistency");
