@@ -90,29 +90,43 @@ public class Control {
      */
     public static void updateUserInfo(UpdateUserInfo updatedInfo) {
 
-        if (updatedInfo.getFirstName() != "") {
+        // profile info
+        if (updatedInfo.getFirstName() != "" && updatedInfo.getFirstName() != null) {
             currentUser.setFirstName(updatedInfo.getFirstName());
         }
-        if (updatedInfo.getLastName() != "") {
+        if (updatedInfo.getLastName() != "" && updatedInfo.getLastName() != null) {
             currentUser.setLastName(updatedInfo.getLastName());
         }
-        if (updatedInfo.getEmail() != "") {
+        if (updatedInfo.getEmail() != "" && updatedInfo.getEmail() != null) {
             currentUser.setEmail(updatedInfo.getEmail());
         }
-        if (updatedInfo.getUsername() != "") {
+        if (updatedInfo.getUsername() != "" && updatedInfo.getUsername() != null) {
             currentUser.setUsername(updatedInfo.getUsername());
         }
-        if (updatedInfo.getPassword() != "") {
+        if (updatedInfo.getPassword() != "" && updatedInfo.getPassword() != null) {
             currentUser.setPassword(updatedInfo.getPassword());
         }
-        if (updatedInfo.getNewIntolerance() != "") {
+
+        // intolerances
+        if (updatedInfo.getNewIntolerance() != "" && updatedInfo.getNewIntolerance() != null) {
             currentUser.addIntolerance(updatedInfo.getNewIntolerance());
         }
-        if (updatedInfo.getRemoveIntolerance() != "") {
+        if (updatedInfo.getRemoveIntolerance() != "" && updatedInfo.getRemoveIntolerance() != null) {
             currentUser.removeIntolerance(updatedInfo.getRemoveIntolerance());
         }
         if (updatedInfo.getClearIntolerances() == true) {
             currentUser.clearIntolerances();
+        }
+
+        // meals
+        if (updatedInfo.getNewMeal() != "" && updatedInfo.getNewMeal() != null) {
+            currentUser.addMeal(updatedInfo.getNewMeal());
+        }
+        if (updatedInfo.getRemoveMeal() != "" && updatedInfo.getRemoveMeal() != null) {
+            currentUser.removeMeal(updatedInfo.getRemoveMeal());
+        }
+        if (updatedInfo.getClearMeals() == true) {
+            currentUser.clearMeals();
         }
         TextFileHandler.editLine(currentUser, updatedInfo);
     }

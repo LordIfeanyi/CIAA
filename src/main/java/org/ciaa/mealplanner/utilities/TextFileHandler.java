@@ -32,6 +32,11 @@ public class TextFileHandler {
                 writer.write(intolerance + ",");
             }
             writer.write("/");
+            writer.write("meals=");
+            for (String meal : user.getMeals()) {
+                writer.write(meal + ",");
+            }
+            writer.write("/");
 
             writer.write("\n");
             writer.close();
@@ -256,14 +261,44 @@ public class TextFileHandler {
     }
 
     /**
+     * 
+     * @param curLine
+     * @return
+     */
+    public static ArrayList<String> getMeals(String curLine) {
+
+        ArrayList<String> meals = new ArrayList<String>();
+
+        int index = curLine.indexOf("meals=");
+        if (index == -1) {
+            return null;
+        }
+        int beginIndex = index + 6;
+        int endIndex = beginIndex;
+
+        // find index of where the password ends, delineated by a forward dash "/" in
+        // the text file.
+        char curChar = curLine.charAt(beginIndex);
+        while (curChar != '/') {
+
+            if (curChar == ',') {
+                meals.add(curLine.substring(beginIndex, endIndex));
+                beginIndex = endIndex + 1;
+            }
+            endIndex++;
+            curChar = curLine.charAt(endIndex);
+        }
+        return meals;
+    }
+
+    /**
      * Edits a line of the text file. Each line in the file corresponds to a User.
      * Edits are made to users' fields according to the information of the passed
      * UpdateUserInfo object. The line to be edited is found by the passed User id.
      * 
      * @param user
      * @param updatedInfo the object containing the new information that the
-     *                    user's
-     *                    fields will be changed to.
+     *                    user's fields will be changed to.
      */
     public static void editLine(User user, UpdateUserInfo updatedInfo) {
 
@@ -281,43 +316,66 @@ public class TextFileHandler {
                     // updatedInfo are null, maintain the preexisting values
 
                     // save values from the line (in case updatedInfo fields are null)
-                    String id = getId(curLine);
-                    String firstName = getFirstName(curLine);
-                    String lastName = getLastName(curLine);
-                    String email = getEmail(curLine);
-                    String username = getUsername(curLine);
-                    String password = getPassword(curLine);
+                    // String id = getId(curLine);
+                    // String firstName = getFirstName(curLine);
+                    // String lastName = getLastName(curLine);
+                    // String email = getEmail(curLine);
+                    // String username = getUsername(curLine);
+                    // String password = getPassword(curLine);
 
-                    // rebuild the line
-                    curLine = "id=" + id + "/";
-                    if (updatedInfo.getFirstName() != "") {
-                        curLine += "firstName=" + updatedInfo.getFirstName() + "/";
-                    } else {
-                        curLine += "firstName=" + firstName + "/";
-                    }
-                    if (updatedInfo.getLastName() != "") {
-                        curLine += "lastName=" + updatedInfo.getLastName() + "/";
-                    } else {
-                        curLine += "lastName=" + lastName + "/";
-                    }
-                    if (updatedInfo.getEmail() != "") {
-                        curLine += "email=" + updatedInfo.getEmail() + "/";
-                    } else {
-                        curLine += "email=" + email + "/";
-                    }
-                    if (updatedInfo.getUsername() != "") {
-                        curLine += "username=" + updatedInfo.getUsername() + "/";
-                    } else {
-                        curLine += "username=" + username + "/";
-                    }
-                    if (updatedInfo.getPassword() != "") {
-                        curLine += "password=" + updatedInfo.getPassword() + "/";
-                    } else {
-                        curLine += "password=" + password + "/";
-                    }
+                    // // rebuild the line
+                    // curLine = "id=" + id + "/";
+                    // if (updatedInfo.getFirstName() != "") {
+                    // curLine += "firstName=" + updatedInfo.getFirstName() + "/";
+                    // } else {
+                    // curLine += "firstName=" + firstName + "/";
+                    // }
+                    // if (updatedInfo.getLastName() != "") {
+                    // curLine += "lastName=" + updatedInfo.getLastName() + "/";
+                    // } else {
+                    // curLine += "lastName=" + lastName + "/";
+                    // }
+                    // if (updatedInfo.getEmail() != "") {
+                    // curLine += "email=" + updatedInfo.getEmail() + "/";
+                    // } else {
+                    // curLine += "email=" + email + "/";
+                    // }
+                    // if (updatedInfo.getUsername() != "") {
+                    // curLine += "username=" + updatedInfo.getUsername() + "/";
+                    // } else {
+                    // curLine += "username=" + username + "/";
+                    // }
+                    // if (updatedInfo.getPassword() != "") {
+                    // curLine += "password=" + updatedInfo.getPassword() + "/";
+                    // } else {
+                    // curLine += "password=" + password + "/";
+                    // }
+                    // curLine += "intolerances=";
+                    // for (String intolerance : user.getIntolerances()) {
+                    // curLine += intolerance + ",";
+                    // }
+                    // curLine += "/";
+                    // curLine += "meals=";
+                    // for (String meal : user.getMeals()) {
+                    // curLine += meal + ",";
+                    // }
+                    // curLine += "/";
+
+                    // rewrite the line according to the current state of the passed User's fields
+                    curLine = "id=" + user.getId() + "/";
+                    curLine += "firstName=" + user.getFirstName() + "/";
+                    curLine += "lastName=" + user.getLastName() + "/";
+                    curLine += "email=" + user.getEmail() + "/";
+                    curLine += "username=" + user.getUsername() + "/";
+                    curLine += "password=" + user.getPassword() + "/";
                     curLine += "intolerances=";
                     for (String intolerance : user.getIntolerances()) {
                         curLine += intolerance + ",";
+                    }
+                    curLine += "/";
+                    curLine += "meals=";
+                    for (String meal : user.getMeals()) {
+                        curLine += meal + ",";
                     }
                     curLine += "/";
                 }
