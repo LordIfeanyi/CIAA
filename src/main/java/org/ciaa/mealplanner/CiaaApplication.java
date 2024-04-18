@@ -11,9 +11,8 @@ public class CiaaApplication
     private static final InnerSpringApplication SPRING_APPLICATION = new InnerSpringApplication(CiaaApplication.class);
 
     public static void main(String[] args) {
-        ApiHandler.suggestMeals(null);
-
         getApplicationLog().info("Starting CIAA application...");
+        ApiHandler.suggestMeals(null);
         SPRING_APPLICATION.run(args);
     }
 

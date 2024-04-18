@@ -18,10 +18,10 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.security.ProtectionDomain;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,29 +74,56 @@ public class ApiHandler
         instrumentation.retransformClasses(RecipesApiMod.class);
         instrumentation.removeTransformer(classNodeReader);
 
-        ClassFileTransformer recipesResposeController = new ClassFileTransformer()
+        ClassFileTransformer recipesResposeTransformer = new ClassFileTransformer()
         {
             private int passes = 0;
+
             @Override
             public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                                     ProtectionDomain protectionDomain, byte[] classfileBuffer) {
-                if (!className.equals("com/spoonacular/client/model/GetRandomRecipes200ResponseRecipesInner")) return classfileBuffer;
-                if (passes == 1) CiaaApplication.getApplicationLog().debug("Transforming GetRandomRecipes200ResponseRecipesInner");
+                if (!className.equals("com/spoonacular/client/model/GetRandomRecipes200ResponseRecipesInner"))
+                    return classfileBuffer;
+                if (passes == 1)
+                    CiaaApplication.getApplicationLog().debug("Transforming GetRandomRecipes200ResponseRecipesInner");
 
                 ClassNode classNode = new ClassNode();
                 ClassReader reader = new ClassReader(classfileBuffer);
                 reader.accept(classNode, 0);
 
                 InsnList instructions = classNode.methods.stream()
-                        .filter(methodNode -> methodNode.name.equals("validateJsonElement"))
-                        .findFirst()
-                        .orElseThrow()
-                        .instructions;
+                      .filter(methodNode -> methodNode.name.equals("validateJsonElement"))
+                      .findFirst()
+                      .orElseThrow()
+                      .instructions;
 
+                // NOTE: LineNumberNode 1183 is on array index 152
+                // NOTE: LineNumberNode 1186 is on array index 177
+                // NOTE: LineNumberNode 1189 is on array index 202
+                List<AbstractInsnNode> nodesToRemove = new ArrayList<>();
+                // 154 - 158 are the first group of instructions that need to be removed
+                for (int i = 154; i <= 158; i++) nodesToRemove.add(instructions.get(i));
+                // 161 - 175 are the second group of instructions that need to be removed
+                for (int i = 161; i <= 175; i++) nodesToRemove.add(instructions.get(i));
+                // 178 - 183 are the third group of instructions that need to be removed
+                for (int i = 178; i <= 183; i++) nodesToRemove.add(instructions.get(i));
+                // 186 - 200 are the fourth group of instructions that need to be removed
+                for (int i = 186; i <= 200; i++) nodesToRemove.add(instructions.get(i));
+                // 203 - 208 are the fifth group of instructions that need to be removed
+                for (int i = 203; i <= 208; i++) nodesToRemove.add(instructions.get(i));
+                // 211 - 225 are the sixth group of instructions that need to be removed
+                for (int i = 211; i <= 225; i++) nodesToRemove.add(instructions.get(i));
+                nodesToRemove.forEach(instructions::remove);
+
+                ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+                classNode.accept(writer);
                 passes++;
-                return classfileBuffer;
+                return writer.toByteArray();
             }
         };
+
+        instrumentation.addTransformer(recipesResposeTransformer, true);
+        instrumentation.retransformClasses(GetRandomRecipes200ResponseRecipesInner.class);
+        instrumentation.removeTransformer(recipesResposeTransformer);
 
         ClassFileTransformer responseTransformer = new ClassFileTransformer()
         {
@@ -115,19 +142,39 @@ public class ApiHandler
                 reader.accept(classNode, 0);
 
                 classNode.fields.stream()
-                        .filter(fieldNode -> fieldNode.name.equals("SERIALIZED_NAME_CONSITENCY"))
-                        .findFirst()
-                        .orElseThrow().value = "consistency";
+                      .filter(fieldNode -> fieldNode.name.equals("SERIALIZED_NAME_CONSITENCY"))
+                      .findFirst()
+                      .orElseThrow().value = "consistency";
 
+                //noinspection CodeBlock2Expr
                 classNode.methods.stream()
-                        .filter(methodNode -> methodNode.name.equals("<clinit>") || methodNode.name.equals("validateJsonElement"))
-                        .forEach(methodNode -> {
-                            methodNode.instructions.forEach(insnNode -> {
-                                if (insnNode instanceof LdcInsnNode ldcInsnNode) {
-                                    if (ldcInsnNode.cst.equals("consitency")) ldcInsnNode.cst = "consistency";
-                                }
-                            });
-                        });
+                      .filter(methodNode -> methodNode.name.equals("<clinit>") || methodNode.name.equals("validateJsonElement"))
+                      .forEach(methodNode -> {
+                          methodNode.instructions.forEach(insnNode -> {
+                              if (insnNode instanceof LdcInsnNode ldcInsnNode) {
+                                  if (ldcInsnNode.cst.equals("consitency")) ldcInsnNode.cst = "consistency";
+                              }
+                          });
+                      });
+
+                InsnList instructions = classNode.methods.stream()
+                      .filter(methodNode -> methodNode.name.equals("validateJsonElement"))
+                      .findFirst()
+                      .orElseThrow()
+                      .instructions;
+
+                // NOTE: LineNumberNode 440 is on array index 128
+                // NOTE: LineNumberNode 446 is on array index 177
+                ArrayList<AbstractInsnNode> nodesToRemove = new ArrayList<>();
+                // 129 - 133 are the first group of instructions that need to be removed
+                for (int i = 129; i <= 133; i++) nodesToRemove.add(instructions.get(i));
+                // 136 - 150 are the second group of instructions that need to be removed
+                for (int i = 136; i <= 150; i++) nodesToRemove.add(instructions.get(i));
+                // 178 - 183 are the third group of instructions that need to be removed
+                for (int i = 178; i <= 183; i++) nodesToRemove.add(instructions.get(i));
+                // 186 - 200 are the fourth group of instructions that need to be removed
+                for (int i = 186; i <= 200; i++) nodesToRemove.add(instructions.get(i));
+                nodesToRemove.forEach(instructions::remove);
 
                 ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
                 classNode.accept(writer);
@@ -158,32 +205,32 @@ public class ApiHandler
                 classNode.methods.add(newMethod);
 
                 InsnList instructions = classNode.methods.stream()
-                        .filter(methodNode -> methodNode.name.equals("getRandomRecipesCall"))
-                        .findFirst()
-                        .orElseThrow()
-                        .instructions;
+                      .filter(methodNode -> methodNode.name.equals("getRandomRecipesCall"))
+                      .findFirst()
+                      .orElseThrow()
+                      .instructions;
 
                 // NOTE: LineNumberNode 1679 is on array index 98.
                 // This assumes that the instruction array is going to be the same every time it is parsed;
                 // I sure hope it is.
                 // I only need to modify 4 instructions to make this work the way I need it to.
                 AbstractInsnNode[] instructionsArray = new AbstractInsnNode[]{
-                        // "tags" LDC instruction
-                        instructions.get(102),
-                        // com/spoonacular/client/ApiClient.parameterToPair INVOKEVIRTUAL instruction
-                        instructions.get(104),
-                        // java/util/List.addAll INVOKEINTERFACE instruction
-                        instructions.get(105),
-                        // POP instruction
-                        instructions.get(106)
+                      // "tags" LDC instruction
+                      instructions.get(102),
+                      // com/spoonacular/client/ApiClient.parameterToPair INVOKEVIRTUAL instruction
+                      instructions.get(104),
+                      // java/util/List.addAll INVOKEINTERFACE instruction
+                      instructions.get(105),
+                      // POP instruction
+                      instructions.get(106)
                 };
 
                 instructions.set(instructionsArray[1], new MethodInsnNode(
-                        Opcodes.INVOKESTATIC,
-                        classNode.name,
-                        newMethod.name,
-                        newMethod.desc,
-                        false
+                      Opcodes.INVOKESTATIC,
+                      classNode.name,
+                      newMethod.name,
+                      newMethod.desc,
+                      false
                 ));
 
                 instructions.remove(instructionsArray[0]);
@@ -206,16 +253,14 @@ public class ApiHandler
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("preparationMinutes");
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("cookingMinutes");
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("originalId");
+        GetRandomRecipes200ResponseRecipesInner.openapiFields.add("author");
         GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("whole30");
         GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("ketogenic");
         GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("license");
-        GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("author");
+        GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("imageType");
+        GetRandomRecipes200ResponseRecipesInner.openapiRequiredFields.remove("image");
 
         GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.add("nameClean");
-//        GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.add("consistency");
-//        GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.remove("consitency");
-//        GetRecipeInformation200ResponseExtendedIngredientsInner.openapiRequiredFields.add("consistency");
-//        GetRecipeInformation200ResponseExtendedIngredientsInner.openapiRequiredFields.remove("consitency");
     }
 
     public static void suggestMeals(User user) {
