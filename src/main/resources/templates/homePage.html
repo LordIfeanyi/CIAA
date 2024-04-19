@@ -48,12 +48,16 @@
         h2 {
             font-family: 'Times New Roman', Times, serif;
             /* Change font to a curly font */
-            font-style: italic;
+            font-style:normal;
             /* Make text italic */
             font-size: 28px;
             /* Adjust font size */
             margin-bottom: 20px;
             /* Add space below the heading */
+        }
+        h1 {
+            font-family: 'Impact', Haettenschweiler, Arial Narrow Bold, sans-serif;
+            font-size: larger;
         }
     </style>
 </head>
@@ -64,17 +68,22 @@
         </nav>
     </header>
 
-    <h1> Welcome <span th:text="${session.firstName}"></span>!</h1>
-
-    <main class="container">
-        <h2>Get started with your personalized meal plan:</h2>
-        <div class="btn-container">
-            <a href="mealSuggest" class="btn btn-primary btn-lg d-block">Get Meal Suggestions</a>
-            <a href="mealSearch" class="btn btn-info btn-lg d-block">Search for Meals</a>
-            <a href="userInfo" class="btn btn-warning btn-lg d-block">Profile</a>
-            <a href="savedMeals" class="btn btn-secondary btn-lg d-block">Saved Meals</a>
-
+    <div class="row">
+        <div class="col">
+            <h1 class="display-4">Welcome <span th:text="${session.firstName}"></span>!</h1>
         </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Get started with your personalized meal plan:</h2>
+        </div>
+    </div>
+    <div class="list-group">
+        <a href="mealSuggest" class= "list-group-item list-group-item-action btn btn-primary btn-lg d-block">Get Meal Suggestions</a>
+        <a href="mealSearch" class="list-group-item list-group-item-action btn btn-info btn-lg d-block">Search for Meals</a>
+        <a href="userInfo" class="list-group-item list-group-item-action btn btn-warning btn-lg d-block">Profile</a>
+        <a href="savedMeals" class="list-group-item list-group-item-action btn btn-secondary btn-lg d-block">Saved Meals</a>
+    </div>
     </main>
 
     <!-- Add any JavaScript files or scripts here -->
