@@ -71,14 +71,14 @@ public class SavedMealsController {
 
             /* debug */System.out.println("trying to delete meal " + id);
 
-            /* debug */System.out.println("current user's saved meals before deleteion of " + id + ": " + Control.getCurrentUser().getMeals().toString());
+            /* debug */System.out.println("current user's saved meals before deletion of " + id + ": " + Control.getCurrentUser().getMeals().toString());
 
             // delete the item
             UpdateUserInfo updateUserInfo = new UpdateUserInfo();
             updateUserInfo.setRemoveMeal(id);
             Control.updateUserInfo(updateUserInfo);
 
-            /* debug */System.out.println("current user's saved meals after deleteion of " + id + ": " + Control.getCurrentUser().getMeals().toString());
+            /* debug */System.out.println("current user's saved meals after deletion of " + id + ": " + Control.getCurrentUser().getMeals().toString());
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {

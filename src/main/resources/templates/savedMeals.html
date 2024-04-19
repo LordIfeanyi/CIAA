@@ -97,7 +97,7 @@
             recipeIDs.forEach(async (id) => {
                 try {
                     // get the data from spoonacular
-                    const response = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=4dc6eb4bd1ec453dbba335faac5055d8`);
+                    const response = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=9fd619b00abb41b5ae7305ea3b06d2f3`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
@@ -108,7 +108,7 @@
                     li.textContent = data.title;
                     var dropdownContent = document.createElement("div");
                     dropdownContent.className = "dropdown-content";
-                    dropdownContent.textContent = data.instructions;
+                    dropdownContent.textContent = data.id + "\n" + data.instructions;
                     var removeButton = document.createElement("span");
                     removeButton.className = "remove-button";
                     removeButton.textContent = "Remove";

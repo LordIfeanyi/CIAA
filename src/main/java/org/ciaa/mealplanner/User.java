@@ -23,11 +23,11 @@ public class User {
         meals = new ArrayList<String>();
 
         // /* adding dummy meals for testing */
-        meals.add(Integer.toString(654959));
-        meals.add(Integer.toString(511728));
-        meals.add(Integer.toString(654857));
-        meals.add(Integer.toString(654883));
-        meals.add(Integer.toString(654928));
+        // meals.add(Integer.toString(654959));
+        // meals.add(Integer.toString(511728));
+        // meals.add(Integer.toString(654857));
+        // meals.add(Integer.toString(654883));
+        // meals.add(Integer.toString(654928));
     }
 
     public String getId() {
