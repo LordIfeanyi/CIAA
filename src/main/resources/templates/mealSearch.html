@@ -94,39 +94,32 @@
         var diet = null;
         var intolerances = [];
 
-        if (document.querySelector('input[name="cuisine"]:checked') !== null) {
-          cuisine = document.querySelector(
-            'input[name="cuisine"]:checked'
-          ).value;
-        }
-        if (document.querySelector('input[name="diet"]:checked') !== null) {
-          diet = document.querySelector('input[name="diet"]:checked').value;
-        }
-        var checkboxes = document.querySelectorAll(
-          'input[type="checkbox"]:checked'
-        );
-        checkboxes.forEach(function (checkbox) {
-          intolerances.push(checkbox.value);
-        });
+            if(document.querySelector('input[name="cuisine"]:checked') !== null) {
+                cuisine = document.querySelector('input[name="cuisine"]:checked').value;
+            }
+            if(document.querySelector('input[name="diet"]:checked') !== null) {
+                diet = document.querySelector('input[name="diet"]:checked').value;
+            }
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(function (checkbox) {
+                intolerances.push(checkbox.value);
+            });
 
-        var url = "/search?query=" + encodeURIComponent(query);
-        if (cuisine) {
-          url += "&cuisine=" + encodeURIComponent(cuisine);
-        }
-        if (diet) {
-          url += "&diet=" + encodeURIComponent(diet);
-        }
-        url += "&intolerances=" + encodeURIComponent(intolerances.join(","));
+            // build the endpoint
+            var url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=4dc6eb4bd1ec453dbba335faac5055d8'
+            if (cuisine) {
+                url += '&cuisine=' + encodeURIComponent(cuisine);
+            }
+            if (diet) {
+                url += '&diet=' + encodeURIComponent(diet);
+            }
+            if (intolerances.length !== 0) {
+                url += '&intolerances=' + encodeURIComponent(intolerances.join(','));
+            }
 
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            displayResults(data);
-          })
-          .catch((error) => {
-            console.error("Error fetching search results:", error);
-          });
-      }
+            console.log("spoonacular request url = ", url);
+
+        }
 
       function displayResults(results) {
         var resultsDiv = document.getElementById("searchResults");

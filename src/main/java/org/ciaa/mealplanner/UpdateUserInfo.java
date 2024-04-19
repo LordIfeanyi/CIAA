@@ -17,6 +17,10 @@ public class UpdateUserInfo {
     private String removeIntolerance;
     private boolean clearIntolerances;
 
+    private String newMeal;
+    private String removeMeal;
+    private boolean clearMeals;
+
     public String getFirstName() {
         return firstName;
     }
@@ -79,5 +83,29 @@ public class UpdateUserInfo {
 
     public void setClearIntolerances(boolean clearIntolerances) {
         this.clearIntolerances = clearIntolerances;
+    }
+
+    public String getNewMeal() {
+        return newMeal;
+    }
+
+    public void setNewMeal(String newMeal) {
+        this.newMeal = newMeal;
+    }
+
+    public String getRemoveMeal() {
+        return removeMeal;
+    }
+
+    public void setRemoveMeal(String removeMeal) {
+        this.removeMeal = removeMeal;
+    }
+
+    public boolean getClearMeals() {
+        return clearMeals;
+    }
+
+    public void setClearMeals(boolean clearMeals) {
+        this.clearMeals = clearMeals;
     }
 }

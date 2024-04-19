@@ -39,6 +39,8 @@ public class IndexController {
         if (submitFormButton.equals("login")) {
 
             boolean authenticated = Control.authenticateUser(userSignIn);
+            
+            
 
             if (authenticated) {
 
