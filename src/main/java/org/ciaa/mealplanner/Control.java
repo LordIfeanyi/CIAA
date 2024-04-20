@@ -57,6 +57,7 @@ public class Control {
         currentUser.setUsername(TextFileHandler.getUsername(textFileLine));
         currentUser.setPassword(TextFileHandler.getPassword(textFileLine));
         currentUser.setIntolerances(TextFileHandler.getIntolerances(textFileLine));
+        currentUser.setMeals(TextFileHandler.getMeals(textFileLine));
     }
 
     /**
