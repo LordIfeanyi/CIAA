@@ -93,6 +93,14 @@
             // fetch the items by calling the backend endpoint
             const recipeIDs = await fetchItems(); // fetch method
 
+            // if no results came back
+            if (recipeIDs.length == 0) {
+                var noResults = document.createElement("div");
+                noResults.textContent = "You currently have no saved meals. Go to 'Meal Search' or 'Meal Suggest' to save meals.";
+                itemList.appendChild(noResults);
+                return;
+            }
+
             // for each recipe id
             recipeIDs.forEach(async (id) => {
                 try {

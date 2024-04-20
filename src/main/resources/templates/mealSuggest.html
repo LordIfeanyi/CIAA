@@ -1,53 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Suggester</title>
-    <!-- Link to Bootstrap CSS hosted on unpkg CDN -->
-    <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add any additional CSS files or stylesheets here -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- Add inline CSS to set the background image of the header -->
-    <style>
-        /* Add custom styles here */
-        header {
-            background-color: #007bff; /* Bootstrap primary color */
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Search</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="mealSearch.css" rel="stylesheet" />
 </head>
+
+<style>
+    body {
+        background-image: url("food1.jpg");
+
+        /* Add some basic styling */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 10px;
+        background-color: #f0f0f0;
+        margin-bottom: 5px;
+        position: relative;
+    }
+
+    li:hover {
+        background-color: #e0e0e0;
+    }
+
+    /* Hide dropdown content by default */
+    .dropdown-content {
+        display: none;
+    }
+
+    /* Show dropdown content when the dropdown is active */
+    .dropdown-active .dropdown-content {
+        display: block;
+    }
+
+    /* Style for the save button */
+    .save-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+        color: green;
+    }
+</style>
+
 <body>
-    <header>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="homePage">Home</a>
-            </div>
-        </nav>
-    </header>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Get Suggested Meals</h1>
+        <div class="mb-3">
+            <label for="description" class="form-label">Get meals that match your personal intolerances. All recipes
+                displayed
+                do not contain ingredients that are not suitable for your intolerances. Update your intolerances in the
+                'Profile' page. </label>
+        </div>
+        <br />
 
-    <main class="container">
-        <!-- Meal suggestion form -->
-        <section>
-            <h2 class="my-4">Get Meal Suggestions</h2>
-            <form id="mealSuggestForm">
-                <div class="mb-3">
-                    <label for="preferences" class="form-label">Preferences:</label>
-                    <input type="text" class="form-control" id="preferences" placeholder="Enter dietary preferences">
-                </div>
-                <button type="submit" class="btn btn-primary">Get Suggestions</button>
-            </form>
-        </section>
+        <legend>Choose a meal type: (optional)</legend>
+        <div id="CuisineOptions">
+            <label><input type="radio" name="type" value="main course" /> Main course</label>
+            <label><input type="radio" name="type" value="side dish" /> Side dish</label>
+            <label><input type="radio" name="type" value="dessert" /> Dessert</label>
+            <label><input type="radio" name="type" value="appetizer" /> Appetizer</label>
+            <label><input type="radio" name="type" value="breakfast" /> Breakfast</label>
+            <label><input type="radio" name="type" value="beverage" /> Beverage</label>
+            <label><input type="radio" name="type" value="snack" /> Snack</label>
 
-        <!-- Display meal suggestions here -->
-        <section id="mealSuggestions" class="mt-4">
-            <!-- Meal suggestions will be dynamically populated -->
-        </section>
-    </main>
+            <button onclick="clearRadioButtons('type')">Clear Type Selection</button>
 
-    <!-- Add any JavaScript files or scripts here -->
-    <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Commented out for testing without AJAX request -->
-    <script src="mealSuggest.js"></script>
+        </div>
+
+        <div class="search-button-container">
+            <button onclick="generateList()">Get Suggestions</button>
+
+            <a href="homePage"><button>Back to Home Page</button></a>
+
+        </div>
+
+        <ul id="searchResults">
+            <!-- List items will be generated dynamically here using JavaScript -->
+        </ul>
+
+        <script>
+
+            function clearRadioButtons(name) {
+                checkedRadioButton = document.querySelector('input[name="' + name + '"]:checked');
+                checkedRadioButton.checked = false;
+            }
+
+            async function generateList() {
+
+                // get the div to be dynamically populated with items
+                var itemList = document.getElementById("searchResults");
+                itemList.innerHTML = '';
+
+                // get the values to be appended to the endpoint
+                var type = null;
+                var intolerances = [];
+                if (document.querySelector('input[name="type"]:checked') !== null) {
+                    type = document.querySelector('input[name="type"]:checked').value; // get the type from this html page
+                }
+                const data = await fetchIntolerances(`/ciaa/mealsuggest/intolerances`); // get the intolerances from our backend
+                data.forEach(function (intolerance) {
+                    intolerances.push(intolerance);
+                });
+
+                // build the endpoint
+                var url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=9fd619b00abb41b5ae7305ea3b06d2f3'
+                if (type) {
+                    url += '&type=' + encodeURIComponent(type);
+                }
+                if (intolerances.length !== 0) {
+                    url += '&intolerances=' + encodeURIComponent(intolerances.join(','));
+                }
+
+                // print the endpoint to check
+                console.log("spoonacular request url = ", url);
+
+                // fetch the items by calling the spoonacular endpoint
+                const recipes = await fetchSearchResults(url); // fetch method
+
+                var results = recipes.results;
+
+                // if no results came back
+                if (results.length == 0) {
+                    var noResults = document.createElement("div");
+                    noResults.textContent = "No suggestions were found. Try reducing the amount of intolerances you have.";
+                    itemList.appendChild(noResults);
+                    return;
+                }
+
+                results.forEach(async (result) => {
+
+                    // make a new list item using the data
+                    var li = document.createElement("li");
+                    li.textContent = result.title;
+                    var dropdownContent = document.createElement("div");
+                    dropdownContent.className = "dropdown-content";
+                    dropdownContent.textContent = result.id;
+                    var saveButton = document.createElement("span");
+                    saveButton.className = "save-button";
+                    saveButton.textContent = "Save";
+
+                    // make event listeners for the save and dropdown functionality
+                    saveButton.addEventListener("click", function () { // if the save button is pressed, remove it from the list and save it by posting to our backend via the saveMeal() method
+                        li.remove();
+                        saveMeal(result.id); // save method
+                    });
+                    li.addEventListener("click", function () {
+                        li.classList.toggle("dropdown-active");
+                    });
+
+                    // add the components to the li and the li to the list
+                    li.appendChild(dropdownContent);
+                    li.appendChild(saveButton);
+                    itemList.appendChild(li);
+
+                });
+            }
+
+            async function fetchIntolerances(url) {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            }
+
+            async function fetchSearchResults(url) {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data;
+            }
+
+            // send a POST request to the backend to add this id to the currents user's saved meals
+            async function saveMeal(id) {
+                try {
+                    const response = await fetch(`/ciaa/savedmeals/${id}`, {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        console.log('Item saved successfully');
+                    } else {
+                        console.error('Failed to save item');
+                    }
+                } catch (error) {
+                    console.error('Error saving item:', error);
+                }
+            }
+
+        </script>
 </body>
+
 </html>
