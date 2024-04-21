@@ -14,11 +14,20 @@ public class User {
     private String username;
     private String password;
     private ArrayList<String> intolerances;
+    private ArrayList<String> meals;
 
     // Constructor
     public User() {
         id = "" + System.currentTimeMillis();
         intolerances = new ArrayList<>();
+        meals = new ArrayList<String>();
+
+        // /* adding dummy meals for testing */
+        // meals.add(Integer.toString(654959));
+        // meals.add(Integer.toString(511728));
+        // meals.add(Integer.toString(654857));
+        // meals.add(Integer.toString(654883));
+        // meals.add(Integer.toString(654928));
     }
 
     public String getId() {
@@ -93,5 +102,25 @@ public class User {
 
     public void clearIntolerances() {
         intolerances.clear();
+    }
+
+    public ArrayList<String> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(ArrayList<String> meals) {
+        this.meals = meals;
+    }
+
+    public void addMeal(String meal) {
+        meals.add(meal);
+    }
+
+    public void removeMeal(String meal) {
+        meals.remove(meal);
+    }
+
+    public void clearMeals() {
+        meals.clear();
     }
 }

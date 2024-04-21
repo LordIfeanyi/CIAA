@@ -1,0 +1,127 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Search</title>
+  </head>
+
+  <body>
+    <h1>Search for Meals</h1>
+
+    <legend>Enter a search query:</legend>
+    <input
+      type="text"
+      id="query"
+      placeholder="Enter your search query"
+      required
+    />
+    <br />
+    <br />
+
+    <legend>Choose a cuisine: (optional)</legend>
+    <input type="radio" name="cuisine" value="African" /> African
+    <input type="radio" name="cuisine" value="Asian" /> Asian
+    <input type="radio" name="cuisine" value="American" /> American
+    <input type="radio" name="cuisine" value="Caribbean" /> Caribbean
+    <input type="radio" name="cuisine" value="Chinese" /> Chinese
+    <input type="radio" name="cuisine" value="French" /> French
+    <input type="radio" name="cuisine" value="Greek" /> Greek
+    <input type="radio" name="cuisine" value="Indian" /> Indian
+    <input type="radio" name="cuisine" value="Italian" /> Italian
+    <input type="radio" name="cuisine" value="Japanese" /> Japanese
+    <input type="radio" name="cuisine" value="Korean" /> Korean
+    <input type="radio" name="cuisine" value="Mediterranean" /> Mediterranean
+    <input type="radio" name="cuisine" value="Mexican" /> Mexican
+    <input type="radio" name="cuisine" value="Spanish" /> Spanish
+    <input type="radio" name="cuisine" value="Thai" /> Thai
+    <input type="radio" name="cuisine" value="Vietnamese" /> Vietnamese
+    <br />
+    <br />
+
+    <legend>Choose a diet: (optional)</legend>
+    <input type="radio" name="diet" value="Gluten Free" /> Gluten Free
+    <input type="radio" name="diet" value="Vegetarian" /> Vegetarian
+    <input type="radio" name="diet" value="Vegan" /> Vegan
+    <input type="radio" name="diet" value="Pescetarian" /> Pescetarian
+    <input type="radio" name="diet" value="Paleo" /> Paleo
+    <input type="radio" name="diet" value="Primal" /> Primal
+    <br />
+    <br />
+
+    <legend>Choose any number of intolerances: (optional)</legend>
+    <input type="checkbox" id="group1" value="Dairy" /> Dairy
+    <input type="checkbox" id="group1" value="Egg" /> Egg
+    <input type="checkbox" id="group1" value="Gluten" /> Gluten
+    <input type="checkbox" id="group1" value="Grain" /> Grain
+    <input type="checkbox" id="group1" value="Peanut" /> Peanut
+    <input type="checkbox" id="group1" value="Seafood" /> Seafood
+    <input type="checkbox" id="group1" value="Sesame" /> Sesame
+    <input type="checkbox" id="group1" value="Shellfish" /> Shellfish
+    <input type="checkbox" id="group1" value="Soy" /> Soy
+    <input type="checkbox" id="group1" value="Sulfite" /> Sulfite
+    <input type="checkbox" id="group1" value="Tree Nut" /> Tree Nut
+    <input type="checkbox" id="group1" value="Wheat" /> Wheat
+    <br />
+    <br />
+
+    <button onclick="search()">Search</button>
+    <br />
+    <br />
+
+    <div id="searchResults"></div>
+
+    <script>
+      function search() {
+        var query = document.getElementById("query").value;
+        var cuisine = null;
+        var diet = null;
+        var intolerances = [];
+
+        if (document.querySelector('input[name="cuisine"]:checked') !== null) {
+          cuisine = document.querySelector(
+            'input[name="cuisine"]:checked'
+          ).value;
+        }
+        if (document.querySelector('input[name="diet"]:checked') !== null) {
+          diet = document.querySelector('input[name="diet"]:checked').value;
+        }
+        var checkboxes = document.querySelectorAll(
+          'input[type="checkbox"]:checked'
+        );
+        checkboxes.forEach(function (checkbox) {
+          intolerances.push(checkbox.value);
+        });
+
+        var url = "/search?query=" + encodeURIComponent(query);
+        if (cuisine) {
+          url += "&cuisine=" + encodeURIComponent(cuisine);
+        }
+        if (diet) {
+          url += "&diet=" + encodeURIComponent(diet);
+        }
+        url += "&intolerances=" + encodeURIComponent(intolerances.join(","));
+
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            displayResults(data);
+          })
+          .catch((error) => {
+            console.error("Error fetching search results:", error);
+          });
+      }
+
+      function displayResults(results) {
+        var resultsDiv = document.getElementById("searchResults");
+        resultsDiv.innerHTML = "";
+
+        results.forEach((result) => {
+          var resultElement = document.createElement("div");
+          resultElement.textContent = result;
+          resultsDiv.appendChild(resultElement);
+        });
+      }
+    </script>
+  </body>
+</html> -->

@@ -1,1 +1,1 @@
-id=1713208640121/firstName=Andrew/lastName=Mazlumyan/email=am@gmail.com/username=amaz/password=pass/intolerances=/
+id=1713636700289/firstName=Andrew/lastName=Mazlumyan/email=am@gmail.com/username=amaz/password=pass/intolerances=Dairy,Peanut,/meals=/
