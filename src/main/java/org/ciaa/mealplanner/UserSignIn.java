@@ -1,9 +1,8 @@
 package org.ciaa.mealplanner;
 
 /**
- * A class representing a user log-in attempt consisting of a username and
- * password. When a user attempts to log in, a new instance of this class is
- * created automatically in the IndexController class.
+ * A data class representing a user sign in attempt used for serializing html
+ * input. Consists of a username and password along with getters & setters.
  */
 public class UserSignIn {
 

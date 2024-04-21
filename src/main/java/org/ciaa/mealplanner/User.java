@@ -3,7 +3,9 @@ package org.ciaa.mealplanner;
 import java.util.*;
 
 /**
- * A class representing a registered user of the system.
+ * A class representing a registered user of the system. Each new User is given
+ * a unique 'id' in the constructor according to the current time. All
+ * attributes have getters & setters.
  */
 public class User {
 
@@ -21,13 +23,6 @@ public class User {
         id = "" + System.currentTimeMillis();
         intolerances = new ArrayList<>();
         meals = new ArrayList<String>();
-
-        // /* adding dummy meals for testing */
-        // meals.add(Integer.toString(654959));
-        // meals.add(Integer.toString(511728));
-        // meals.add(Integer.toString(654857));
-        // meals.add(Integer.toString(654883));
-        // meals.add(Integer.toString(654928));
     }
 
     public String getId() {

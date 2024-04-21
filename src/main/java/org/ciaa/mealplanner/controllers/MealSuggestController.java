@@ -7,8 +7,6 @@ import org.ciaa.mealplanner.Control;
 import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -30,11 +28,16 @@ public class MealSuggestController {
     }
 
     // Returns the current user's intolerances.
+
+    /**
+     * Handles GET requests from "mealSuggest.html" to the endpoint
+     * "ciaa/savedmeals/intolerances" to get the current user's intolerances.
+     * 
+     * @return the current user's intolerances
+     */
     @GetMapping("/ciaa/mealsuggest/intolerances")
     @ResponseBody
     public List<String> getIntolerances() {
-
-        //* debug */ System.out.println("inside getIntolerances \n Returning this: " + Control.getCurrentUser().getIntolerances().toString());
 
         return Control.getCurrentUser().getIntolerances();
     }

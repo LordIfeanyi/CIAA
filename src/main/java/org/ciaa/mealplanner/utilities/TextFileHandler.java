@@ -2,17 +2,22 @@ package org.ciaa.mealplanner.utilities;
 
 import java.io.*;
 import java.util.ArrayList;
-
-import org.ciaa.mealplanner.UpdateUserInfo;
 import org.ciaa.mealplanner.User;
 
+/**
+ * A class containing static methods responsible for creating, reading, updating
+ * and deleting lines of the text file, "TextFile.txt".
+ * 
+ * Each line of the text file corresponds to a distinct user registered in the
+ * system, and contains their data organized by tags and separated by dividers.
+ */
 public class TextFileHandler {
 
     /**
      * Adds a new User to the text file. Writes all of this user's attributes
      * to a single line in the file. Attributes are organized by a tag, followed by
      * an equals sign, the value, and finally ended with a forward slash.
-     * Ex:
+     * Ex: id=12345/firstName=Bob/lastName=Smith/email= ...
      * 
      * @param user the User whose information will be written to the next line of
      *             the text file.
@@ -52,9 +57,9 @@ public class TextFileHandler {
      * 
      * @param username the username being searched for in the text file.
      * @param password the password being searched for in the text file.
-     * @return method returns the line which the match was found on, or null.
+     * @return the line of the text file which the match was found on, or null.
      */
-    public static String checkForMatch(String username, String password) {
+    public static String getLine(String username, String password) {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader("TextFile.txt"));
@@ -230,9 +235,13 @@ public class TextFileHandler {
     }
 
     /**
+     * Parses the passed line of the text file for its intolerances. The
+     * intolerances are a comma separated list located between the "intolerances="
+     * tag and the following forward slash "/". This comma separated list is then
+     * parsed and its individual elements are added to the list being returned.
      * 
-     * @param curLine
-     * @return
+     * @param curLine the line of the text file to be parsed.
+     * @return a list of the intolerances.
      */
     public static ArrayList<String> getIntolerances(String curLine) {
 
@@ -245,7 +254,8 @@ public class TextFileHandler {
         int beginIndex = index + 13;
         int endIndex = beginIndex;
 
-        // find index of where the password ends, delineated by a forward dash "/" in
+        // find index of where the intolerances ends, delineated by a forward dash "/"
+        // in
         // the text file.
         char curChar = curLine.charAt(beginIndex);
         while (curChar != '/') {
@@ -261,9 +271,13 @@ public class TextFileHandler {
     }
 
     /**
+     * Parses the passed line of the text file for its saved meals. The meals are a
+     * comma separated list located between the "meals=" tag and the following
+     * forward slash "/". This comma separated list is then parsed and its
+     * individual elements are added to the list being returned.
      * 
-     * @param curLine
-     * @return
+     * @param curLine the line of the text file to be parsed.
+     * @return a list of the meals
      */
     public static ArrayList<String> getMeals(String curLine) {
 
@@ -292,74 +306,23 @@ public class TextFileHandler {
     }
 
     /**
-     * Edits a line of the text file. Each line in the file corresponds to a User.
-     * Edits are made to users' fields according to the information of the passed
-     * UpdateUserInfo object. The line to be edited is found by the passed User id.
+     * Edits the line of the text file corresponding to the passed User according to
+     * its current data.
      * 
-     * @param user
-     * @param updatedInfo the object containing the new information that the
-     *                    user's fields will be changed to.
+     * @param user the whose corresponding text file line will be edited.
      */
-    public static void editLine(User user, UpdateUserInfo updatedInfo) {
+    public static void editLine(User user) {
 
         try {
 
-            // read the entire text file into a temporary stringbuffer
+            // read the entire text file into a temporary stringbuffer line by line
             BufferedReader reader = new BufferedReader(new FileReader("TextFile.txt"));
             StringBuffer inputBuffer = new StringBuffer();
             String curLine = reader.readLine();
             while (curLine != null) {
 
-                if (getId(curLine).equals(user.getId())) { // this is the line that needs to be edited
-
-                    // rewrite the line according to the fields of updatedInfo; if values in
-                    // updatedInfo are null, maintain the preexisting values
-
-                    // save values from the line (in case updatedInfo fields are null)
-                    // String id = getId(curLine);
-                    // String firstName = getFirstName(curLine);
-                    // String lastName = getLastName(curLine);
-                    // String email = getEmail(curLine);
-                    // String username = getUsername(curLine);
-                    // String password = getPassword(curLine);
-
-                    // // rebuild the line
-                    // curLine = "id=" + id + "/";
-                    // if (updatedInfo.getFirstName() != "") {
-                    // curLine += "firstName=" + updatedInfo.getFirstName() + "/";
-                    // } else {
-                    // curLine += "firstName=" + firstName + "/";
-                    // }
-                    // if (updatedInfo.getLastName() != "") {
-                    // curLine += "lastName=" + updatedInfo.getLastName() + "/";
-                    // } else {
-                    // curLine += "lastName=" + lastName + "/";
-                    // }
-                    // if (updatedInfo.getEmail() != "") {
-                    // curLine += "email=" + updatedInfo.getEmail() + "/";
-                    // } else {
-                    // curLine += "email=" + email + "/";
-                    // }
-                    // if (updatedInfo.getUsername() != "") {
-                    // curLine += "username=" + updatedInfo.getUsername() + "/";
-                    // } else {
-                    // curLine += "username=" + username + "/";
-                    // }
-                    // if (updatedInfo.getPassword() != "") {
-                    // curLine += "password=" + updatedInfo.getPassword() + "/";
-                    // } else {
-                    // curLine += "password=" + password + "/";
-                    // }
-                    // curLine += "intolerances=";
-                    // for (String intolerance : user.getIntolerances()) {
-                    // curLine += intolerance + ",";
-                    // }
-                    // curLine += "/";
-                    // curLine += "meals=";
-                    // for (String meal : user.getMeals()) {
-                    // curLine += meal + ",";
-                    // }
-                    // curLine += "/";
+                // if this is the line that needs to be edited
+                if (getId(curLine).equals(user.getId())) {
 
                     // rewrite the line according to the current state of the passed User's fields
                     curLine = "id=" + user.getId() + "/";
@@ -386,7 +349,7 @@ public class TextFileHandler {
             }
             reader.close();
 
-            // rewrite the stringbuffer with a newly edited line back to the file
+            // rewrite the stringbuffer with the newly edited line back to the file
             FileOutputStream fileOut = new FileOutputStream("TextFile.txt");
             fileOut.write(inputBuffer.toString().getBytes());
             fileOut.close();

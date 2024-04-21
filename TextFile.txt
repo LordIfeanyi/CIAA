@@ -1,1 +1,3 @@
-id=1713636700289/firstName=Andrew/lastName=Mazlumyan/email=am@gmail.com/username=amaz/password=pass/intolerances=Dairy,Peanut,/meals=/
+id=1713684381410/firstName=Erling/lastName=Haaland/email=test@gmail.com/username=erl/password=pass/intolerances=dairy,egg,gluten,/meals=652433,645742,/
+id=1713684406624/firstName=Kevin/lastName=De Bruyne/email=test@gmail.com/username=kdb/password=pass/intolerances=/meals=/
+id=1713684436856/firstName=Phil/lastName=Foden/email=test@gmail.com/username=phi/password=pass/intolerances=peanut,seafood,sesame,soy,/meals=716406,715495,715540,798400,640062,661925,/

@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * The controller class responsible for handling requests from the landing page
+ * of the application, "index.html".
+ */
 @Controller
 public class IndexController {
 
@@ -29,7 +32,21 @@ public class IndexController {
      * "register.html" or "login.html" depending on which button in "index.html" was
      * pressed.
      * 
+     * A "UserSignIn" object is automatically serialized from the input of
+     * "index.html". The data in this object is then used to verify the login
+     * attempt via the 'authenticateUser()' static method of "Control.java". If the
+     * login is authenticated, a new "User" objected is created with the data of the
+     * text file line which corresponded to the login attempt. This new User object
+     * is then set as the 'currentUser' field of "Control.java".
+     * 
+     * An instance of HttpSession is also automatically created and fields are
+     * created that correspond to the current user's data. These fields are used
+     * to be displayed elsewhere in the application.
+     * 
+     * @param userSignIn       the automatically generated UserSignIn object used
+     *                         for login verification.
      * @param submitFormButton the result of the button press from "index.html".
+     * @param session          the automatically generated HttpSession object.
      * @return the name of the html file to be displayed.
      */
     @PostMapping("/index")
@@ -39,8 +56,6 @@ public class IndexController {
         if (submitFormButton.equals("login")) {
 
             boolean authenticated = Control.authenticateUser(userSignIn);
-            
-            
 
             if (authenticated) {
 
