@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.servlet.http.HttpSession;
 
 /**
@@ -29,11 +28,22 @@ public class UserInfoController {
     }
 
     /**
-     * Handles POST requests from "userInfo.html". If the "Return to Home page"
-     * button is pressed, redirects the user to "home.html".
-     *
-     * @param submitFormButton the result of the button press from
-     *                         "userInfo.html".
+     * Handles POST requests from "userInfo.html". Redirects to "homePage.html" if
+     * the cancel button is pressed, or "userInfo.html" (this same page) if any
+     * other button is pressed.
+     * 
+     * A "UpdateUserInfo" object is automatically serialized from the input of
+     * "userInfo.html". The data in this object is then used to update the data of
+     * the current user.
+     * 
+     * An instance of HttpSession is also automatically created and fields are
+     * created that correspond to the current user's data. The attributes of this
+     * session are used to dipslay the current state of the user's data on the
+     * "userInfo.html" page.
+     * 
+     * @param updatedInfo      the automatically generated UpdateUserInfo object
+     * @param submitFormButton the result of the button press from "userInfo.html".
+     * @param session          the automatically generated HttpSession object.
      * @return the name of the html file to be displayed.
      */
     @PostMapping("/userInfo")

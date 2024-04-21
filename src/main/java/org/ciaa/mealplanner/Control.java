@@ -4,32 +4,24 @@ import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.ciaa.mealplanner.utilities.TextFileHandler;
 
 /**
- * Currently a set of static methods and an attribute responsible for saving
- * user information.
+ * A class containing static methods responsible for performing the fundamental
+ * functions of the application. This includes adding new users and handling
+ * login authentication.
  */
 public class Control {
 
     /**
-     * The User object representing the user currently using the application.
+     * A User object representing the user currently using the application.
      */
     private static User currentUser;
 
     /**
-     * Uses TextFileHandler to add a new User to the text file.
+     * Uses "TextFileHandler.java" to add a new User to the text file.
      * 
      * @param user the new User to be added.
      */
     public static void addNewUser(User user) {
         TextFileHandler.addUser(user);
-    }
-
-    /**
-     * Sets the passed User as the currentUser field.
-     * 
-     * @param user the User to be set as the currentUser.
-     */
-    public static void setCurrentUser(User user) {
-        currentUser = user;
     }
 
     /**
@@ -42,10 +34,20 @@ public class Control {
     }
 
     /**
-     * Creates a new User object with attributes from the passed line of the text
-     * file.
+     * Sets the passed User as the currentUser field.
      * 
-     * @param textFileLine a line from the text file.
+     * @param user the User to be set as the currentUser.
+     */
+    public static void setCurrentUser(User user) {
+        currentUser = user;
+    }
+
+    /**
+     * Creates a new User object with attributes from the passed line of the text
+     * file, and sets the 'currentUser' field of this class to that new User object.
+     * 
+     * @param textFileLine the text file line whose information will be used to
+     *                     create the new current user.
      */
     public static void setCurrentUser(String textFileLine) {
 
@@ -61,18 +63,19 @@ public class Control {
     }
 
     /**
-     * Checks if the userSignIn corresponds to a User in the text file. If it does,
-     * makes a new User with that line's attributes via Control.setCurrentUser(),
-     * sets that as the currentUser, and returns true.
+     * Checks if the passed UserSignIn object corresponds to a User in the text
+     * file. If it does, uses 'setCurrentUser()' to make a new User object with the
+     * text file line of the user whose information matched the passed UserSignIn
+     * object, sets that new User object as the 'currentUser', and returns true.
      * 
-     * @param userSignIn the UserSignIn to be checked against the user data in the
-     *                   text file.
-     * @return method returns true if the userSignIn corresponds to a User in the
-     *         text file, false otherwise.
+     * @param userSignIn the UserSignIn object to be checked against the user data
+     *                   in the text file.
+     * @return true if the passed userSignIn corresponds to a User in the system,
+     *         false otherwise.
      */
     public static boolean authenticateUser(UserSignIn userSignIn) {
 
-        String textFileLine = TextFileHandler.checkForMatch(userSignIn.getUsername(), userSignIn.getPassword());
+        String textFileLine = TextFileHandler.getLine(userSignIn.getUsername(), userSignIn.getPassword());
 
         if (textFileLine != null) {
             setCurrentUser(textFileLine);
@@ -84,8 +87,11 @@ public class Control {
 
     /**
      * Updates the fields of the current User with the information of the passed
-     * UpdateUserIinfo object. Also updates the text file by editing the text file
+     * UpdateUserInfo object. Also updates the text file by editing the text file
      * line which corresponds to the current user.
+     * 
+     * If any fields of the UpdateUserInfo object are null, the user's initial
+     * values for those fields are preserved.
      * 
      * @param updatedInfo the object containing the updated user information.
      */
@@ -129,7 +135,9 @@ public class Control {
         if (updatedInfo.getClearMeals() == true) {
             currentUser.clearMeals();
         }
-        TextFileHandler.editLine(currentUser, updatedInfo);
+
+        // update the text file
+        TextFileHandler.editLine(currentUser);
     }
 
     /**

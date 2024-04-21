@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * The controller class responsible for handling requests from the register page
- * of the application, "register.html".
+ * The controller class responsible for handling requests from the sign up page
+ * of the application, "signup.html".
  */
 @Controller
 public class signupController {
 
     /**
-     * Handles GET requests from "register.html". Responsible for displaying
-     * "register.html".
+     * Handles GET requests from "signup.html". Responsible for displaying
+     * "signup.html".
      * 
      * @return the name of the html file to be displayed.
      */
@@ -25,37 +25,38 @@ public class signupController {
     public String signup() {
         return "signup";
     }
-
+    
     /**
-     * Handles POST requests from "register.html". Redirects the user to
-     * "index.html" if the "Return to Start page" button is pressed, or
-     * "register.html" (this same page) if unable to create a new User. Creates a
-     * new User object with the data entered by the user into the register page and
-     * adds it to the list of User objects, "users", in "Control.java".
+     * Handles POST requests from "signup.html" by redirecting the user to either
+     * "index.html" or "signup.html" (this same page) depending on which button in
+     * "index.html" was pressed.
      * 
-     * @param user             the User object automatically created by the
-     *                         "@ModelAttribute" SpringBoot annotation from the data
-     *                         from the html form.
-     * @param submitFormButton the result of the button press from "register.html".
+     * A "User" object is automatically serialized from the input of "signup.html",
+     * and the data of this new User object is written to a new line of the text
+     * file via the 'addNewUser()' static method of "Control.java".
+     * 
+     * If the new User object was unable to be created, it redirects to the same
+     * signup page, essentially refreshing it. Otherwise, it redirects to the
+     * landing page where the user can log into their newly created account with the
+     * credentials they just created.
+     * 
+     * @param user             the automatically generated User object representing
+     *                         the new user signing up.
+     * @param submitFormButton the result of the button press from "signup.html".
      * @return the name of the html file to be displayed.
      */
     @PostMapping("/signup")
     public String signup(@ModelAttribute User user, @RequestParam("submitFormButton") String submitFormButton) {
-
-        // if the 'Return to Start page' button was selected
-        // if (submitFormButton.equals("start")) {
-        //     return "redirect:/index";
-        // }
 
         // if the User object was not created, don't go anywhere
         if (user == null) {
             return "redirect:/signup";
         }
 
-        // add the new user to the list of users in Control
+        // add the new user to the system
         Control.addNewUser(user);
 
-        // go to login page after registering
+        // go to login page after signing up
         return "redirect:/index";
     }
 }
