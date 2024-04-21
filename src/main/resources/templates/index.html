@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Character encoding -->
     <meta charset="UTF-8" />
+    
+    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css"
     />
+    
+    <!-- Google Fonts - Pacifico -->
     <link
       href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
       rel="stylesheet"
     />
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="../static/style.css" />
   </head>
 
   <style>
+    /* Global styles for HTML and body */
     html,
     body {
       height: 100%;
@@ -21,38 +29,51 @@
       padding: 0;
     }
 
+    /* Body styles */
     body {
+      /* Background image */
       background-image: url("meals.png");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      /* Flex container */
       display: flex;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
     }
 
+    /* Container styles */
     .container {
       max-width: 100%;
     }
   </style>
 
   <body>
+    <!-- Main section -->
     <section>
       <div class="container">
+        <!-- Row for centering content -->
         <div class="row justify-content-center">
+          <!-- Columns for responsive layout -->
           <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+            <!-- Card for login form -->
             <div class="card border border-light-subtle rounded-3 shadow-sm">
+              <!-- Form for user login -->
               <form action="/index" method="post">
                 <div class="card-body p-3 p-md-4 p-xl-5">
+                  <!-- Title -->
                   <div class="text-center mb-3">
                     <h2 class="meal-title">CIAA Meals</h2>
                   </div>
+                  <!-- Subtitle -->
                   <h2 class="fs-6 fw-normal text-center text-secondary mb-4">
                     Sign in to your account
                   </h2>
 
+                  <!-- Form fields -->
                   <div class="row gy-2 overflow-hidden">
+                    <!-- Username input -->
                     <div class="col-12">
                       <div class="form-floating mb-3">
                         <input
@@ -68,6 +89,7 @@
                         >
                       </div>
                     </div>
+                    <!-- Password input -->
                     <div class="col-12">
                       <div class="form-floating mb-3">
                         <input
@@ -84,6 +106,7 @@
                         >
                       </div>
                     </div>
+                    <!-- Remember me checkbox and forgot password link -->
                     <div class="col-12">
                       <div class="d-flex gap-2 justify-content-between">
                         <div class="form-check">
@@ -106,6 +129,7 @@
                         >
                       </div>
                     </div>
+                    <!-- Submit button -->
                     <div class="col-12">
                       <div class="d-grid my-3">
                         <button
@@ -118,6 +142,7 @@
                         </button>
                       </div>
                     </div>
+                    <!-- Sign up link -->
                     <div class="col-12">
                       <p class="m-0 text-secondary text-center">
                         Don't have an account?
