@@ -1,34 +1,24 @@
 package org.ciaa.mealplanner;
 
-import org.apache.commons.logging.Log;
+import ch.qos.logback.classic.Level;
 import org.ciaa.mealplanner.utilities.ApiHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class CiaaApplication
 {
-    private static final InnerSpringApplication SPRING_APPLICATION = new InnerSpringApplication(CiaaApplication.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(CiaaApplication.class);
 
     public static void main(String[] args) {
-        getApplicationLog().info("Starting CIAA application...");
-        ApiHandler.suggestMeals(null);
-        SPRING_APPLICATION.run(args);
-    }
-
-    public static Log getApplicationLog() {
-        return SPRING_APPLICATION.getApplicationLog();
-    }
-
-    private static class InnerSpringApplication extends SpringApplication
-    {
-        public InnerSpringApplication(Class<?>... primarySources) {
-            super(primarySources);
-        }
-
-        @Override
-        public Log getApplicationLog() {
-            return super.getApplicationLog();
-        }
+        LOGGER.info("Starting CIAA application...");
+        if (Arrays.asList(args).contains("--debug")) ((ch.qos.logback.classic.Logger) LOGGER).setLevel(Level.DEBUG);
+        LOGGER.debug("Starting " + ApiHandler.class.getName() + "...");
+        // ApiHandler.suggestMeals(null);
+        SpringApplication.run(CiaaApplication.class, args);
     }
 }

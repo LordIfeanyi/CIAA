@@ -54,7 +54,7 @@ public class ApiHandler
             public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                                     ProtectionDomain protectionDomain, byte[] classfileBuffer) {
                 if (className.equals("org/ciaa/mealplanner/utilities/ApiHandler$RecipesApiMod") && passes == 0) {
-                    CiaaApplication.getApplicationLog().debug("Reading RecipesApiMod");
+                    CiaaApplication.LOGGER.debug("Reading RecipesApiMod");
 
                     ClassNode classNode = new ClassNode();
                     ClassReader reader = new ClassReader(classfileBuffer);
@@ -84,7 +84,7 @@ public class ApiHandler
                 if (!className.equals("com/spoonacular/client/model/GetRandomRecipes200ResponseRecipesInner"))
                     return classfileBuffer;
                 if (passes == 1)
-                    CiaaApplication.getApplicationLog().debug("Transforming GetRandomRecipes200ResponseRecipesInner");
+                    CiaaApplication.LOGGER.debug("Transforming GetRandomRecipes200ResponseRecipesInner");
 
                 ClassNode classNode = new ClassNode();
                 ClassReader reader = new ClassReader(classfileBuffer);
@@ -135,7 +135,7 @@ public class ApiHandler
                 if (!className.equals("com/spoonacular/client/model/GetRecipeInformation200ResponseExtendedIngredientsInner"))
                     return classfileBuffer;
                 if (passes == 1)
-                    CiaaApplication.getApplicationLog().debug("Transforming GetRecipeInformation200ResponseExtendedIngredientsInner");
+                    CiaaApplication.LOGGER.debug("Transforming GetRecipeInformation200ResponseExtendedIngredientsInner");
 
                 ClassNode classNode = new ClassNode();
                 ClassReader reader = new ClassReader(classfileBuffer);
@@ -195,7 +195,7 @@ public class ApiHandler
             public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                                     ProtectionDomain protectionDomain, byte[] classfileBuffer) {
                 if (!className.equals("com/spoonacular/RecipesApi")) return classfileBuffer;
-                if (passes == 1) CiaaApplication.getApplicationLog().debug("Transforming RecipesApi");
+                if (passes == 1) CiaaApplication.LOGGER.debug("Transforming RecipesApi");
 
                 ClassNode classNode = new ClassNode();
                 ClassReader reader = new ClassReader(classfileBuffer);
@@ -265,10 +265,15 @@ public class ApiHandler
 
     public static void suggestMeals(User user) {
         RecipesApi api = new RecipesApi(CLIENT);
+        StringBuilder builder = new StringBuilder();
+        builder.append("&");
+        user.getIntolerances().forEach(intolerance -> builder.append(intolerance).append(","));
+        builder.deleteCharAt(builder.length() - 1);
+        String intolerances = builder.toString();
 
         try {
-            GetRandomRecipes200Response randomRecipes = api.getRandomRecipes(false, "cheese&lactose", 10);
-            CiaaApplication.getApplicationLog().debug("Random recipes: " + randomRecipes.toString());
+            GetRandomRecipes200Response randomRecipes = api.getRandomRecipes(false, "&Dairy,Sulfite", 10);
+            CiaaApplication.LOGGER.debug("Random recipes: " + randomRecipes.toString());
         } catch (ApiException e) {
             throw new RuntimeException(e);
         }

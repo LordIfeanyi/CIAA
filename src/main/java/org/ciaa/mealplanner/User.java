@@ -18,7 +18,7 @@ public class User {
     // Constructor
     public User() {
         id = "" + System.currentTimeMillis();
-        intolerances = new ArrayList<String>();
+        intolerances = new ArrayList<>();
     }
 
     public String getId() {
