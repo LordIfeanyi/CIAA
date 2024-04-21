@@ -263,7 +263,7 @@ public class ApiHandler
         GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.add("nameClean");
     }
 
-    public static void suggestMeals(User user) {
+    public static GetRandomRecipes200Response suggestMeals(User user) {
         RecipesApi api = new RecipesApi(CLIENT);
         StringBuilder builder = new StringBuilder();
         builder.append("&");
@@ -271,12 +271,15 @@ public class ApiHandler
         builder.deleteCharAt(builder.length() - 1);
         String intolerances = builder.toString();
 
+        GetRandomRecipes200Response randomRecipes;
         try {
-            GetRandomRecipes200Response randomRecipes = api.getRandomRecipes(false, "&Dairy,Sulfite", 10);
+            randomRecipes = api.getRandomRecipes(false, intolerances, 10);
             CiaaApplication.LOGGER.debug("Random recipes: " + randomRecipes.toString());
         } catch (ApiException e) {
             throw new RuntimeException(e);
         }
+
+        return randomRecipes;
     }
 
     private static final class RecipesApiMod

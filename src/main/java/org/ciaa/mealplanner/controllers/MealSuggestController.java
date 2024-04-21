@@ -2,7 +2,9 @@ package org.ciaa.mealplanner.controllers;
 
 import java.util.List;
 
+import com.spoonacular.client.model.GetRandomRecipes200Response;
 import org.ciaa.mealplanner.Control;
+import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.PostMapping;
@@ -35,5 +37,11 @@ public class MealSuggestController {
         //* debug */ System.out.println("inside getIntolerances \n Returning this: " + Control.getCurrentUser().getIntolerances().toString());
 
         return Control.getCurrentUser().getIntolerances();
+    }
+
+    @GetMapping("/ciaa/mealsuggest/suggest")
+    @ResponseBody
+    public GetRandomRecipes200Response suggestMeals() {
+        return ApiHandler.suggestMeals(Control.getCurrentUser());
     }
 }

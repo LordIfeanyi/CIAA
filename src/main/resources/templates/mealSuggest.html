@@ -115,6 +115,10 @@
                     intolerances.push(intolerance);
                 });
 
+                const test = await testFetchResults(`/ciaa/mealsuggest/suggest`);
+
+                console.log(test);
+
                 // build the endpoint
                 var url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=9fd619b00abb41b5ae7305ea3b06d2f3'
                 if (type) {
@@ -128,12 +132,13 @@
                 console.log("spoonacular request url = ", url);
 
                 // fetch the items by calling the spoonacular endpoint
-                const recipes = await fetchSearchResults(url); // fetch method
+                //const recipes = await fetchSearchResults(url); // fetch method
 
-                var results = recipes.results;
+                //var results = recipes.results;
+                const results = test["recipes"];
 
                 // if no results came back
-                if (results.length == 0) {
+                if (results.length === 0) {
                     var noResults = document.createElement("div");
                     noResults.textContent = "No suggestions were found. Try reducing the amount of intolerances you have.";
                     itemList.appendChild(noResults);
@@ -179,6 +184,11 @@
                 const response = await fetch(url);
                 const data = await response.json();
                 return data;
+            }
+
+            async function testFetchResults(url) {
+                const response = await fetch(url);
+                return await response.json();
             }
 
             // send a POST request to the backend to add this id to the currents user's saved meals
