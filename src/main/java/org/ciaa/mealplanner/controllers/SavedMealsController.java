@@ -29,56 +29,39 @@ public class SavedMealsController {
         return "savedMeals";
     }
 
-    // /**
-    // * Handles POST requests from "savedMeals.html". If the "Return to Home page"
-    // * button is pressed, redirects the user to "home.html".
-    // *
-    // * @param submitFormButton the result of the button press from
-    // * "savedMeals.html".
-    // * @return the name of the html file to be displayed.
-    // */
-    // @PostMapping("/savedMeals")
-    // public String savedMeals(@RequestParam("submitFormButton") String
-    // submitFormButton) {
-
-    // // if the 'Return to Home page' button was selected
-    // if (submitFormButton.equals("home")) {
-    // return "redirect:/homePage";
-    // }
-
-    // return "redirect:/savedMeals";
-    // }
-
-    // Returns the current user's saved meals. These are in the form of recipe IDs.
+    /**
+     * Handles GET requests from "savedMeals.html" to the endpoint
+     * "ciaa/savedmeals/intolerances" to get the current user's saved meals. The
+     * saved meals are in the form of spoonacular recipe IDs.
+     * 
+     * @return the current user's saved meals in the form of spoonacular recipe IDs
+     */
     @GetMapping("/ciaa/savedmeals")
     @ResponseBody
     public List<String> getSavedMeals() {
 
-        // /* debug */ System.out.println("inside '/ciaa/savedmeals' GET method");
-        // /* debug */ System.out.println("Returning: " +
-        // Control.getCurrentUser().getMeals().toString());
-
         return Control.getCurrentUser().getMeals();
     }
 
-    // Deletes the corresponding meal from the current user's saved meals.
+    /**
+     * Handles DELETE requests from "savedMeals.html" to the endpoint
+     * "/ciaa/savedmeals/{id}" to delete the given meal from the current user's
+     * saved meals. The meal to be deleted is known by the 'id' field in the
+     * endpoint, which is the meal's corresponding spoonacular id.
+     * 
+     * @param id the spoonacular recipe id of the meal to be deleted from the
+     *           current user's saved meals.
+     * @return the status of the request
+     */
     @DeleteMapping("/ciaa/savedmeals/{id}")
     public ResponseEntity<?> deleteMeal(@PathVariable String id) {
 
-        /* debug */ System.out.println("inside '/ciaa/savedmeals/{" + id + "}' DELETE method");
-
         try {
-
-            /* debug */System.out.println("trying to delete meal " + id);
-
-            /* debug */System.out.println("current user's saved meals before deletion of " + id + ": " + Control.getCurrentUser().getMeals().toString());
 
             // delete the item
             UpdateUserInfo updateUserInfo = new UpdateUserInfo();
             updateUserInfo.setRemoveMeal(id);
             Control.updateUserInfo(updateUserInfo);
-
-            /* debug */System.out.println("current user's saved meals after deletion of " + id + ": " + Control.getCurrentUser().getMeals().toString());
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {
@@ -86,6 +69,3 @@ public class SavedMealsController {
         }
     }
 }
-
-
-

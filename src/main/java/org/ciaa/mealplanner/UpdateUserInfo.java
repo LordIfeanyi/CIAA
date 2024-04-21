@@ -1,9 +1,9 @@
 package org.ciaa.mealplanner;
 
 /**
- * A class representing an attempt to update the user's information. When a user
- * updates their information in the UserInfo html page, a new instance of this
- * class is created automatically in the UserInfoController class.
+ * A data class representing an attempt to update a user's information used for
+ * serializing html input. Fields exists for every fields of the User class, and
+ * each has getters & setters.
  */
 public class UpdateUserInfo {
 
