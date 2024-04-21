@@ -1,60 +1,56 @@
 <!DOCTYPE html>
 
+<!-- Define HTML document -->
 <html xmlns:th="https://www.thymeleaf.org">
 
 <head>
+    <!-- Meta information -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personalized Meal Planner</title>
-    <!-- Link to Bootstrap CSS hosted on unpkg CDN -->
+    
+    <!-- External CSS -->
     <link href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Add any additional CSS files or stylesheets here -->
     <link rel="stylesheet" href="styles.css">
-    <!-- Add inline CSS to customize styles -->
+    
+    <!-- Internal CSS -->
     <style>
-        /* Add custom styles here */
+        /* Styling for the header */
         header {
             background-image: url('food1.jpg');
-            /* Update the image path */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             height: 200px;
-            /* Adjust the height as needed */
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            /* Change text color to white */
             font-family: 'Times New Roman', Times, serif;
-            /* Change font to a curly font */
             font-size: 24px;
-            /* Adjust font size */
         }
 
+        /* Styling for buttons container */
         .btn-container {
             margin-top: 20px;
         }
 
+        /* Styling for buttons */
         .btn-container .btn {
             margin-bottom: 10px;
-            /* Add space between buttons */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Change font of buttons */
             font-size: 20px;
-            /* Adjust font size of buttons */
         }
 
+        /* Styling for secondary headings */
         h2 {
             font-family: 'Times New Roman', Times, serif;
-            /* Change font to a curly font */
-            font-style:normal;
-            /* Make text italic */
+            font-style: normal;
             font-size: 28px;
-            /* Adjust font size */
             margin-bottom: 20px;
-            /* Add space below the heading */
         }
+
+        /* Styling for main heading */
         h1 {
             font-family: 'Impact', Haettenschweiler, Arial Narrow Bold, sans-serif;
             font-size: larger;
@@ -63,30 +59,40 @@
 </head>
 
 <body>
+    <!-- Header section -->
     <header>
         <nav class="navbar navbar-expand-lg navbar-light">
         </nav>
     </header>
 
+    <!-- Welcome message -->
     <div class="row">
         <div class="col">
+            <!-- Display personalized welcome message -->
             <h1 class="display-4">Welcome <span th:text="${session.firstName}"></span>!</h1>
         </div>
     </div>
+
+    <!-- Get started section -->
     <div class="row">
         <div class="col">
             <h2>Get started with your personalized meal plan:</h2>
         </div>
     </div>
+
+    <!-- Button group for meal options -->
     <div class="list-group">
+        <!-- Button for getting meal suggestions -->
         <a href="mealSuggest" class= "list-group-item list-group-item-action btn btn-primary btn-lg d-block">Get Meal Suggestions</a>
+        <!-- Button for searching meals -->
         <a href="mealSearch" class="list-group-item list-group-item-action btn btn-info btn-lg d-block">Search for Meals</a>
+        <!-- Button for accessing user profile -->
         <a href="userInfo" class="list-group-item list-group-item-action btn btn-warning btn-lg d-block">Profile</a>
+        <!-- Button for accessing saved meals -->
         <a href="savedMeals" class="list-group-item list-group-item-action btn btn-secondary btn-lg d-block">Saved Meals</a>
     </div>
-    </main>
 
-    <!-- Add any JavaScript files or scripts here -->
+    <!-- JavaScript libraries -->
     <script src="https://unpkg.com/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
