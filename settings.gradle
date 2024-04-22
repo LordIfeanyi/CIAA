@@ -1,8 +1,1 @@
-sourceControl {
-    gitRepository(uri("https://github.com/ddsky/spoonacular-api-clients.git")) {
-        producesModule("com.spoonacular:java-client")
-        rootDir = "java"
-    }
-}
-
 rootProject.name = 'mealplanner'

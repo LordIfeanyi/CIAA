@@ -12,6 +12,10 @@ java {
 }
 
 repositories {
+    maven {
+        name "ornithe-test"
+        url "https://maven.ornithemc.net/test"
+    }
     mavenCentral()
 }
 
@@ -21,11 +25,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation('com.spoonacular:java-client') {
-        version {
-            branch = "master"
-        }
-    }
+    implementation "com.spoonacular:java-client:1.1.1"
     implementation "net.bytebuddy:byte-buddy-agent:1.14.13"
     implementation 'org.ow2.asm:asm:9.7'
     implementation 'org.ow2.asm:asm-commons:9.7'
