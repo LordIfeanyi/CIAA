@@ -49,6 +49,37 @@ button {
   transition: background-color 0.3s, transform 0.1s;
 }
 
+#clearTypeSelection {
+  background-color: red;
+  color: white;
+  border: none;
+  align-self: center;
+  border-radius: 5px;
+  padding: 6px 15px; /* Decreased top and bottom padding */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  font-size: 16px; /* Adjust font size as necessary */
+  vertical-align: middle; /* This helps align the button vertically with form elements */
+  margin-left: 10px; /* If you need space between the button and the last radio option */
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#homeButton {
+  background-color: #e2e6ea;
+  color: #5a6268;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
 button:hover {
   background-color: #218838;
   transform: translateY(-2px);
