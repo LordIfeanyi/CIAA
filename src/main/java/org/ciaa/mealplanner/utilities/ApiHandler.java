@@ -1,10 +1,7 @@
 package org.ciaa.mealplanner.utilities;
 
 import com.spoonacular.RecipesApi;
-import com.spoonacular.client.ApiClient;
-import com.spoonacular.client.ApiException;
-import com.spoonacular.client.Configuration;
-import com.spoonacular.client.Pair;
+import com.spoonacular.client.*;
 import com.spoonacular.client.auth.ApiKeyAuth;
 import com.spoonacular.client.model.GetRandomRecipes200Response;
 import com.spoonacular.client.model.GetRandomRecipes200ResponseRecipesInner;
@@ -25,23 +22,54 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The class responsible for handling API requests to the Spoonacular API.
+ * It uses the Spoonacular API client to make these requests.
+ * <p>
+ * The static initializer block of this class transforms some classes in the Spoonacular API client and tweaks
+ * the expected fields of the response classes, before the ApiClient is initialized and set.
+ */
 public class ApiHandler
 {
+    /**
+     * The Spoonacular API client used to make API calls.
+     */
     private static final ApiClient CLIENT;
+    /**
+     * A boolean flag to check if the API client has been authenticated.
+     */
+    private static boolean authenticated = false;
 
     static {
         try {
             transformClasses();
-            initializeResponses();
+            tweakResponses();
         } catch (UnmodifiableClassException e) {
             throw new RuntimeException(e);
         }
 
         CLIENT = Configuration.getDefaultApiClient();
-        ApiKeyAuth authentication = (ApiKeyAuth) CLIENT.getAuthentication("apiKeyScheme");
-        authentication.setApiKey("4dc6eb4bd1ec453dbba335faac5055d8");
     }
 
+    /**
+     * @hidden
+     */
+    private ApiHandler() {
+        throw new IllegalStateException("This class should not be instantiated!");
+    }
+
+    /**
+     * Transforms some classes in the Spoonacular API client.
+     * This uses ByteBuddyAgent and ASM to modify the classes at runtime.
+     * <p>
+     * These transformations are necessary because the Spoonacular API client
+     * does not provide all the necessary functionality to
+     * make the API calls that are needed for the application.
+     * <p>
+     * This method is called during class initialization.
+     *
+     * @throws UnmodifiableClassException if the classes cannot be modified
+     */
     private static void transformClasses() throws UnmodifiableClassException {
         Instrumentation instrumentation = ByteBuddyAgent.install();
 
@@ -249,7 +277,14 @@ public class ApiHandler
         instrumentation.removeTransformer(recipesApiTransformer);
     }
 
-    private static void initializeResponses() {
+    /**
+     * Tweaks the expected fields of the response classes.
+     * These tweaks are necessary because the Spoonacular API client
+     * does not initialize these classes with the correct fields.
+     * <p>
+     * This method is called during class initialization.
+     */
+    private static void tweakResponses() {
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("preparationMinutes");
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("cookingMinutes");
         GetRandomRecipes200ResponseRecipesInner.openapiFields.add("originalId");
@@ -263,6 +298,28 @@ public class ApiHandler
         GetRecipeInformation200ResponseExtendedIngredientsInner.openapiFields.add("nameClean");
     }
 
+    /**
+     * Authenticates the Spoonacular API client.
+     * This sets the API key for the client.
+     * <p>
+     * Should only be called once, but it has a check to prevent multiple authentications.
+     */
+    public static void authenticateApiClient() {
+        if (!authenticated) {
+            ApiKeyAuth authentication = (ApiKeyAuth) CLIENT.getAuthentication("apiKeyScheme");
+            authentication.setApiKey("4dc6eb4bd1ec453dbba335faac5055d8");
+            authenticated = true;
+            return;
+        }
+        CiaaApplication.LOGGER.warn("API already authenticated! Is there an extra call to authenticateApiClient()?");
+    }
+
+    /**
+     * Handles the random recipe suggestion API call for the passed user.
+     *
+     * @param user the user for whom to suggest meals
+     * @return a GetRandomRecipes200Response object containing the suggested meals
+     */
     public static GetRandomRecipes200Response suggestMeals(User user) {
         RecipesApi api = new RecipesApi(CLIENT);
         StringBuilder builder = new StringBuilder();
@@ -282,8 +339,31 @@ public class ApiHandler
         return randomRecipes;
     }
 
+    /**
+     * A utility class used to modify the RecipesApi class.
+     * <p>
+     * Since the {@link com.spoonacular.RecipesApi#getRandomRecipesCall(Boolean, String, Integer, ApiCallback)} method
+     * expects a single tag, whereas the Spoonacular API itself expects two tags, a string split is necessary to pass
+     * the correct parameters to the API.
+     */
     private static final class RecipesApiMod
     {
+        /**
+         * @hidden
+         */
+        private RecipesApiMod() {
+            throw new IllegalStateException("This class should not be instantiated!");
+        }
+
+        /**
+         * Splits the passed string into two tags and adds them as query parameters.
+         * <p>
+         * This method is injected into the RecipesApi class and is not meant to be called directly by this application.
+         *
+         * @param localVarQueryParams the list of query parameters to which the tags will be added
+         * @param localVarApiClient   the API client
+         * @param string              the string to split
+         */
         @SuppressWarnings("unused")
         private static void splitAndAddParams(List<Pair> localVarQueryParams, ApiClient localVarApiClient,
                                               String string) {

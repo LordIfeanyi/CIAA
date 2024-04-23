@@ -3,7 +3,7 @@ package org.ciaa.mealplanner;
 /**
  * A data class representing an attempt to update a user's information used for
  * serializing html input. Fields exists for every fields of the User class, and
- * each has getters & setters.
+ * each has getters and setters.
  */
 public class UpdateUserInfo {
 

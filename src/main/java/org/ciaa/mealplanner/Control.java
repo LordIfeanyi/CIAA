@@ -3,9 +3,9 @@ package org.ciaa.mealplanner;
 import org.ciaa.mealplanner.utilities.TextFileHandler;
 
 /**
- * A class containing static methods responsible for performing the fundamental
- * functions of the application. This includes adding new users and handling
- * login authentication.
+ * A class containing static methods responsible for performing
+ * the fundamental functions of the application.
+ * This includes adding new users and handling login authentication.
  */
 public class Control {
 
@@ -15,7 +15,7 @@ public class Control {
     private static User currentUser;
 
     /**
-     * Uses "TextFileHandler.java" to add a new User to the text file.
+     * Uses {@link TextFileHandler} to add a new User to the text file.
      * 
      * @param user the new User to be added.
      */
@@ -62,8 +62,8 @@ public class Control {
     }
 
     /**
-     * Checks if the passed UserSignIn object corresponds to a User in the text
-     * file. If it does, uses 'setCurrentUser()' to make a new User object with the
+     * Checks if the passed UserSignIn object corresponds to a User in the text file.
+     * If it does, uses 'setCurrentUser()' to make a new User object with the
      * text file line of the user whose information matched the passed UserSignIn
      * object, sets that new User object as the 'currentUser', and returns true.
      * 
@@ -85,10 +85,11 @@ public class Control {
     }
 
     /**
-     * Updates the fields of the current User with the information of the passed
-     * UpdateUserInfo object. Also updates the text file by editing the text file
+     * Updates the fields of the current User with the
+     * information of the passed UpdateUserInfo object.
+     * Also updates the text file by editing the text file
      * line which corresponds to the current user.
-     * 
+     * <p>
      * If any fields of the UpdateUserInfo object are null, the user's initial
      * values for those fields are preserved.
      * 

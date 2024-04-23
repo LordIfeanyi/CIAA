@@ -3,9 +3,9 @@ package org.ciaa.mealplanner;
 import java.util.*;
 
 /**
- * A class representing a registered user of the system. Each new User is given
- * a unique 'id' in the constructor according to the current time. All
- * attributes have getters & setters.
+ * A class representing a registered user of the system.
+ * Each new User is given a unique 'id' in the constructor according to the current time.
+ * All attributes have getters and setters.
  */
 public class User {
 

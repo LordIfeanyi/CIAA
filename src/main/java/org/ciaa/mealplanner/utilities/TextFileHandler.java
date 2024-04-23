@@ -7,19 +7,27 @@ import org.ciaa.mealplanner.User;
 /**
  * A class containing static methods responsible for creating, reading, updating
  * and deleting lines of the text file, "TextFile.txt".
- * 
+ * <p>
  * Each line of the text file corresponds to a distinct user registered in the
  * system, and contains their data organized by tags and separated by dividers.
  */
 public class TextFileHandler {
 
     /**
-     * Adds a new User to the text file. Writes all of this user's attributes
-     * to a single line in the file. Attributes are organized by a tag, followed by
-     * an equals sign, the value, and finally ended with a forward slash.
+     * @hidden
+     */
+    private TextFileHandler() {
+        throw new IllegalStateException("This class should not be instantiated!");
+    }
+
+    /**
+     * Adds a new {@link User} to the text file.
+     * Writes all of this user's attributes to a single line in the file.
+     * Attributes are organized by a tag, followed by an equals sign,
+     * the value, and finally ended with a forward slash.
      * Ex: id=12345/firstName=Bob/lastName=Smith/email= ...
      * 
-     * @param user the User whose information will be written to the next line of
+     * @param user the {@link User} whose information will be written to the next line of
      *             the text file.
      */
     public static void addUser(User user) {
@@ -51,9 +59,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Searches each line of the text file for a username and password that matches
-     * the passed parameters. Returns the entire line that the match was found on,
-     * or null.
+     * Searches each line of the text file for a username
+     * and password that matches the passed parameters.
+     * Returns the entire line that the match was found on, or null.
      * 
      * @param username the username being searched for in the text file.
      * @param password the password being searched for in the text file.
@@ -85,8 +93,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its id. The id is
-     * located between the "id=" tag and the following forward slash "/".
+     * Parses the passed line of the text file for its id.
+     * The id is located between the "id=" tag
+     * and the following forward slash "/".
      * 
      * @param curLine the line of the text file to be parsed.
      * @return the id, or null if it wasn't found.
@@ -110,8 +119,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its first name. The first name is
-     * located between the "firstName=" tag and the following forward slash "/".
+     * Parses the passed line of the text file for its first name.
+     * The first name is located between the "firstName=" tag
+     * and the following forward slash "/".
      * 
      * @param curLine the line of the text file to be parsed.
      * @return the firstName, or null if it wasn't found.
@@ -135,8 +145,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its last name. The last name is
-     * located between the "lastName=" tag and the following forward slash "/".
+     * Parses the passed line of the text file for its last name.
+     * The last name is located between the "lastName=" tag
+     * and the following forward slash "/".
      * 
      * @param curLine the line of the text file to be parsed.
      * @return the lastName, or null if it wasn't found.
@@ -160,8 +171,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its email. The email is
-     * located between the "email=" tag and the following forward slash "/".
+     * Parses the passed line of the text file for its email.
+     * The email is located between the "email=" tag
+     * and the following forward slash "/".
      * 
      * @param curLine the line of the text file to be parsed.
      * @return the email, or null if it wasn't found.
@@ -185,8 +197,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its username. The username is
-     * located between the "username=" tag and the following forward slash "/".
+     * Parses the passed line of the text file for its username.
+     * The username is located between the "username=" tag
+     * and the following forward slash "/".
      * 
      * @param curLine the line of the text file to be parsed.
      * @return the username, or null if it wasn't found.
@@ -210,8 +223,9 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its password. The password is
-     * located between the "password=" tag and the following forward slash "/".
+     * Parses the passed line of the text file for its password.
+     * The password is located between the "password=" tag
+     * and the following forward slash "/".
      * 
      * @param curLine the line of the text file to be parsed.
      * @return the password, or null if it wasn't found.
@@ -235,10 +249,11 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its intolerances. The
-     * intolerances are a comma separated list located between the "intolerances="
-     * tag and the following forward slash "/". This comma separated list is then
-     * parsed and its individual elements are added to the list being returned.
+     * Parses the passed line of the text file for its intolerances.
+     * The intolerances are a comma separated list located between the "intolerances=" tag
+     * and the following forward slash "/".
+     * This comma separated list is then parsed
+     * and its individual elements are added to the list being returned.
      * 
      * @param curLine the line of the text file to be parsed.
      * @return a list of the intolerances.
@@ -271,10 +286,11 @@ public class TextFileHandler {
     }
 
     /**
-     * Parses the passed line of the text file for its saved meals. The meals are a
-     * comma separated list located between the "meals=" tag and the following
-     * forward slash "/". This comma separated list is then parsed and its
-     * individual elements are added to the list being returned.
+     * Parses the passed line of the text file for its saved meals.
+     * The meals are a comma separated list located between the "meals=" tag
+     * and the following forward slash "/".
+     * This comma separated list is then parsed
+     * and its individual elements are added to the list being returned.
      * 
      * @param curLine the line of the text file to be parsed.
      * @return a list of the meals
@@ -306,8 +322,8 @@ public class TextFileHandler {
     }
 
     /**
-     * Edits the line of the text file corresponding to the passed User according to
-     * its current data.
+     * Edits the line of the text file corresponding to
+     * the passed User according to its current data.
      * 
      * @param user the whose corresponding text file line will be edited.
      */

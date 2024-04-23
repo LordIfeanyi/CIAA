@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * of the application, "signup.html".
  */
 @Controller
-public class signupController {
+public class SignupController
+{
 
     /**
      * Handles GET requests from "signup.html". Responsible for displaying
