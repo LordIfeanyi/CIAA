@@ -75,17 +75,18 @@
             <label><input type="radio" name="type" value="breakfast" /> Breakfast</label>
             <label><input type="radio" name="type" value="beverage" /> Beverage</label>
             <label><input type="radio" name="type" value="snack" /> Snack</label>
-
-            <button onclick="clearRadioButtons('type')">Clear Type Selection</button>
-
+            
+            <button id="clearTypeSelection" onclick="clearSelection()">Clear</button>
         </div>
 
-        <div class="search-button-container">
-            <button onclick="generateList()">Get Suggestions</button>
+<div class="search-button-container">
+    <button style="margin-right: 10px;" onclick="generateList()">Get Suggestions</button>
+</div>
 
-            <a href="homePage"><button>Back to Home Page</button></a>
+<div class = "button-container">
+        <a href="homePage"><button id="homeButton">Back to Home Page</button></a>
+</div>
 
-        </div>
 
         <ul id="searchResults">
             <!-- List items will be generated dynamically here using JavaScript -->

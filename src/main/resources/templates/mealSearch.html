@@ -84,8 +84,7 @@
       <label><input type="radio" name="cuisine" value="Thai" /> Thai</label>
       <label><input type="radio" name="cuisine" value="Vietnamese" /> Vietnamese</label>
 
-      <button onclick="clearRadioButtons('cuisine')">Clear Cuisine Selection</button>
-
+<button id="clearTypeSelection" onclick="clearSelection()">Clear</button>
     </div>
     <br />
 
@@ -98,8 +97,7 @@
       <label><input type="radio" name="diet" value="Paleo" /> Paleo</label>
       <label><input type="radio" name="diet" value="Primal" /> Primal</label>
 
-      <button onclick="clearRadioButtons('diet')">Clear Diet Selection</button>
-
+<button id="clearTypeSelection" onclick="clearSelection()">Clear</button>
     </div>
     <br />
     <!-- <br /> -->
@@ -114,8 +112,7 @@
       <label><input type="radio" name="type" value="beverage" /> Beverage</label>
       <label><input type="radio" name="type" value="snack" /> Snack</label>
 
-      <button onclick="clearRadioButtons('type')">Clear Type Selection</button>
-
+<button id="clearTypeSelection" onclick="clearSelection()">Clear</button>
     </div>
     <br />
 
@@ -134,16 +131,18 @@
       <label><input type="checkbox" name="intolerance" value="Tree Nut" /> Tree Nut</label>
       <label><input type="checkbox" name="intolerance" value="Wheat" /> Wheat</label>
 
-      <button onclick="clearCheckBoxes()">Clear Intolerance Selections</button>
-
+<button id="clearTypeSelection" onclick="clearSelection()">Clear</button>
     </div>
 
     <div class="search-button-container">
       <button onclick="generateList()">Search</button>
 
-      <a href="homePage"><button>Back to Home Page</button></a>
       
     </div>
+
+    <div class = "button-container">
+        <a href="homePage"><button id="homeButton">Back to Home Page</button></a>
+</div>
 
     <ul id="searchResults">
       <!-- List items will be generated dynamically here using JavaScript -->
