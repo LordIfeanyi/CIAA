@@ -10,6 +10,10 @@ import org.ciaa.mealplanner.User;
  * <p>
  * Each line of the text file corresponds to a distinct user registered in the
  * system, and contains their data organized by tags and separated by dividers.
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-04-02
  */
 public class TextFileHandler {
 

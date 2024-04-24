@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * The controller class responsible for handling requests from the home page
  * of the application, "homePage.html".
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-04-09
  */
 @Controller
 public class HomePageController {

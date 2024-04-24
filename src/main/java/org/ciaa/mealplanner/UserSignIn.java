@@ -3,6 +3,10 @@ package org.ciaa.mealplanner;
 /**
  * A data class representing a user sign-in attempt used for serializing html input.
  * Consists of a username and password along with getters and setters.
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-19
  */
 public class UserSignIn {
 

@@ -11,6 +11,10 @@ import java.util.Arrays;
 
 /**
  * The class containing the main method responsible for running the application.
+ *
+ * @author C. Becerra
+ * <p>
+ * Created on 2024-02-20
  */
 @SpringBootApplication
 public class CiaaApplication

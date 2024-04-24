@@ -12,6 +12,10 @@ import jakarta.servlet.http.HttpSession;
 /**
  * The controller class responsible for handling requests from the user info
  * page of the application, "userInfo.html".
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-28
  */
 @Controller
 public class UserInfoController {

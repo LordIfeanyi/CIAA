@@ -6,6 +6,10 @@ import java.util.*;
  * A class representing a registered user of the system.
  * Each new User is given a unique 'id' in the constructor according to the current time.
  * All attributes have getters and setters.
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-19
  */
 public class User {
 

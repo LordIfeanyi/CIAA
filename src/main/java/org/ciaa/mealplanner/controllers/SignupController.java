@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * The controller class responsible for handling requests from the sign-up page
  * of the application, "signup.html".
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-19
  */
 @Controller
 public class SignupController

@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 /**
  * The controller class responsible for handling requests from the meal
  * suggester page of the application, "mealSuggest.html".
+ *
+ * @author C. Becerra
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-28
  */
 @Controller
 public class MealSuggestController

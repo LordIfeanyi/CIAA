@@ -6,6 +6,11 @@ import org.ciaa.mealplanner.utilities.TextFileHandler;
  * A class containing static methods responsible for performing
  * the fundamental functions of the application.
  * This includes adding new users and handling login authentication.
+ *
+ * @author Andrew Mazlumyan
+ * @author C. Becerra
+ * <p>
+ * Created on 2024-03-19
  */
 public class Control {
 

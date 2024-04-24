@@ -12,6 +12,10 @@ import jakarta.servlet.http.HttpSession;
 /**
  * The controller class responsible for handling requests from the landing page
  * of the application, "index.html".
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-19
  */
 @Controller
 public class IndexController {

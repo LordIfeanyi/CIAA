@@ -28,6 +28,10 @@ import java.util.List;
  * <p>
  * The static initializer block of this class transforms some classes in the Spoonacular API client and tweaks
  * the expected fields of the response classes, before the ApiClient is initialized and set.
+ *
+ * @author C. Becerra
+ * <p>
+ * Created on 2024-04-12
  */
 public class ApiHandler
 {

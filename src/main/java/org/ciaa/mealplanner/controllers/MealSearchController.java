@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 /**
  * The controller class responsible for handling requests from the meal
  * search page of the application, "mealSearch.html".
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-28
  */
 @Controller
 public class MealSearchController {

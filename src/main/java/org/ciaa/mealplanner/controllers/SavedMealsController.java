@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * The controller class responsible for handling requests from the saved meals
  * page of the application, "savedMeals.html".
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-03-28
  */
 @Controller
 public class SavedMealsController {

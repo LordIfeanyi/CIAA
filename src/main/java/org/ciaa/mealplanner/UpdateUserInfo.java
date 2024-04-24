@@ -5,6 +5,10 @@ package org.ciaa.mealplanner;
  * a user's information used for serializing html input.
  * Fields exist for every field of the User class, and
  * each has getters and setters.
+ *
+ * @author Andrew Mazlumyan
+ * <p>
+ * Created on 2024-04-09
  */
 public class UpdateUserInfo {
 
