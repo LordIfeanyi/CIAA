@@ -17,9 +17,9 @@ import jakarta.servlet.http.HttpSession;
 public class IndexController {
 
     /**
-     * Handles GET requests from "index.html". Responsible for displaying
-     * "index.html".
-     * 
+     * Handles GET requests from "index.html".
+     * Responsible for displaying "index.html".
+     *
      * @return the name of the html file to be displayed.
      */
     @GetMapping("/index")
@@ -28,26 +28,25 @@ public class IndexController {
     }
 
     /**
-     * Handles POST requests from "index.html" by redirecting the user to either
-     * "register.html" or "login.html" depending on which button in "index.html" was
-     * pressed.
-     * 
-     * A "UserSignIn" object is automatically serialized from the input of
-     * "index.html". The data in this object is then used to verify the login
-     * attempt via the 'authenticateUser()' static method of "Control.java". If the
-     * login is authenticated, a new "User" objected is created with the data of the
-     * text file line which corresponded to the login attempt. This new User object
-     * is then set as the 'currentUser' field of "Control.java".
-     * 
-     * An instance of HttpSession is also automatically created and fields are
-     * created that correspond to the current user's data. These fields are used
-     * to be displayed elsewhere in the application.
-     * 
-     * @param userSignIn       the automatically generated UserSignIn object used
+     * Handles POST requests from "index.html" by redirecting the user to either "register.html"
+     * or "login.html" depending on which button in "index.html" was pressed.
+     * <p>
+     * A "UserSignIn" object is automatically serialized from the input of "index.html".
+     * The data in this object is then used to verify the login attempt via
+     * the 'authenticateUser()' static method of "Control.java".
+     * If the login is authenticated, a new "User" objected is created
+     * with the data of the text file line which corresponded to the login attempt.
+     * This new User object is then set as the 'currentUser' field of "Control.java".
+     * <p>
+     * An instance of HttpSession is also automatically created,
+     * and fields are created that correspond to the current user's data.
+     * These fields are used to be displayed elsewhere in the application.
+     *
+     * @param userSignIn       The automatically generated UserSignIn object used
      *                         for login verification.
-     * @param submitFormButton the result of the button press from "index.html".
-     * @param session          the automatically generated HttpSession object.
-     * @return the name of the html file to be displayed.
+     * @param submitFormButton The result of the button press from "index.html".
+     * @param session          The automatically generated HttpSession object.
+     * @return The name of the html file to be displayed.
      */
     @PostMapping("/index")
     public String index(@ModelAttribute UserSignIn userSignIn,

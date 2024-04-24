@@ -36,9 +36,13 @@ public class ApiHandler
      */
     private static final ApiClient CLIENT;
     /**
-     * A boolean flag to check if the API client has been authenticated.
+     * The RecipesApi object used to make calls to the recipes family of endpoints.
      */
-    private static boolean authenticated = false;
+    private static RecipesApi recipesApi;
+    /**
+     * A boolean flag to check if the API client has completed setup.
+     */
+    private static boolean setupComplete = false;
 
     static {
         try {
@@ -299,16 +303,18 @@ public class ApiHandler
     }
 
     /**
-     * Authenticates the Spoonacular API client.
-     * This sets the API key for the client.
+     * Completes the ApiHandler setup.
+     * Authenticates the API client and sets initializes a RecipesApi object.
      * <p>
      * Should only be called once, but it has a check to prevent multiple authentications.
      */
-    public static void authenticateApiClient() {
-        if (!authenticated) {
+    public static void finishSetup() {
+        if (!setupComplete) {
             ApiKeyAuth authentication = (ApiKeyAuth) CLIENT.getAuthentication("apiKeyScheme");
             authentication.setApiKey("4dc6eb4bd1ec453dbba335faac5055d8");
-            authenticated = true;
+
+            recipesApi = new RecipesApi(CLIENT);
+            setupComplete = true;
             return;
         }
         CiaaApplication.LOGGER.warn("API already authenticated! Is there an extra call to authenticateApiClient()?");
@@ -317,13 +323,11 @@ public class ApiHandler
     /**
      * Handles the random recipe suggestion API call for the passed user.
      *
-     * @param user        the user for whom to suggest meals
-     * @param includeTags the tags to include in the suggestion
-     * @return a GetRandomRecipes200Response object containing the suggested meals
+     * @param user        The user for whom to suggest meals
+     * @param includeTags The tags to include in the suggestion
+     * @return A GetRandomRecipes200Response object containing the suggested meals
      */
     public static GetRandomRecipes200Response suggestMeals(User user, String includeTags) {
-        RecipesApi api = new RecipesApi(CLIENT);
-
         StringBuilder builder = new StringBuilder();
         builder.append(includeTags);
         builder.append("&");
@@ -337,8 +341,8 @@ public class ApiHandler
 
         GetRandomRecipes200Response randomRecipes;
         try {
-            randomRecipes = api.getRandomRecipes(false, intolerances, 10);
-            CiaaApplication.LOGGER.debug("Random recipes: " + randomRecipes.toString());
+            randomRecipes = recipesApi.getRandomRecipes(false, intolerances, 10);
+            CiaaApplication.LOGGER.debug("Random recipes: {}", randomRecipes.toString());
         } catch (ApiException e) {
             throw new RuntimeException(e);
         }
@@ -367,9 +371,9 @@ public class ApiHandler
          * <p>
          * This method is injected into the RecipesApi class and is not meant to be called directly by this application.
          *
-         * @param localVarQueryParams the list of query parameters to which the tags will be added
-         * @param localVarApiClient   the API client
-         * @param string              the string to split
+         * @param localVarQueryParams The list of query parameters to which the tags will be added
+         * @param localVarApiClient   The API client
+         * @param string              The string to split
          */
         @SuppressWarnings("unused")
         private static void splitAndAddParams(List<Pair> localVarQueryParams, ApiClient localVarApiClient,

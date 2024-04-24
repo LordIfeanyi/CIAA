@@ -17,10 +17,10 @@ import jakarta.servlet.http.HttpSession;
 public class UserInfoController {
 
     /**
-     * Handles GET requests from "userInfo.html". Responsible for displaying
-     * "userInfo.html".
+     * Handles GET requests from "userInfo.html".
+     * Responsible for displaying "userInfo.html".
      * 
-     * @return the name of the html file to be displayed.
+     * @return The name of the html file to be displayed.
      */
     @GetMapping("/userInfo")
     public String userInfo() {
@@ -28,23 +28,24 @@ public class UserInfoController {
     }
 
     /**
-     * Handles POST requests from "userInfo.html". Redirects to "homePage.html" if
-     * the cancel button is pressed, or "userInfo.html" (this same page) if any
-     * other button is pressed.
+     * Handles POST requests from "userInfo.html".
+     * Redirects to "homePage.html" if the cancel button is pressed,
+     * or "userInfo.html" (this same page) if any other button is pressed.
+     * <p>
+     * A "UpdateUserInfo" object is automatically
+     * serialized from the input of "userInfo.html".
+     * The data in this object is then used to
+     * update the data of the current user.
+     * <p>
+     * An instance of HttpSession is also automatically created,
+     * and fields are created that correspond to the current user's data.
+     * The attributes of this session are used to display the
+     * current state of the user's data on the "userInfo.html" page.
      * 
-     * A "UpdateUserInfo" object is automatically serialized from the input of
-     * "userInfo.html". The data in this object is then used to update the data of
-     * the current user.
-     * 
-     * An instance of HttpSession is also automatically created and fields are
-     * created that correspond to the current user's data. The attributes of this
-     * session are used to dipslay the current state of the user's data on the
-     * "userInfo.html" page.
-     * 
-     * @param updatedInfo      the automatically generated UpdateUserInfo object
-     * @param submitFormButton the result of the button press from "userInfo.html".
-     * @param session          the automatically generated HttpSession object.
-     * @return the name of the html file to be displayed.
+     * @param updatedInfo      The automatically generated UpdateUserInfo object
+     * @param submitFormButton The result of the button press from "userInfo.html".
+     * @param session          The automatically generated HttpSession object.
+     * @return The name of the html file to be displayed.
      */
     @PostMapping("/userInfo")
     public String userInfo(@ModelAttribute UpdateUserInfo updatedInfo,

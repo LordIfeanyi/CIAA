@@ -27,7 +27,7 @@ public class CiaaApplication
     public static void main(String[] args) {
         LOGGER.info("Starting CIAA application...");
         if (Arrays.asList(args).contains("--debug")) ((ch.qos.logback.classic.Logger) LOGGER).setLevel(Level.DEBUG);
-        ApiHandler.authenticateApiClient();
+        ApiHandler.finishSetup();
         SpringApplication.run(CiaaApplication.class, args);
     }
 }

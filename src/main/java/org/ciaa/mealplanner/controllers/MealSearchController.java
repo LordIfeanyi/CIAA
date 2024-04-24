@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MealSearchController {
 
     /**
-     * Handles GET requests from "mealSearch.html". Responsible for displaying
-     * "mealSearch.html".
+     * Handles GET requests from "mealSearch.html".
+     * Responsible for displaying "mealSearch.html".
      * 
-     * @return the name of the html file to be displayed.
+     * @return The name of the html file to be displayed.
      */
     @GetMapping("/mealSearch")
     public String mealSearch() {
@@ -29,11 +29,11 @@ public class MealSearchController {
     /**
      * Handles POST requests from "mealSearch.html" and "mealSuggest.html" to the
      * endpoint "ciaa/savedmeals/{id}" to save meals to the current user's account.
-     * The meal to be saved is passed as its spoonacular recipe id number, and is
-     * stored in the text file in the current user's line.
+     * The meal to be saved is passed as its spoonacular recipe id number,
+     * and is stored in the text file in the current user's line.
      * 
-     * @param id the meal's spoonacular recipe id
-     * @return the status of the request
+     * @param id The meal's spoonacular recipe id
+     * @return The status of the request
      */
     @PostMapping("ciaa/savedmeals/{id}")
     public ResponseEntity<?> saveMeal(@PathVariable String id) {

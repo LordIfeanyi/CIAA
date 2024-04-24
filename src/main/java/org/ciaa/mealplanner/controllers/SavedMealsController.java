@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SavedMealsController {
 
     /**
-     * Handles GET requests from "savedMeals.html". Responsible for displaying
-     * "savedMeals.html".
+     * Handles GET requests from "savedMeals.html".
+     * Responsible for displaying "savedMeals.html".
      * 
-     * @return the name of the html file to be displayed.
+     * @return The name of the html file to be displayed.
      */
     @GetMapping("/savedMeals")
     public String savedMeals() {
@@ -31,10 +31,10 @@ public class SavedMealsController {
 
     /**
      * Handles GET requests from "savedMeals.html" to the endpoint
-     * "ciaa/savedmeals/intolerances" to get the current user's saved meals. The
-     * saved meals are in the form of spoonacular recipe IDs.
+     * "ciaa/savedmeals/intolerances" to get the current user's saved meals.
+     * The saved meals are in the form of spoonacular recipe IDs.
      * 
-     * @return the current user's saved meals in the form of spoonacular recipe IDs
+     * @return The current user's saved meals in the form of spoonacular recipe IDs
      */
     @GetMapping("/ciaa/savedmeals")
     @ResponseBody
@@ -44,14 +44,14 @@ public class SavedMealsController {
     }
 
     /**
-     * Handles DELETE requests from "savedMeals.html" to the endpoint
-     * "/ciaa/savedmeals/{id}" to delete the given meal from the current user's
-     * saved meals. The meal to be deleted is known by the 'id' field in the
+     * Handles DELETE requests from "savedMeals.html" to the endpoint "/ciaa/savedmeals/{id}"
+     * to delete the given meal from the current user's saved meals.
+     * The 'id' field passes the meal to be deleted in the
      * endpoint, which is the meal's corresponding spoonacular id.
      * 
-     * @param id the spoonacular recipe id of the meal to be deleted from the
+     * @param id The spoonacular recipe id of the meal to be deleted from the
      *           current user's saved meals.
-     * @return the status of the request
+     * @return The status of the request
      */
     @DeleteMapping("/ciaa/savedmeals/{id}")
     public ResponseEntity<?> deleteMeal(@PathVariable String id) {

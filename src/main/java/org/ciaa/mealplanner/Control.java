@@ -17,7 +17,7 @@ public class Control {
     /**
      * Uses {@link TextFileHandler} to add a new User to the text file.
      * 
-     * @param user the new User to be added.
+     * @param user The new User to be added.
      */
     public static void addNewUser(User user) {
         TextFileHandler.addUser(user);
@@ -26,7 +26,7 @@ public class Control {
     /**
      * Returns the static current user field.
      * 
-     * @return the current User.
+     * @return The current User.
      */
     public static User getCurrentUser() {
         return currentUser;
@@ -35,8 +35,9 @@ public class Control {
     /**
      * Sets the passed User as the currentUser field.
      * 
-     * @param user the User to be set as the currentUser.
+     * @param user The User to be set as the currentUser.
      */
+    @SuppressWarnings("unused")
     public static void setCurrentUser(User user) {
         currentUser = user;
     }
@@ -45,7 +46,7 @@ public class Control {
      * Creates a new User object with attributes from the passed line of the text
      * file, and sets the 'currentUser' field of this class to that new User object.
      * 
-     * @param textFileLine the text file line whose information will be used to
+     * @param textFileLine The text file line whose information will be used to
      *                     create the new current user.
      */
     public static void setCurrentUser(String textFileLine) {
@@ -67,7 +68,7 @@ public class Control {
      * text file line of the user whose information matched the passed UserSignIn
      * object, sets that new User object as the 'currentUser', and returns true.
      * 
-     * @param userSignIn the UserSignIn object to be checked against the user data
+     * @param userSignIn The UserSignIn object to be checked against the user data
      *                   in the text file.
      * @return true if the passed userSignIn corresponds to a User in the system,
      *         false otherwise.
@@ -93,46 +94,46 @@ public class Control {
      * If any fields of the UpdateUserInfo object are null, the user's initial
      * values for those fields are preserved.
      * 
-     * @param updatedInfo the object containing the updated user information.
+     * @param updatedInfo The object containing the updated user information.
      */
     public static void updateUserInfo(UpdateUserInfo updatedInfo) {
 
         // profile info
-        if (updatedInfo.getFirstName() != "" && updatedInfo.getFirstName() != null) {
+        if (updatedInfo.getFirstName() != null && !updatedInfo.getFirstName().isEmpty()) {
             currentUser.setFirstName(updatedInfo.getFirstName());
         }
-        if (updatedInfo.getLastName() != "" && updatedInfo.getLastName() != null) {
+        if (updatedInfo.getLastName() != null && !updatedInfo.getLastName().isEmpty()) {
             currentUser.setLastName(updatedInfo.getLastName());
         }
-        if (updatedInfo.getEmail() != "" && updatedInfo.getEmail() != null) {
+        if (updatedInfo.getEmail() != null && !updatedInfo.getEmail().isEmpty()) {
             currentUser.setEmail(updatedInfo.getEmail());
         }
-        if (updatedInfo.getUsername() != "" && updatedInfo.getUsername() != null) {
+        if (updatedInfo.getUsername() != null && !updatedInfo.getUsername().isEmpty()) {
             currentUser.setUsername(updatedInfo.getUsername());
         }
-        if (updatedInfo.getPassword() != "" && updatedInfo.getPassword() != null) {
+        if (updatedInfo.getPassword() != null && !updatedInfo.getPassword().isEmpty()) {
             currentUser.setPassword(updatedInfo.getPassword());
         }
 
         // intolerances
-        if (updatedInfo.getNewIntolerance() != "" && updatedInfo.getNewIntolerance() != null) {
+        if (updatedInfo.getNewIntolerance() != null && !updatedInfo.getNewIntolerance().isEmpty()) {
             currentUser.addIntolerance(updatedInfo.getNewIntolerance());
         }
-        if (updatedInfo.getRemoveIntolerance() != "" && updatedInfo.getRemoveIntolerance() != null) {
+        if (updatedInfo.getRemoveIntolerance() != null && !updatedInfo.getRemoveIntolerance().isEmpty()) {
             currentUser.removeIntolerance(updatedInfo.getRemoveIntolerance());
         }
-        if (updatedInfo.getClearIntolerances() == true) {
+        if (updatedInfo.getClearIntolerances()) {
             currentUser.clearIntolerances();
         }
 
         // meals
-        if (updatedInfo.getNewMeal() != "" && updatedInfo.getNewMeal() != null) {
+        if (updatedInfo.getNewMeal() != null && !updatedInfo.getNewMeal().isEmpty()) {
             currentUser.addMeal(updatedInfo.getNewMeal());
         }
-        if (updatedInfo.getRemoveMeal() != "" && updatedInfo.getRemoveMeal() != null) {
+        if (updatedInfo.getRemoveMeal() != null && !updatedInfo.getRemoveMeal().isEmpty()) {
             currentUser.removeMeal(updatedInfo.getRemoveMeal());
         }
-        if (updatedInfo.getClearMeals() == true) {
+        if (updatedInfo.getClearMeals()) {
             currentUser.clearMeals();
         }
 

@@ -1,8 +1,9 @@
 package org.ciaa.mealplanner;
 
 /**
- * A data class representing an attempt to update a user's information used for
- * serializing html input. Fields exists for every fields of the User class, and
+ * A data class representing an attempt to update
+ * a user's information used for serializing html input.
+ * Fields exist for every field of the User class, and
  * each has getters and setters.
  */
 public class UpdateUserInfo {
@@ -25,6 +26,7 @@ public class UpdateUserInfo {
         return firstName;
     }
 
+    @SuppressWarnings("unused")
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -33,6 +35,7 @@ public class UpdateUserInfo {
         return lastName;
     }
 
+    @SuppressWarnings("unused")
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -41,6 +44,7 @@ public class UpdateUserInfo {
         return email;
     }
 
+    @SuppressWarnings("unused")
     public void setEmail(String email) {
         this.email = email;
     }
@@ -49,6 +53,7 @@ public class UpdateUserInfo {
         return username;
     }
 
+    @SuppressWarnings("unused")
     public void setUsername(String username) {
         this.username = username;
     }
@@ -57,6 +62,7 @@ public class UpdateUserInfo {
         return password;
     }
 
+    @SuppressWarnings("unused")
     public void setPassword(String password) {
         this.password = password;
     }
@@ -65,6 +71,7 @@ public class UpdateUserInfo {
         return newIntolerance;
     }
 
+    @SuppressWarnings("unused")
     public void setNewIntolerance(String newIntolerance) {
         this.newIntolerance = newIntolerance;
     }
@@ -73,6 +80,7 @@ public class UpdateUserInfo {
         return removeIntolerance;
     }
 
+    @SuppressWarnings("unused")
     public void setRemoveIntolerance(String removeIntolerance) {
         this.removeIntolerance = removeIntolerance;
     }
@@ -105,6 +113,7 @@ public class UpdateUserInfo {
         return clearMeals;
     }
 
+    @SuppressWarnings("unused")
     public void setClearMeals(boolean clearMeals) {
         this.clearMeals = clearMeals;
     }

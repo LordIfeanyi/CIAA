@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomePageController {
 
     /**
-     * Handles GET requests from "homePage.html". Responsible for displaying
-     * "homePage.html".
+     * Handles GET requests from "homePage.html".
+     * Responsible for displaying "homePage.html".
      * 
-     * @return the name of the html file to be displayed.
+     * @return The name of the html file to be displayed.
      */
     @GetMapping("/homePage")
     public String homePage() {
