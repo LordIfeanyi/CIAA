@@ -15,11 +15,14 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CiaaApplication
 {
+    /**
+     * The logger for the application.
+     */
     public static final Logger LOGGER = LoggerFactory.getLogger(CiaaApplication.class);
 
     /**
      * The main method of the application.
-     * @param args
+     * @param args an array of arguments passed to the application.
      */
     public static void main(String[] args) {
         LOGGER.info("Starting CIAA application...");

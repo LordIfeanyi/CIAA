@@ -317,15 +317,22 @@ public class ApiHandler
     /**
      * Handles the random recipe suggestion API call for the passed user.
      *
-     * @param user the user for whom to suggest meals
+     * @param user        the user for whom to suggest meals
+     * @param includeTags the tags to include in the suggestion
      * @return a GetRandomRecipes200Response object containing the suggested meals
      */
-    public static GetRandomRecipes200Response suggestMeals(User user) {
+    public static GetRandomRecipes200Response suggestMeals(User user, String includeTags) {
         RecipesApi api = new RecipesApi(CLIENT);
+
         StringBuilder builder = new StringBuilder();
+        builder.append(includeTags);
         builder.append("&");
-        user.getIntolerances().forEach(intolerance -> builder.append(intolerance).append(","));
-        builder.deleteCharAt(builder.length() - 1);
+        ArrayList<String> userIntolerances = user.getIntolerances();
+        if (!userIntolerances.isEmpty()) {
+            user.getIntolerances().forEach(intolerance -> builder.append(intolerance).append(","));
+            builder.deleteCharAt(builder.length() - 1);
+        }
+
         String intolerances = builder.toString();
 
         GetRandomRecipes200Response randomRecipes;

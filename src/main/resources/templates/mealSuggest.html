@@ -95,66 +95,46 @@
         <script>
 
             function clearRadioButtons(name) {
-                checkedRadioButton = document.querySelector('input[name="' + name + '"]:checked');
+                const checkedRadioButton = document.querySelector('input[name="' + name + '"]:checked');
                 checkedRadioButton.checked = false;
             }
 
             async function generateList() {
 
                 // get the div to be dynamically populated with items
-                var itemList = document.getElementById("searchResults");
+                const itemList = document.getElementById("searchResults");
                 itemList.innerHTML = '';
 
                 // get the values to be appended to the endpoint
-                var type = null;
-                var intolerances = [];
+                let type = null;
                 if (document.querySelector('input[name="type"]:checked') !== null) {
                     type = document.querySelector('input[name="type"]:checked').value; // get the type from this html page
                 }
-                const data = await fetchIntolerances(`/ciaa/mealsuggest/intolerances`); // get the intolerances from our backend
-                data.forEach(function (intolerance) {
-                    intolerances.push(intolerance);
-                });
 
-                const test = await testFetchResults(`/ciaa/mealsuggest/suggest`);
+                const suggestResults = await fetchSuggestions(`/ciaa/mealsuggest/suggest`, type);
 
-                console.log(test);
+                // print the results to the console
+                console.log(suggestResults);
 
-                // build the endpoint
-                var url = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=9fd619b00abb41b5ae7305ea3b06d2f3'
-                if (type) {
-                    url += '&type=' + encodeURIComponent(type);
-                }
-                if (intolerances.length !== 0) {
-                    url += '&intolerances=' + encodeURIComponent(intolerances.join(','));
-                }
-
-                // print the endpoint to check
-                console.log("spoonacular request url = ", url);
-
-                // fetch the items by calling the spoonacular endpoint
-                //const recipes = await fetchSearchResults(url); // fetch method
-
-                //var results = recipes.results;
-                const results = test["recipes"];
+                const results = suggestResults["recipes"];
 
                 // if no results came back
                 if (results.length === 0) {
-                    var noResults = document.createElement("div");
+                    const noResults = document.createElement("div");
                     noResults.textContent = "No suggestions were found. Try reducing the amount of intolerances you have.";
                     itemList.appendChild(noResults);
                     return;
                 }
 
-                results.forEach(async (result) => {
+                results.forEach(result => {
 
                     // make a new list item using the data
-                    var li = document.createElement("li");
+                    const li = document.createElement("li");
                     li.textContent = result.title;
-                    var dropdownContent = document.createElement("div");
+                    const dropdownContent = document.createElement("div");
                     dropdownContent.className = "dropdown-content";
                     dropdownContent.textContent = result.id;
-                    var saveButton = document.createElement("span");
+                    const saveButton = document.createElement("span");
                     saveButton.className = "save-button";
                     saveButton.textContent = "Save";
 
@@ -175,20 +155,8 @@
                 });
             }
 
-            async function fetchIntolerances(url) {
-                const response = await fetch(url);
-                const data = await response.json();
-                return data;
-            }
-
-            async function fetchSearchResults(url) {
-                const response = await fetch(url);
-                const data = await response.json();
-                return data;
-            }
-
-            async function testFetchResults(url) {
-                const response = await fetch(url);
+            async function fetchSuggestions(url, type) {
+                const response = await fetch(url, { body: type, method: 'POST' });
                 return await response.json();
             }
 
