@@ -4,41 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Saved Meals</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Add some basic styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-image: url("food1.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+            margin-top: 20px;
+            padding: 20px 0;
         }
 
         ul {
             list-style-type: none;
             padding: 0;
+            width: 80%;
+            margin: 0 auto;
         }
 
         li {
             padding: 10px;
-            background-color: #f0f0f0;
+            background-color: rgba(240, 240, 240, 0.8);
             margin-bottom: 5px;
             position: relative;
         }
 
         li:hover {
-            background-color: #e0e0e0;
+            background-color: rgba(224, 224, 224, 0.8);
         }
 
-        /* Hide dropdown content by default */
         .dropdown-content {
             display: none;
         }
 
-        /* Show dropdown content when the dropdown is active */
         .dropdown-active .dropdown-content {
             display: block;
         }
 
-        /* Style for the remove button */
         .remove-button {
             position: absolute;
             top: 5px;
@@ -46,28 +57,45 @@
             cursor: pointer;
             color: red;
         }
+
+        button {
+            background: linear-gradient(to bottom, #f9f9f9 0%, #e9e9e9 100%);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        button:hover {
+            background: linear-gradient(to bottom, #e9e9e9 0%, #d9d9d9 100%);
+        }
+
+        .button-container {
+            text-align: right;
+            margin: 20px;
+        }
     </style>
 </head>
 
 <body>
     <h1>Saved Meals</h1>
     <ul id="item-list">
-        <!-- List items will be generated dynamically using JavaScript -->
     </ul>
-
-    <!-- back button -->
-    <a href="homePage"><button>Back to Home Page</button></a>
+    <div class="button-container">
+        <a href="homePage"><button>Back to Home Page</button></a>
+    </div>
 
     <script>
 
-        // sends a GET request to the backend to get the recipe ids; returns them in json
         async function fetchItems() {
             const response = await fetch('/ciaa/savedmeals');
             const data = await response.json();
             return data;
         }
 
-        // sends a DELETE request to the backend to delete this item from the current user's saved meals 
         async function deleteItem(id) {
             try {
                 const response = await fetch(`/ciaa/savedmeals/${id}`, {
@@ -86,32 +114,36 @@
         // 
         async function generateList() {
 
-            // get the div to be dynamically populated with items
+
             var itemList = document.getElementById("item-list");
             itemList.innerHTML = '';
 
-            // fetch the items by calling the backend endpoint
-            const recipeIDs = await fetchItems(); // fetch method
 
-            // if no results came back
+            const recipeIDs = await fetchItems();
+
+
             if (recipeIDs.length == 0) {
                 var noResults = document.createElement("div");
-                noResults.textContent = "You currently have no saved meals. Go to 'Meal Search' or 'Meal Suggest' to save meals.";
+                noResults.textContent = "You currently have no saved meals. Go to 'Meal Search' or 'Meal Suggest' to save meals!";
+                noResults.style.color = 'black'; // Red text color
+                noResults.style.fontSize = '24px'; // Larger font size
+                noResults.style.textAlign = 'center'; // Center-align the text
+                noResults.style.width = '100%'; // Full width
+                noResults.style.background = 'white';
+                noResults.style.padding = '10px'; // Padding for better spacing
                 itemList.appendChild(noResults);
                 return;
             }
 
-            // for each recipe id
+
             recipeIDs.forEach(async (id) => {
                 try {
-                    // get the data from spoonacular
                     const response = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=9fd619b00abb41b5ae7305ea3b06d2f3`);
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     const data = await response.json();
 
-                    // make a new list item using the data
                     var li = document.createElement("li");
                     li.textContent = data.title;
                     var dropdownContent = document.createElement("div");
@@ -121,16 +153,15 @@
                     removeButton.className = "remove-button";
                     removeButton.textContent = "Remove";
 
-                    // make event listeners for the remove and dropdown functionality
+
                     removeButton.addEventListener("click", function () {
                         li.remove();
-                        deleteItem(id); // delete method
+                        deleteItem(id);
                     });
                     li.addEventListener("click", function () {
                         li.classList.toggle("dropdown-active");
                     });
 
-                    // add the components to the li and the li to the list
                     li.appendChild(dropdownContent);
                     li.appendChild(removeButton);
                     itemList.appendChild(li);
@@ -141,7 +172,6 @@
             });
         }
 
-        // when the page loads, call the generateList() method 
         window.onload = generateList;
 
     </script>
