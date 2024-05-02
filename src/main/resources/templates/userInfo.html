@@ -1,288 +1,227 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-  <head>
-    <!-- Metadata -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Information Update</title>
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    />
+<head>
+  <!-- Metadata -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Information Update</title>
 
-    <style>
-      body {
-        background-image: url("food1.jpg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-attachment: fixed;
-        margin: 0;
-        padding-top: 40px;
-        color: #2e323c;
-        height: 100%;
-        width: 100%;
-      }
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 
-      .account-settings .user-profile {
-        margin: 0 0 1rem 0;
-        padding-bottom: 1rem;
-        text-align: center;
-      }
+  <style>
+    body {
+      background-image: url("food1.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      margin: 0;
+      padding-top: 40px;
+      color: #2e323c;
+      height: 100%;
+      width: 100%;
+    }
 
-      .account-settings .user-profile .user-avatar img {
-        width: 90px;
-        height: 90px;
-        border-radius: 100px;
-      }
+    .account-settings .user-profile {
+      margin: 0 0 1rem 0;
+      padding-bottom: 1rem;
+      text-align: center;
+    }
 
-      .account-settings .user-profile h5.user-name {
-        margin: 0 0 0.5rem 0;
-      }
+    .account-settings .user-profile .user-avatar img {
+      width: 90px;
+      height: 90px;
+      border-radius: 100px;
+    }
 
-      .account-settings .user-profile h6.user-email {
-        margin: 0;
-        font-size: 0.8rem;
-        font-weight: 400;
-        color: #9fa8b9;
-      }
+    .account-settings .user-profile h5.user-name {
+      margin: 0 0 0.5rem 0;
+    }
 
-      /* About section styles */
-      .account-settings .about {
-        margin: 2rem 0 0 0;
-        text-align: center;
-      }
+    .account-settings .user-profile h6.user-email {
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: #9fa8b9;
+    }
 
-      .account-settings .about h5 {
-        margin: 0 0 15px 0;
-        color: #007ae1;
-      }
+    /* About section styles */
+    .account-settings .about {
+      margin: 2rem 0 0 0;
+      text-align: center;
+    }
 
-      .account-settings .about p {
-        font-size: 0.825rem;
-      }
+    .account-settings .about h5 {
+      margin: 0 0 15px 0;
+      color: black;
+    }
 
-      /* Form control styles */
-      .form-control {
-        border: 1px solid #cfd1d8;
-        border-radius: 2px;
-        font-size: 0.825rem;
-        background: #ffffff;
-        color: #2e323c;
-      }
+    .account-settings .about p {
+      font-size: 0.825rem;
+    }
 
-      /* Card styles */
-      .card {
-        background: #ffffff;
-        border-radius: 5px;
-        border: 0;
-        margin-bottom: 1rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-    </style>
-  </head>
+    /* Form control styles */
+    .form-control {
+      border: 1px solid #cfd1d8;
+      border-radius: 2px;
+      font-size: 0.825rem;
+      background: #ffffff;
+      color: #2e323c;
+    }
 
-  <body>
-    <!-- User information update form -->
-    <form action="/userInfo" method="post">
-      <div class="container">
-        <div class="row gutters">
-          <!-- User profile card -->
-          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="account-settings">
-                  <div class="user-profile">
-                    <!-- User profile details -->
-                    <h5 class="user-name">User Profile</h5>
-                    <div class="user-avatar">
-                      <!-- User avatar image -->
-                      <!-- Add user avatar image if needed -->
-                    </div>
-                    <h6 class="user-email">
-                      Email: <span th:text="${session.email}"></span>
-                    </h6>
+    /* Card styles */
+    .card {
+      background: #ffffff;
+      border-radius: 5px;
+      border: 0;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- User information update form -->
+  <form action="/userInfo" method="post">
+    <div class="container">
+      <div class="row gutters">
+        <!-- User profile card -->
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="account-settings">
+                <div class="user-profile">
+                  <!-- User profile details -->
+                  <h5 class="user-name">User Profile</h5>
+                  <div class="user-avatar">
+                    <!-- User avatar image -->
+                    <!-- Add user avatar image if needed -->
                   </div>
-                  <!-- Current user information -->
-                  <div class="about">
-                    <h5>Current User Information</h5>
-                    <p>
-                      First name: <span th:text="${session.firstName}"></span>
-                    </p>
-                    <p>
-                      Last name: <span th:text="${session.lastName}"></span>
-                    </p>
-                    <p>Username: <span th:text="${session.username}"></span></p>
-                    <p>Password: <span th:text="${session.password}"></span></p>
-                    <p>
-                      Intolerances:
-                      <span th:text="${session.intolerances}"></span>
-                    </p>
-                  </div>
+                  <h6 class="user-email">
+                    Email: <span th:text="${session.email}"></span>
+                  </h6>
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- User information update form -->
-          <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-            <div class="card h-100">
-              <div class="card-body">
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mb-2 text-primary">Edit User Information</h6>
-                  </div>
-                  <!-- User information update fields -->
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="firstName">First Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="firstName"
-                        name="firstName"
-                        placeholder="Enter a new first name"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="lastName">Last Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="lastName"
-                        name="lastName"
-                        placeholder="Enter a new last name"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        name="email"
-                        placeholder="Enter a new email"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="username">Username</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="username"
-                        name="username"
-                        placeholder="Enter a new username"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        placeholder="Enter a new password"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- User intolerances update fields -->
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <h6 class="mt-3 mb-2 text-primary">Edit Intolerances</h6>
-                  </div>
-                  <!-- Supported intolerances -->
-                  <div>
-                    <label
-                      >Supported intolerances: Dairy, Egg, Gluten, Grain,
-                      Peanut, Seafood, Sesame, Shellfish, Soy, Sulfite, Tree
-                      Nut, Wheat</label
-                    >
-                  </div>
-                  <!-- Add new intolerance -->
-                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="newIntolerance">New Intolerance</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="newIntolerance"
-                        name="newIntolerance"
-                        placeholder="Add a new intolerance"
-                      />
-                    </div>
-                  </div>
-                  <!-- Remove intolerance -->
-                  <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                      <label for="removeIntolerance">Remove Intolerance</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="removeIntolerance"
-                        name="removeIntolerance"
-                        placeholder="Remove an intolerance"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <!-- Clear all intolerances -->
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="form-group">
-                      <br />
-                      <label for="removeIntolerance"
-                        >Clear All Intolerances</label
-                      >
-                      <br />
-                      <button
-                        class="btn btn-secondary"
-                        type="submit"
-                        name="submitFormButton"
-                        value="clearIntolerances"
-                      >
-                        Clear Intolerances
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="row gutters">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="text-right">
-                      <br />
-                      <button
-                        class="btn btn-secondary"
-                        type="submit"
-                        name="submitFormButton"
-                        value="cancel"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        class="btn btn-primary"
-                        type="submit"
-                        name="submitFormButton"
-                        value="update"
-                      >
-                        Update
-                      </button>
-                    </div>
-                  </div>
+                <!-- Current user information -->
+                <div class="about">
+                  <h5>Current User Information</h5>
+                  <p>
+                    First name: <span th:text="${session.firstName}"></span>
+                  </p>
+                  <p>
+                    Last name: <span th:text="${session.lastName}"></span>
+                  </p>
+                  <p>Username: <span th:text="${session.username}"></span></p>
+                  <p>Password: <span th:text="${session.password}"></span></p>
+                  <p>
+                    Intolerances:
+                    <span th:text="${session.intolerances}"></span>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </form>
-  </body>
-</html>
+        <!-- User information update form -->
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mb-2" style="font-weight: bold; text-decoration: underline; color: black;">Edit User
+                    Information
+                  </h6>
+                </div>
+                <!-- User information update fields -->
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName"
+                      placeholder="Enter a new first name" />
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName"
+                      placeholder="Enter a new last name" />
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter a new email" />
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                      placeholder="Enter a new username" />
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                      placeholder="Enter a new password" />
+                  </div>
+                </div>
+              </div>
+              <!-- User intolerances update fields -->
+              <div class="row gutters">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                  <h6 class="mt-3 mb-2" style="font-weight: bold; text-decoration: underline; color: black;">Edit
+                    Intolerances</h6>
+                </div>
+              </div>
+              <!-- Supported intolerances -->
+              <div>
+                <label>Supported intolerances: Dairy, Egg, Gluten, Grain,
+                  Peanut, Seafood, Sesame, Shellfish, Soy, Sulfite, Tree
+                  Nut, Wheat</label>
+              </div>
+              <!-- Add new intolerance -->
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="newIntolerance">New Intolerance</label>
+                  <input type="text" class="form-control" id="newIntolerance" name="newIntolerance"
+                    placeholder="Add a new intolerance" />
+                </div>
+              </div>
+              <!-- Remove intolerance -->
+              <div class="col-sm-6 col-12">
+                <div class="form-group">
+                  <label for="removeIntolerance">Remove Intolerance</label>
+                  <input type="text" class="form-control" id="removeIntolerance" name="removeIntolerance"
+                    placeholder="Remove an intolerance" />
+                </div>
+              </div>
+            </div>
+            <!-- Clear all intolerances with left padding adjustment -->
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 20px;">
+                <div class="form-group">
+                  <button class="btn btn-secondary" type="submit" name="submitFormButton" value="clearIntolerances"
+                    style="margin-bottom: 10px;"> <!-- Reduced bottom margin -->
+                    Clear Intolerances
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Update and Cancel buttons with adjusted vertical positioning and bottom padding -->
+            <div class="row gutters">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="d-flex justify-content-between" style="padding: 20px 20px 20px 20px;">
+                  <button class="btn" type="submit" name="submitFormButton" value="update"
+                    style="background-color: #28a745; color: white;">
+                    Update
+                  </button>
+                  <button class="btn" type="submit" name="submitFormButton" value="cancel"
+                    style="background-color: #dc3545; color: white;">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
