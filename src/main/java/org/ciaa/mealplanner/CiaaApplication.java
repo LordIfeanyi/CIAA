@@ -32,12 +32,12 @@ public class CiaaApplication
     public static void main(String[] args) {
         LOGGER.info("Starting CIAA application...");
         if (Arrays.asList(args).contains("--debug")) ((ch.qos.logback.classic.Logger) LOGGER).setLevel(Level.DEBUG);
-        ApiHandler.finishSetup();
         SpringApplication.run(CiaaApplication.class, args);
     }
 
+
     @Bean
     public ApiHandler apiHandler() {
-        return new ApiHandler("");
+        return new ApiHandler("4dc6eb4bd1ec453dbba335faac5055d8");
     }
 }
