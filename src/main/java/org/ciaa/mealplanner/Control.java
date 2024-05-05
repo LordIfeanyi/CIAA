@@ -1,5 +1,8 @@
 package org.ciaa.mealplanner;
 
+import org.ciaa.mealplanner.types.UpdateUserInfo;
+import org.ciaa.mealplanner.types.User;
+import org.ciaa.mealplanner.types.UserSignIn;
 import org.ciaa.mealplanner.utilities.TextFileHandler;
 
 /**

@@ -1,4 +1,4 @@
-package org.ciaa.mealplanner;
+package org.ciaa.mealplanner.types;
 
 /**
  * A data class representing an attempt to update

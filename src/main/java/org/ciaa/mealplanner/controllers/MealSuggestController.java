@@ -3,8 +3,9 @@ package org.ciaa.mealplanner.controllers;
 import com.spoonacular.client.model.GetRandomRecipes200Response;
 import org.ciaa.mealplanner.CiaaApplication;
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.User;
+import org.ciaa.mealplanner.types.User;
 import org.ciaa.mealplanner.utilities.ApiHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MealSuggestController
 {
+    @Autowired
+    private ApiHandler apiHandler;
 
     /**
      * Handles GET requests from "mealSuggest.html".
@@ -50,6 +53,6 @@ public class MealSuggestController
     public GetRandomRecipes200Response suggestMeals(@RequestBody String mealType) {
         User currentUser = Control.getCurrentUser();
         CiaaApplication.LOGGER.debug("Suggesting meals for user: {} of mealType: {}", currentUser.getUsername(), mealType);
-        return ApiHandler.suggestMeals(currentUser, mealType);
+        return apiHandler.suggestMeals(currentUser, mealType);
     }
 }

@@ -7,13 +7,20 @@ import com.spoonacular.client.model.GetRandomRecipes200Response;
 import com.spoonacular.client.model.GetRandomRecipes200ResponseRecipesInner;
 import com.spoonacular.client.model.GetRecipeInformation200ResponseExtendedIngredientsInner;
 import net.bytebuddy.agent.ByteBuddyAgent;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.ciaa.mealplanner.CiaaApplication;
-import org.ciaa.mealplanner.User;
+import org.ciaa.mealplanner.types.RecipesResponse;
+import org.ciaa.mealplanner.types.User;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
@@ -39,6 +46,8 @@ public class ApiHandler
      * The Spoonacular API client used to make API calls.
      */
     private static final ApiClient CLIENT;
+    private static final String API_URL = "https://api.spoonacular.com/";
+    private static Logger LOGGER = LoggerFactory.getLogger(ApiHandler.class);
     /**
      * The RecipesApi object used to make calls to the recipes family of endpoints.
      */
@@ -47,6 +56,9 @@ public class ApiHandler
      * A boolean flag to check if the API client has completed setup.
      */
     private static boolean setupComplete = false;
+    private final OkHttpClient client = new OkHttpClient();
+
+    private final String apiKey;
 
     static {
         try {
@@ -59,11 +71,38 @@ public class ApiHandler
         CLIENT = Configuration.getDefaultApiClient();
     }
 
-    /**
-     * @hidden
-     */
-    private ApiHandler() {
-        throw new IllegalStateException("This class should not be instantiated!");
+    public ApiHandler(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    public RecipesResponse test(User user, String includeTags) {
+        StringBuilder builder = new StringBuilder(API_URL + "recipes/random?apiKey=" + apiKey);
+        builder.append("&number=").append(10);
+        if (includeTags != null && !includeTags.isEmpty()) {
+            builder.append("&include-tags=").append(includeTags);
+        }
+        ArrayList<String> userIntolerances = user.getIntolerances();
+        if (!userIntolerances.isEmpty()) {
+            builder.append("&exclude-tags=");
+            userIntolerances.forEach(intolerance -> builder.append(intolerance).append(','));
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        String url = builder.toString();
+
+        Request request = new Request.Builder()
+              .url(url)
+              .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                LOGGER.error("Error making API call: {}", response.message());
+                return null;
+            }
+
+
+        } catch (IOException e) {
+            LOGGER.error("Error making API call: {}", e.getMessage());
+        }
     }
 
     /**
