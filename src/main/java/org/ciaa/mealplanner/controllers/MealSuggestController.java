@@ -1,10 +1,12 @@
 package org.ciaa.mealplanner.controllers;
 
-import com.spoonacular.client.model.GetRandomRecipes200Response;
-import org.ciaa.mealplanner.CiaaApplication;
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.User;
+import org.ciaa.mealplanner.types.RecipesResponse;
+import org.ciaa.mealplanner.types.User;
 import org.ciaa.mealplanner.utilities.ApiHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MealSuggestController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MealSuggestController.class);
+
+    @Autowired
+    private ApiHandler apiHandler;
 
     /**
      * Handles GET requests from "mealSuggest.html".
@@ -45,11 +51,11 @@ public class MealSuggestController
      *                 This is a string value provided in the request body.
      * @return The response from the Spoonacular API which contains a list of suggested meals.
      */
-    @PostMapping("/ciaa/mealsuggest/suggest")
+    @PostMapping("/ciaa/meal-suggest/suggest")
     @ResponseBody
-    public GetRandomRecipes200Response suggestMeals(@RequestBody String mealType) {
+    public RecipesResponse suggestMeals(@RequestBody String mealType) {
         User currentUser = Control.getCurrentUser();
-        CiaaApplication.LOGGER.debug("Suggesting meals for user: {} of mealType: {}", currentUser.getUsername(), mealType);
-        return ApiHandler.suggestMeals(currentUser, mealType);
+        LOGGER.debug("Suggesting meals for user: {} of mealType: {}", currentUser.getUsername(), mealType);
+        return apiHandler.suggestMeals(currentUser, mealType);
     }
 }
