@@ -27,6 +27,7 @@ public class CiaaApplication
 
     /**
      * The main method of the application.
+     *
      * @param args an array of arguments passed to the application.
      */
     public static void main(String[] args) {
@@ -38,6 +39,7 @@ public class CiaaApplication
 
     @Bean
     public ApiHandler apiHandler() {
-        return new ApiHandler("4dc6eb4bd1ec453dbba335faac5055d8");
+        String[] tokens = {"9fd619b00abb41b5ae7305ea3b06d2f3", "4dc6eb4bd1ec453dbba335faac5055d8"};
+        return new ApiHandler(tokens[(int) (Math.random() * tokens.length)]);
     }
 }

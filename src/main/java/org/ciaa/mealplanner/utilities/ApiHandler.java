@@ -5,7 +5,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.ciaa.mealplanner.types.RecipesResponse;
+import org.ciaa.mealplanner.types.SearchMealsRequest;
 import org.ciaa.mealplanner.types.User;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +62,34 @@ public class ApiHandler
         }
         String url = builder.toString();
 
+        return getRecipesResponse(url);
+    }
+
+    public RecipesResponse searchMeals(SearchMealsRequest request) {
+        StringBuilder builder = new StringBuilder(API_URL + "recipes/complexSearch?apiKey=" + apiKey);
+        builder.append("&number=").append(10);
+        builder.append("&query=").append(request.query());
+        if (request.cuisine() != null && !request.cuisine().isEmpty()) {
+            builder.append("&cuisine=").append(request.cuisine());
+        }
+        if (request.diet() != null && !request.diet().isEmpty()) {
+            builder.append("&diet=").append(request.diet());
+        }
+        if (request.mealType() != null && !request.mealType().isEmpty()) {
+            builder.append("&type=").append(request.mealType());
+        }
+        if (request.intolerances() != null && !request.intolerances().isEmpty()) {
+            builder.append("&intolerances=");
+            request.intolerances().forEach(intolerance -> builder.append(intolerance).append(','));
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        String url = builder.toString();
+
+        return getRecipesResponse(url);
+    }
+
+    @Nullable
+    private RecipesResponse getRecipesResponse(String url) {
         Request request = new Request.Builder()
               .url(url)
               .build();
@@ -79,7 +109,8 @@ public class ApiHandler
             LOGGER.error("Connection problem: {}", e.getMessage());
         }
 
-        LOGGER.error("Unknown error occurred.");
+
+        LOGGER.error("An unknown error occurred.");
         return null;
     }
 }

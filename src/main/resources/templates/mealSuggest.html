@@ -2,181 +2,54 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Meal Search</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="mealSearch.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="mealSearch.css" rel="stylesheet"/>
+    <script defer src="mealSuggest.js"></script>
 </head>
 
-<style>
-    body {
-        background-image: url("food1.jpg");
-
-        /* Add some basic styling */
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        padding: 10px;
-        background-color: #f0f0f0;
-        margin-bottom: 5px;
-        position: relative;
-    }
-
-    li:hover {
-        background-color: #e0e0e0;
-    }
-
-    /* Hide dropdown content by default */
-    .dropdown-content {
-        display: none;
-    }
-
-    /* Show dropdown content when the dropdown is active */
-    .dropdown-active .dropdown-content {
-        display: block;
-    }
-
-    /* Style for the save button */
-    .save-button {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        cursor: pointer;
-        color: green;
-    }
-</style>
-
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Get Suggested Meals</h1>
-        <div class="mb-3">
-            <label for="description" class="form-label">Get meals that match your personal intolerances. All recipes
-                displayed
-                do not contain ingredients that are not suitable for your intolerances. Update your intolerances in the
-                'Profile' page. </label>
-        </div>
-        <br />
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Get Suggested Meals</h1>
+    <div class="mb-3">
+        <label class="form-label">Get meals that match your personal intolerances. All recipes
+            displayed
+            do not contain ingredients that are not suitable for your intolerances. Update your intolerances in the
+            'Profile' page.
+        </label>
+    </div>
+    <br/>
 
-        <legend>Choose a meal type: (optional)</legend>
-        <div id="CuisineOptions">
-            <label><input type="radio" name="type" value="main course" /> Main course</label>
-            <label><input type="radio" name="type" value="side dish" /> Side dish</label>
-            <label><input type="radio" name="type" value="dessert" /> Dessert</label>
-            <label><input type="radio" name="type" value="appetizer" /> Appetizer</label>
-            <label><input type="radio" name="type" value="breakfast" /> Breakfast</label>
-            <label><input type="radio" name="type" value="beverage" /> Beverage</label>
-            <label><input type="radio" name="type" value="snack" /> Snack</label>
-            
-            <button id="clearTypeSelection" onclick="clearSelection()">Clear</button>
-        </div>
+    <legend>Choose a meal type: (optional)</legend>
+    <div id="CuisineOptions">
+        <label><input name="type" type="radio" value="main course"/> Main course</label>
+        <label><input name="type" type="radio" value="side dish"/> Side dish</label>
+        <label><input name="type" type="radio" value="dessert"/> Dessert</label>
+        <label><input name="type" type="radio" value="appetizer"/> Appetizer</label>
+        <label><input name="type" type="radio" value="breakfast"/> Breakfast</label>
+        <label><input name="type" type="radio" value="beverage"/> Beverage</label>
+        <label><input name="type" type="radio" value="snack"/> Snack</label>
 
-<div class="search-button-container">
-    <button style="margin-right: 10px;" onclick="generateList()">Get Suggestions</button>
+        <button id="clearTypeSelection" onclick="clearRadioButtons(`type`)">Clear</button>
+    </div>
+
+    <div class="search-button-container">
+        <button onclick="generateList()" style="margin-right: 10px;">Get Suggestions</button>
+    </div>
+
+    <div class="button-container">
+        <a href="homePage">
+            <button id="homeButton">Back to Home Page</button>
+        </a>
+    </div>
+
+
+    <ul id="searchResults">
+        <!-- List items will be generated dynamically here using JavaScript -->
+    </ul>
 </div>
-
-<div class = "button-container">
-        <a href="homePage"><button id="homeButton">Back to Home Page</button></a>
-</div>
-
-
-        <ul id="searchResults">
-            <!-- List items will be generated dynamically here using JavaScript -->
-        </ul>
-
-        <script>
-
-            function clearRadioButtons(name) {
-                const checkedRadioButton = document.querySelector('input[name="' + name + '"]:checked');
-                checkedRadioButton.checked = false;
-            }
-
-            async function generateList() {
-
-                // get the div to be dynamically populated with items
-                const itemList = document.getElementById("searchResults");
-                itemList.innerHTML = '';
-
-                // get the values to be appended to the endpoint
-                let type = null;
-                if (document.querySelector('input[name="type"]:checked') !== null) {
-                    type = document.querySelector('input[name="type"]:checked').value; // get the type from this html page
-                }
-
-                const suggestResults = await fetchSuggestions(`/ciaa/mealsuggest/suggest`, type);
-
-                // print the results to the console
-                console.log(suggestResults);
-
-                const results = suggestResults["recipes"];
-
-                // if no results came back
-                if (results.length === 0) {
-                    const noResults = document.createElement("div");
-                    noResults.textContent = "No suggestions were found. Try reducing the amount of intolerances you have.";
-                    itemList.appendChild(noResults);
-                    return;
-                }
-
-                results.forEach(result => {
-
-                    // make a new list item using the data
-                    const li = document.createElement("li");
-                    li.textContent = result.title;
-                    const dropdownContent = document.createElement("div");
-                    dropdownContent.className = "dropdown-content";
-                    dropdownContent.textContent = result.id;
-                    const saveButton = document.createElement("span");
-                    saveButton.className = "save-button";
-                    saveButton.textContent = "Save";
-
-                    // make event listeners for the save and dropdown functionality
-                    saveButton.addEventListener("click", function () { // if the save button is pressed, remove it from the list and save it by posting to our backend via the saveMeal() method
-                        li.remove();
-                        saveMeal(result.id); // save method
-                    });
-                    li.addEventListener("click", function () {
-                        li.classList.toggle("dropdown-active");
-                    });
-
-                    // add the components to the li and the li to the list
-                    li.appendChild(dropdownContent);
-                    li.appendChild(saveButton);
-                    itemList.appendChild(li);
-
-                });
-            }
-
-            async function fetchSuggestions(url, type) {
-                const response = await fetch(url, { body: type, method: 'POST' });
-                return await response.json();
-            }
-
-            // send a POST request to the backend to add this id to the currents user's saved meals
-            async function saveMeal(id) {
-                try {
-                    const response = await fetch(`/ciaa/savedmeals/${id}`, {
-                        method: 'POST'
-                    });
-                    if (response.ok) {
-                        console.log('Item saved successfully');
-                    } else {
-                        console.error('Failed to save item');
-                    }
-                } catch (error) {
-                    console.error('Error saving item:', error);
-                }
-            }
-
-        </script>
 </body>
 
 </html>
