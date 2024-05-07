@@ -100,7 +100,7 @@ legend {
 }
 
 #CuisineOptions,
-#MealOptions,
+#MealTypeOptions,
 #DietOptions,
 #IntoleranceOptions {
     display: flex;
@@ -110,7 +110,7 @@ legend {
 }
 
 #CuisineOptions label,
-#MealOptions label,
+#MealTypeOptions label,
 #DietOptions label,
 #IntoleranceOptions label {
     background-color: #f8f9fa;
@@ -120,7 +120,7 @@ legend {
 }
 
 #CuisineOptions label:hover,
-#MealOptions label:hover,
+#MealTypeOptions label:hover,
 #DietOptions label:hover,
 #IntoleranceOptions label:hover {
     background-color: #e2e6ea;
