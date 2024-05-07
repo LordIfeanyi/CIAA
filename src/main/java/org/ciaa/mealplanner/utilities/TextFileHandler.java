@@ -2,7 +2,7 @@ package org.ciaa.mealplanner.utilities;
 
 import java.io.*;
 import java.util.ArrayList;
-import org.ciaa.mealplanner.User;
+import org.ciaa.mealplanner.types.User;
 
 /**
  * A class containing static methods responsible for creating, reading, updating

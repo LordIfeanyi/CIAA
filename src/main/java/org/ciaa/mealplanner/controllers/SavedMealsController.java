@@ -2,7 +2,7 @@ package org.ciaa.mealplanner.controllers;
 
 import java.util.List;
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.UpdateUserInfo;
+import org.ciaa.mealplanner.types.UpdateUserInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

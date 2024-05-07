@@ -1,7 +1,7 @@
 package org.ciaa.mealplanner.controllers;
 
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.UpdateUserInfo;
+import org.ciaa.mealplanner.types.UpdateUserInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

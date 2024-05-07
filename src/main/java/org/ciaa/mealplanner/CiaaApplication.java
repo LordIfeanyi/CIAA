@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 
@@ -26,12 +27,19 @@ public class CiaaApplication
 
     /**
      * The main method of the application.
+     *
      * @param args an array of arguments passed to the application.
      */
     public static void main(String[] args) {
         LOGGER.info("Starting CIAA application...");
         if (Arrays.asList(args).contains("--debug")) ((ch.qos.logback.classic.Logger) LOGGER).setLevel(Level.DEBUG);
-        ApiHandler.finishSetup();
         SpringApplication.run(CiaaApplication.class, args);
+    }
+
+
+    @Bean
+    public ApiHandler apiHandler() {
+        String[] tokens = {"9fd619b00abb41b5ae7305ea3b06d2f3", "4dc6eb4bd1ec453dbba335faac5055d8"};
+        return new ApiHandler(tokens[(int) (Math.random() * tokens.length)]);
     }
 }

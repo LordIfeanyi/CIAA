@@ -1,4 +1,4 @@
-package org.ciaa.mealplanner;
+package org.ciaa.mealplanner.types;
 
 import java.util.*;
 
