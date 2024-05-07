@@ -1,4 +1,6 @@
 id=1713684381410/firstName=Erling/lastName=Haaland/email=test@gmail.com/username=erl/password=pass/intolerances=dairy,egg,gluten,/meals=652433,645742,/
 id=1713684406624/firstName=Kevin/lastName=De Bruyne/email=test@gmail.com/username=kdb/password=pass/intolerances=/meals=/
 id=1713684436856/firstName=Phil/lastName=Foden/email=test@gmail.com/username=phi/password=pass/intolerances=peanut,seafood,sesame,soy,/meals=716406,715495,715540,798400,640062,661925,/
-id=1713902328307/firstName=Aren/lastName=Elma/email=arenelmayan1996@gmail.com/username=Alias/password=Pass/intolerances=Wheat,/meals=638316,/
+id=1713902328307/firstName=Aren/lastName=Elma/email=arenelma@gmail.com/username=Alias/password=Pass/intolerances=Dairy, Egg,/meals=638316,/
+
+id=1715111059068/firstName=Aren/lastName=Elma/email=arenelmayan1996@gmail.com/username=Arenelma/password=Password1$/intolerances=/meals=/
