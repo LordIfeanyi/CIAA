@@ -7,7 +7,7 @@
     <title>Meal Search</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="mealSearch.css" rel="stylesheet"/>
-    <script defer src="mealSearch.js"></script>
+    <script src="mealSearch.js" type="module"></script>
 </head>
 
 <body>
@@ -39,7 +39,7 @@
         <label><input name="cuisine" type="radio" value="Thai"/> Thai</label>
         <label><input name="cuisine" type="radio" value="Vietnamese"/> Vietnamese</label>
 
-      <button id="clearTypeSelection" onclick="clearRadioButtons('cuisine')">Clear</button>
+        <button id="clearTypeSelection" onclick="clearRadioButtons('cuisine')">Clear</button>
     </div>
     <br/>
 
@@ -52,7 +52,7 @@
         <label><input name="diet" type="radio" value="Paleo"/> Paleo</label>
         <label><input name="diet" type="radio" value="Primal"/> Primal</label>
 
-      <button id="clearTypeSelection" onclick="clearRadioButtons('diet')">Clear</button>
+        <button id="clearTypeSelection" onclick="clearRadioButtons('diet')">Clear</button>
     </div>
     <br/>
     <!-- <br /> -->
@@ -67,7 +67,7 @@
         <label><input name="type" type="radio" value="beverage"/> Beverage</label>
         <label><input name="type" type="radio" value="snack"/> Snack</label>
 
-      <button id="clearTypeSelection" onclick="clearRadioButtons('type')">Clear</button>
+        <button id="clearTypeSelection" onclick="clearRadioButtons('type')">Clear</button>
     </div>
     <br/>
 
@@ -86,7 +86,7 @@
         <label><input name="intolerance" type="checkbox" value="Tree Nut"/> Tree Nut</label>
         <label><input name="intolerance" type="checkbox" value="Wheat"/> Wheat</label>
 
-      <button id="clearTypeSelection" onclick="clearCheckBoxes()">Clear</button>
+        <button id="clearTypeSelection" onclick="clearCheckBoxes()">Clear</button>
     </div>
 
     <div class="search-button-container">
@@ -96,7 +96,9 @@
     </div>
 
     <div class="button-container">
-      <a href="homePage"><button id="homeButton">Back to Home Page</button></a>
+        <a href="homePage">
+            <button id="homeButton">Back to Home Page</button>
+        </a>
     </div>
 
     <ul id="searchResults">

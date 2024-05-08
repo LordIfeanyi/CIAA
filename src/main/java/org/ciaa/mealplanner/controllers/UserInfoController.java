@@ -28,7 +28,7 @@ public class UserInfoController {
      */
     @GetMapping("/userInfo")
     public String userInfo() {
-        return "userInfo";
+        return Control.getCurrentUser() == null ? "redirect:/index" : "userInfo";
     }
 
     /**

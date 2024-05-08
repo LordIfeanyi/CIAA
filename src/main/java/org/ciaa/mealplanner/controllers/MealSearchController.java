@@ -1,16 +1,18 @@
 package org.ciaa.mealplanner.controllers;
 
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.types.RecipesResponse;
+import org.ciaa.mealplanner.types.ListResponse;
 import org.ciaa.mealplanner.types.SearchMealsRequest;
-import org.ciaa.mealplanner.types.UpdateUserInfo;
+import org.ciaa.mealplanner.types.SimpleRecipe;
 import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * The controller class responsible for handling requests from the meal
@@ -25,9 +27,12 @@ import org.springframework.web.bind.annotation.*;
 public class MealSearchController
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(MealSearchController.class);
+    private final ApiHandler apiHandler;
 
     @Autowired
-    private ApiHandler apiHandler;
+    public MealSearchController(ApiHandler apiHandler) {
+        this.apiHandler = apiHandler;
+    }
 
     /**
      * Handles GET requests from "mealSearch.html".
@@ -37,33 +42,13 @@ public class MealSearchController
      */
     @GetMapping("/mealSearch")
     public String mealSearch() {
-        return "mealSearch";
-    }
-
-    /**
-     * Handles POST requests from "mealSearch.html" and "mealSuggest.html" to the
-     * endpoint "ciaa/savedmeals/{id}" to save meals to the current user's account.
-     * The meal to be saved is passed as its spoonacular recipe id number,
-     * and is stored in the text file in the current user's line.
-     *
-     * @param id The meal's spoonacular recipe id
-     * @return The status of the request
-     */
-    @PostMapping("ciaa/savedmeals/{id}")
-    public ResponseEntity<?> saveMeal(@PathVariable String id) {
-
-        // save the item
-        UpdateUserInfo updateUserInfo = new UpdateUserInfo();
-        updateUserInfo.setNewMeal(id);
-        Control.updateUserInfo(updateUserInfo);
-
-        return ResponseEntity.ok().build();
+        return Control.getCurrentUser() == null ? "redirect:/index" : "mealSearch";
     }
 
     @PostMapping("/ciaa/meal-search/search")
     @ResponseBody
-    public RecipesResponse searchMeals(@RequestBody SearchMealsRequest request) {
-        RecipesResponse recipesResponse = apiHandler.searchMeals(request);
+    public ListResponse<SimpleRecipe> searchMeals(@RequestBody SearchMealsRequest request) {
+        ListResponse<SimpleRecipe> recipesResponse = apiHandler.searchMeals(request);
         LOGGER.debug("Response from searchMeals: {}", recipesResponse.toString());
         return recipesResponse;
     }

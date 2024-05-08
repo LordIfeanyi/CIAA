@@ -1,7 +1,8 @@
 package org.ciaa.mealplanner.controllers;
 
 import org.ciaa.mealplanner.Control;
-import org.ciaa.mealplanner.types.RecipesResponse;
+import org.ciaa.mealplanner.types.ListResponse;
+import org.ciaa.mealplanner.types.Recipe;
 import org.ciaa.mealplanner.types.User;
 import org.ciaa.mealplanner.utilities.ApiHandler;
 import org.slf4j.Logger;
@@ -26,9 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MealSuggestController
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(MealSuggestController.class);
+    private final ApiHandler apiHandler;
 
     @Autowired
-    private ApiHandler apiHandler;
+    public MealSuggestController(ApiHandler apiHandler) {
+        this.apiHandler = apiHandler;
+    }
 
     /**
      * Handles GET requests from "mealSuggest.html".
@@ -38,7 +42,7 @@ public class MealSuggestController
      */
     @GetMapping("/mealSuggest")
     public String mealSuggest() {
-        return "mealSuggest";
+        return Control.getCurrentUser() == null ? "redirect:/index" : "mealSuggest";
     }
 
     /**
@@ -53,9 +57,11 @@ public class MealSuggestController
      */
     @PostMapping("/ciaa/meal-suggest/suggest")
     @ResponseBody
-    public RecipesResponse suggestMeals(@RequestBody String mealType) {
+    public ListResponse<Recipe> suggestMeals(@RequestBody String mealType) {
         User currentUser = Control.getCurrentUser();
         LOGGER.debug("Suggesting meals for user: {} of mealType: {}", currentUser.getUsername(), mealType);
-        return apiHandler.suggestMeals(currentUser, mealType);
+        ListResponse<Recipe> recipeListResponse = apiHandler.suggestMeals(currentUser, mealType);
+        LOGGER.debug("Suggested meals: {}", recipeListResponse.recipes());
+        return recipeListResponse;
     }
 }

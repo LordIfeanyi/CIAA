@@ -1,12 +1,11 @@
 package org.ciaa.mealplanner.utilities;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.ciaa.mealplanner.types.RecipesResponse;
-import org.ciaa.mealplanner.types.SearchMealsRequest;
-import org.ciaa.mealplanner.types.User;
+import org.ciaa.mealplanner.types.*;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +45,9 @@ public class ApiHandler
      *
      * @param user        The user for whom to suggest meals
      * @param includeTags The tags to include in the suggestion
-     * @return A RecipesResponse object containing the suggested meals
+     * @return A ListResponse object containing the suggested meals
      */
-    public RecipesResponse suggestMeals(User user, String includeTags) {
+    public ListResponse<Recipe> suggestMeals(User user, String includeTags) {
         StringBuilder builder = new StringBuilder(API_URL + "recipes/random?apiKey=" + apiKey);
         builder.append("&number=").append(10);
         if (includeTags != null && !includeTags.isEmpty()) {
@@ -62,10 +61,12 @@ public class ApiHandler
         }
         String url = builder.toString();
 
-        return getRecipesResponse(url);
+        TypeToken<?> typeToken = TypeToken.getParameterized(ListResponse.class, Recipe.class);
+        //noinspection unchecked
+        return (ListResponse<Recipe>) getResponse(url, typeToken);
     }
 
-    public RecipesResponse searchMeals(SearchMealsRequest request) {
+    public ListResponse<SimpleRecipe> searchMeals(SearchMealsRequest request) {
         StringBuilder builder = new StringBuilder(API_URL + "recipes/complexSearch?apiKey=" + apiKey);
         builder.append("&number=").append(10);
         builder.append("&query=").append(request.query());
@@ -85,11 +86,20 @@ public class ApiHandler
         }
         String url = builder.toString();
 
-        return getRecipesResponse(url);
+        TypeToken<?> typeToken = TypeToken.getParameterized(ListResponse.class, SimpleRecipe.class);
+        //noinspection unchecked
+        return (ListResponse<SimpleRecipe>) getResponse(url, typeToken);
+    }
+
+    public Recipe getRecipeInformation(String id) {
+        String url = API_URL + "recipes/" + id + "/information?apiKey=" + apiKey;
+
+        TypeToken<?> typeToken = TypeToken.get(Recipe.class);
+        return (Recipe) getResponse(url, typeToken);
     }
 
     @Nullable
-    private RecipesResponse getRecipesResponse(String url) {
+    private <T> T getResponse(String url, TypeToken<T> typeToken) {
         Request request = new Request.Builder()
               .url(url)
               .build();
@@ -103,12 +113,11 @@ public class ApiHandler
             if (response.body() != null) {
                 String string = response.body().string();
                 LOGGER.debug("Response from API: {}", string);
-                return gson.fromJson(string, RecipesResponse.class);
+                return gson.fromJson(string, typeToken);
             }
         } catch (IOException e) {
             LOGGER.error("Connection problem: {}", e.getMessage());
         }
-
 
         LOGGER.error("An unknown error occurred.");
         return null;

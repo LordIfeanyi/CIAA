@@ -1,5 +1,6 @@
 package org.ciaa.mealplanner.controllers;
 
+import org.ciaa.mealplanner.Control;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -22,6 +23,6 @@ public class HomePageController {
      */
     @GetMapping("/homePage")
     public String homePage() {
-        return "homePage";
+        return Control.getCurrentUser() == null ? "redirect:/index" : "homePage";
     }
 }
