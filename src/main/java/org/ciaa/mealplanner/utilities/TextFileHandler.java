@@ -274,8 +274,7 @@ public class TextFileHandler {
         int endIndex = beginIndex;
 
         // find index of where the intolerances ends, delineated by a forward dash "/"
-        // in
-        // the text file.
+        // in the text file.
         char curChar = curLine.charAt(beginIndex);
         while (curChar != '/') {
 
@@ -329,7 +328,7 @@ public class TextFileHandler {
      * Edits the line of the text file corresponding to
      * the passed User according to its current data.
      * 
-     * @param user the whose corresponding text file line will be edited.
+     * @param user the User whose corresponding text file line will be edited.
      */
     public static void editLine(User user) {
 
