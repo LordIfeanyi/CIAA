@@ -41,7 +41,7 @@ window.onload = async function generateList() {
     }
 
     for (const id of recipeIDs) {
-        const data = fetchComplexRecipe(id);
+        const data = await fetchComplexRecipe(id);
 
         const li = document.createElement("li");
         li.textContent = data.title;
